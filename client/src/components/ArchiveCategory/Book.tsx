@@ -10,14 +10,14 @@ const Book: React.FC<TBooksProps> = ({ book }) => {
       key={book._id}
       className="group relative border-r border-b border-gray-200 p-4 sm:p-6"
     >
-    <Link to={`/books/${book._id}`}>
+      <Link to={`/books/${book._id}`}>
         <div className="aspect-w-1 aspect-h-1 overflow-hidden rounded-lg bg-gray-200 group-hover:opacity-75">
           <img
             src={book.image}
             className="h-full w-full object-cover object-center"
           />
         </div>
-    </Link>
+      </Link>
       <div className="pt-10 pb-4 text-center">
         <h3 className="text-sm font-medium text-gray-900">
           <Link to={`/books/${book._id}`}>
