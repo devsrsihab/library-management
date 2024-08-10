@@ -4,7 +4,11 @@ import { TBook } from './book.interface';
 const bookSchema = new Schema<TBook>({
   name: { type: String, required: true },
   authorName: { type: String, required: true },
-  category: { type: String, required: true },
+  category: {
+    type: Schema.Types.ObjectId,
+    ref: 'Category',
+    required: true,
+  },
   quantity: { type: Number, required: true },
   shortDescription: { type: String, required: true },
   rating: { type: String, required: true },
@@ -12,6 +16,7 @@ const bookSchema = new Schema<TBook>({
   createdBy: {
     type: Schema.Types.ObjectId,
     ref: 'User',
+    required: true,
   },
   isDeleted: { type: Boolean, default: false },
 });

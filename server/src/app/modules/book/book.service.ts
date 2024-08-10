@@ -10,13 +10,13 @@ const createBook = async (bookData: TBook) => {
 
 // Get all books
 const getAllBooks = async (): Promise<TBook[]> => {
-  const result = await Book.find().populate('createdBy');
+  const result = await Book.find().populate('createdBy').populate('category');
   return result;
 };
 
 // Get a book by ID
-const getBookById = async (bookId: string): Promise<TBook | null> => {
-  const result = await Book.findById(bookId);
+const getSingleBook = async (bookId: string): Promise<TBook | null> => {
+  const result = await Book.findById(bookId).populate('createdBy').populate('category');
   return result;
 };
 
@@ -36,7 +36,7 @@ const deleteBook = async (bookId: string) => {
 export const BookServices = {
   createBook,
   getAllBooks,
-  getBookById,
+  getSingleBook,
   updateBook,
   deleteBook,
 };

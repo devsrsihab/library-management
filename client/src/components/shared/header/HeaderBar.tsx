@@ -1,5 +1,5 @@
 import { Menu } from "antd";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 const menus = [
   {
@@ -20,25 +20,40 @@ const menus = [
 ];
 
 const HeaderBar = () => {
+  const location = useLocation();
+  const { pathname } = location;
+
   const items = menus.map(({ key, label, path }) => ({
     key,
     label: <Link to={path}>{label}</Link>,
   }));
+
+  const activeMenuItem =
+    menus.find((menu) => pathname === menu.path)?.key || "home";
+
   return (
     <>
       <div
+        className="header-bar"
         style={{
           display: "flex",
           justifyContent: "center",
           alignItems: "center",
+          overflowX: "auto", // Allow horizontal scrolling on small devices
+          whiteSpace: "nowrap", // Prevent line breaks in menu items
         }}
       >
-        <div className="demo-logo" />
         <Menu
           theme="dark"
           mode="horizontal"
+          selectedKeys={[activeMenuItem]}
           items={items}
-          style={{ flex: 1, minWidth: 0 }}
+          style={{
+            display: "flex",
+            flexGrow: 1,
+            justifyContent: "center",
+            borderBottom: "none", // Remove border for cleaner look
+          }}
         />
       </div>
     </>

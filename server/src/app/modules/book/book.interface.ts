@@ -3,7 +3,7 @@ import { Types } from 'mongoose';
 export type TBook = {
   name: string;
   authorName: string;
-  category: string;
+  category: Types.ObjectId;
   quantity: number;
   shortDescription: string;
   rating: string;

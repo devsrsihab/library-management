@@ -19,7 +19,7 @@ router.post(
 router.get('/', BookControllers.getAllBooks);
 
 // Read Single Book (GET)
-router.get('/:bookId', BookControllers.getBookById);
+router.get('/:bookId', BookControllers.getSingleBook);
 
 // Update Book (PUT)
 router.put(
