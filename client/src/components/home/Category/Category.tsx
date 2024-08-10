@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
-import { CategoryProps } from "../../../types";
+import { TCategoryProps } from "../../../types";
 
-const Category: React.FC<CategoryProps> = ({ category }) => {
+const Category: React.FC<TCategoryProps> = ({ category }) => {
   // cat name to slug
   const formatCategoryName = (name: string) => {
     return name.trim().toLowerCase().replace(/ /g, "-");

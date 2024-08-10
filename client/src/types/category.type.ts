@@ -1,8 +1,8 @@
-export type Category =  {
+export type TypeCategory =  {
   name: string;
   image: string;
 }
 
-export type CategoryProps = {
-  category: Category
-}
+export type TCategoryProps = {
+  category: TypeCategory;
+};
