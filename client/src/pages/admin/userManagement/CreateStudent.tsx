@@ -44,13 +44,6 @@ const formDefaultValue = {
   academicDepartment: "665f87fef1c46f19487dc2e9",
 };
 
-
-
-
-
-
-
-
 const CreateStudent = () => {
   const [addStudent] = useAddStudentMutation();
   const { data: semesters, isLoading: isLoadingSemesters } =

@@ -1,9 +1,12 @@
 import About from "../pages/About";
 import ArchiveCategory from "../pages/ArchiveCategory";
+import Login from "../pages/auth/Login";
+import Register from "../pages/auth/Register";
 import BookDetails from "../pages/BookDetails";
 import BookPage from "../pages/BookPage";
 import Borrowed from "../pages/Borrowed";
 import Home from "../pages/Home";
+import ProtectedRoute from "../components/layout/ProtectedRoute";
 
 export const webPaths = [
   {
@@ -12,7 +15,11 @@ export const webPaths = [
   },
   {
     path: "/borrowed",
-    element: <Borrowed />,
+    element: (
+      <ProtectedRoute>
+        <Borrowed />
+      </ProtectedRoute>
+    ),
   },
   {
     path: "/about",
@@ -29,5 +36,13 @@ export const webPaths = [
   {
     path: "/category/:catname",
     element: <ArchiveCategory />,
+  },
+  {
+    path: "/register",
+    element: <Register />,
+  },
+  {
+    path: "/auth/login",
+    element: <Login />,
   },
 ];

@@ -1,5 +1,7 @@
 import { Menu } from "antd";
 import { Link, useLocation } from "react-router-dom";
+import { useAppSelector } from "../../../redux/hooks";
+import { currentToken } from "../../../redux/features/auth/authSlice";
 
 const menus = [
   {
@@ -17,13 +19,28 @@ const menus = [
     label: `Books`,
     path: "/books",
   },
+  {
+    key: "register",
+    label: `Register`,
+    path: "/register",
+  },
+  {
+    key: "login",
+    label: `Login`,
+    path: "/auth/login",
+  },
 ];
 
 const HeaderBar = () => {
   const location = useLocation();
   const { pathname } = location;
+  const authToken = useAppSelector(currentToken);
 
-  const items = menus.map(({ key, label, path }) => ({
+  const filteredMenus = authToken
+    ? menus.filter((menu) => menu.key !== "login" && menu.key !== "register")
+    : menus.filter((menu) => menu.key !== "borrowed");
+
+  const items = filteredMenus.map(({ key, label, path }) => ({
     key,
     label: <Link to={path}>{label}</Link>,
   }));

@@ -11,7 +11,7 @@ const PHDatePicker = ({ name, label }: TDatePickerProps) => {
       name={name}
       render={({ field }) => (
         <Form.Item label={label}>
-          <DatePicker {...field} size="large" />
+          <DatePicker {...field}  />
         </Form.Item>
       )}
     />
