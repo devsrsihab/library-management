@@ -34,15 +34,17 @@ const AddToBorrow: React.FC<AddToBorrowProps> = ({
         returnDate,
         borrowedDate,
       };
-      await addToBorrow(borrowData);
-      setModalOpen(false);
-     toast.success("Book Borrowed Successfully", { id: loader });
-
-    } catch (error) {
+      const result = await addToBorrow(borrowData).unwrap();
+      if (result) {
+        setModalOpen(false);
+        toast.success("Book Borrowed Successfully", { id: loader });
+      }
+      console.log('book borrowed', result);
+    } catch (error:any) {
       console.log(error);
       setModalOpen(false);
-      
-      toast.error("Something Went Wrong", { id: loader });
+
+      toast.error(error?.data?.message, { id: loader });
     }
   };
 

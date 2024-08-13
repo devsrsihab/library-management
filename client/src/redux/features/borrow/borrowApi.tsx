@@ -6,7 +6,13 @@ const borrowApi = baseApi.injectEndpoints({
       query: (data) => ({
         url: "/borrowings",
         method: "POST",
-        body: data
+        body: data,
+      }),
+    }),
+    getAllBorrowBooks: builder.query({
+      query: () => ({
+        url: "/borrowings",
+        method: "GET",
       }),
     }),
   }),
