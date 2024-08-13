@@ -8,16 +8,27 @@ const borrowApi = baseApi.injectEndpoints({
         method: "POST",
         body: data,
       }),
-      invalidatesTags: ["Borrowings"], // Invalidate cache to trigger refetch of borrow list
+      invalidatesTags: ["Borrowings"],
     }),
     getAllBorrowBooks: builder.query({
       query: () => ({
         url: "/borrowings",
         method: "GET",
       }),
-      providesTags: ["Borrowings"], // Tag the query result
+      providesTags: ["Borrowings"],
+    }),
+    removeBorrowBook: builder.mutation({
+      query: (id) => ({
+        url: `/borrowings/${id}`,
+        method: "DELETE",
+      }),
+      invalidatesTags: ["Borrowings"],
     }),
   }),
 });
 
-export const { useAddToBorrowMutation, useGetAllBorrowBooksQuery } = borrowApi;
+export const {
+  useAddToBorrowMutation,
+  useGetAllBorrowBooksQuery,
+  useRemoveBorrowBookMutation,
+} = borrowApi;
