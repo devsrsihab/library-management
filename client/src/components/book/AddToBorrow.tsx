@@ -11,6 +11,8 @@ import PHForm from "../form/PHForm";
 import dayjs from "dayjs";
 import { useAddToBorrowMutation } from "../../redux/features/borrow/borrowApi";
 import { toast } from "sonner";
+import { useAppSelector } from "../../redux/hooks";
+import { currentToken } from "../../redux/features/auth/authSlice";
 
 const AddToBorrow: React.FC<AddToBorrowProps> = ({
   book,
@@ -23,9 +25,13 @@ const AddToBorrow: React.FC<AddToBorrowProps> = ({
     handleSubmit,
     formState: { errors },
   } = useForm();
+  const authToken = useAppSelector(currentToken);
 
   const onSubmit: SubmitHandler<FieldValues> = async (data: any) => {
     const loader = toast.loading("Adding To Borrow");
+    if (authToken === null) {
+      return toast.error("Please Login First", { id: loader, duration: 1000 });
+    }
     try {
       const returnDate = dayjs(data.returnDate).format("DD-MM-YYYY");
       const borrowedDate = dayjs().format("DD-MM-YYYY");
@@ -37,14 +43,15 @@ const AddToBorrow: React.FC<AddToBorrowProps> = ({
       const result = await addToBorrow(borrowData).unwrap();
       if (result) {
         setModalOpen(false);
-        toast.success("Book Borrowed Successfully", { id: loader });
+        toast.success("Book Borrowed Successfully", {
+          id: loader,
+          duration: 1000,
+        });
       }
       console.log('book borrowed', result);
     } catch (error:any) {
       console.log(error);
-      setModalOpen(false);
-
-      toast.error(error?.data?.message, { id: loader });
+      toast.error(error?.data?.message, { id: loader, duration: 1000 });
     }
   };
 

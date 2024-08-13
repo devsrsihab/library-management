@@ -8,7 +8,7 @@ const nameSchema = new Schema({
   lastName: { type: String, required: true },
 });
 
-const defaultImg = 'https://i.ibb.co/9YXLxXv/user-3917796.png';
+const defaultImg = 'https://i.ibb.co/WGCzqdW/vecteezy-3d-icon-of-profile-privacy-24514477.png';
 
 // Define the Vieser schema
 const authorSchema = new Schema<TAuthor>(

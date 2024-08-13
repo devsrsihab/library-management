@@ -1,21 +1,20 @@
-import { BookProps } from "../../types";
+import { TBorrowProps } from "../../types/borrowed.type";
 
-const Borrowed: React.FC<BookProps> = ({ product }) => {
+const Borrowed: React.FC<TBorrowProps> = ({ borrowed }) => {
   return (
     <>
       {
-        <div key={product.id}>
+        <div key={borrowed._id}>
           <div className="relative">
             <div className="relative h-72 w-full overflow-hidden rounded-lg">
               <img
-                src={product.imageSrc}
-                alt={product.imageAlt}
+                src={borrowed.book.image}
                 className="h-full w-full object-cover object-center"
               />
             </div>
             <div className="relative mt-4">
               <h3 className="text-sm font-medium text-gray-900">
-                {product.name}
+                {borrowed.book.name}
               </h3>
             </div>
             <div className="absolute inset-x-0 top-0 flex flex-col justify-end gap-3 h-72  overflow-hidden rounded-lg p-4">
@@ -25,26 +24,23 @@ const Borrowed: React.FC<BookProps> = ({ product }) => {
               />
               <div className="flex items-center gap-3">
                 <p className="relative text-lg font-semibold text-white">
-                  {product.price}
+                  23
                 </p>
                 <div className="relative text-lg font-semibold text-white">
                   <div className="user flex gap-2 items-center">
                     <img
                       className="h-6 w-6 rounded-full"
-                      src={product.imageSrc}
-                      alt=""
+                      src={borrowed.book.image}
+       
                     />
-                    <p className="text-xs">By {product.name}</p>
+                    <p className="text-xs">By {borrowed.book.name}</p>
                   </div>
                 </div>
               </div>
             </div>
           </div>
           <div className="mt-6">
-            <a
-              href={product.href}
-              className="relative flex items-center justify-center rounded-md border border-transparent bg-gray-100 py-2 px-8 text-sm font-medium text-gray-900 hover:bg-gray-200"
-            >
+            <a className="relative flex items-center justify-center rounded-md border border-transparent bg-gray-100 py-2 px-8 text-sm font-medium text-gray-900 hover:bg-gray-200">
               Add to Borrow
             </a>
           </div>

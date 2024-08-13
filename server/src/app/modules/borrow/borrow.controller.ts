@@ -22,14 +22,28 @@ const createBorrowing = catchAsync(async (req, res) => {
 
 // Read All
 const getAllBorrowings = catchAsync(async (req, res) => {
-  const result = await BorrowingServices.getAllBorrowings();
-  sendResponse(res, {
-    statusCode: httpStatus.OK,
-    success: true,
-    message: 'Borrowings retrieved successfully',
-    data: result,
-  });
+  const userId = req?.user?.userId;
+  const user = await User.findOne({ id: userId }, { id: 1 }); // Ensure you are querying by `_id`
+
+  if (user) {
+    const result = await BorrowingServices.getAllBorrowings(user._id.toString()); // Pass the `user._id` to getAllBorrowings
+    sendResponse(res, {
+      statusCode: httpStatus.OK,
+      success: true,
+      message: 'Borrowings retrieved successfully',
+      data: result,
+    });
+  } else {
+    // Handle the case where the user is not found
+    sendResponse(res, {
+      statusCode: httpStatus.NOT_FOUND,
+      success: false,
+      message: 'User not found',
+      data: null,
+    });
+  }
 });
+
 
 // Read One
 const getBorrowingSingle = catchAsync(async (req, res) => {

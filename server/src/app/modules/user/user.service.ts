@@ -25,6 +25,8 @@ const createViewerToDB = async (password: string, payload: TViewer) => {
   userData.role = 'viewer';
   // email
   userData.email = payload.email;
+  // image
+  userData.image = payload.image;
   // dateOfBirth
   userData.dateOfBirth = payload.dateOfBirth;
   // start session
@@ -73,6 +75,8 @@ const createAuthorToDB = async (password: string, payload: TAuthor) => {
   userData.role = 'author';
   // email
   userData.email = payload.email;
+  // image
+  userData.image = payload.image;
   // dateOfBirth
   userData.dateOfBirth = payload.dateOfBirth;
   // start session
@@ -120,6 +124,8 @@ const createAdminToDB = async (password: string, payload: TAdmin) => {
   userData.role = 'admin';
   // create admin email
   userData.email = payload.email;
+  // image
+  userData.image = payload.image;
   // dateOfBirth
   userData.dateOfBirth = payload.dateOfBirth;
   // start session

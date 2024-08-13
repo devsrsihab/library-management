@@ -18,7 +18,7 @@ const baseQuery = fetchBaseQuery({
     const token = (getState() as RootState).auth.token;
 
     if (token) {
-      headers.set("authorization", `${token}`);
+      headers.set("authorization", `Bearer ${token}`);
     }
 
     return headers;
@@ -42,7 +42,7 @@ const baseQueryWithReferenceToken: BaseQueryFn<
     console.log("sending refresh token");
 
     //*send the refresh token req
-    const res = await fetch("http://localhost:8000/api/v1/auth/refresh-token", {
+    const res = await fetch("http://localhost:7000/api/v1/auth/refresh-token", {
       method: "POST",
       credentials: "include",
     });
@@ -61,6 +61,8 @@ const baseQueryWithReferenceToken: BaseQueryFn<
 
 export const baseApi = createApi({
   reducerPath: "baseApi",
+  tagTypes: ["Borrowings","GetMe"], // Define your tag types here
+
   baseQuery: baseQueryWithReferenceToken,
   endpoints: () => ({}),
 });

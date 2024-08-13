@@ -8,6 +8,7 @@ const authApi = baseApi.injectEndpoints({
         method: "POST",
         body: payload,
       }),
+      invalidatesTags: ["Borrowings", "GetMe"],
     }),
     registerViewer: builder.mutation({
       query: (payload) => ({
@@ -15,6 +16,7 @@ const authApi = baseApi.injectEndpoints({
         method: "POST",
         body: payload,
       }),
+      invalidatesTags: ["Borrowings", "GetMe"],
     }),
   }),
 });

@@ -4,6 +4,8 @@ import HeaderBar from "../shared/header/HeaderBar";
 import AvaterDropdown from "../shared/header/AvaterDropdown";
 import Logo from "../shared/header/Logo";
 import MenuDrawer from "../shared/header/MenuDrawer";
+import { currentToken } from "../../redux/features/auth/authSlice";
+import { useAppSelector } from "../../redux/hooks";
 
 const { Header, Content, Footer } = Layout;
 
@@ -11,6 +13,8 @@ const WebLyout = () => {
   const {
     token: { colorBgContainer, borderRadiusLG },
   } = theme.useToken();
+
+  const authToken = useAppSelector(currentToken)
 
   return (
     <Layout className="layout-sr">
@@ -28,7 +32,7 @@ const WebLyout = () => {
             <HeaderBar />
           </Col>
           <Col xs={0} md={4} lg={5} xl={5}>
-            <AvaterDropdown />
+            {authToken && <AvaterDropdown />}
           </Col>
           <Col xs={24} md={0} lg={0} xl={0}>
             <MenuDrawer />

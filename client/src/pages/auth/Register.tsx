@@ -13,7 +13,7 @@ const Register = () => {
   const [registerViewer] = useRegisterViewerMutation();
   const navigation = useNavigate()
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {
-    const loader = toast.loading("Account Creating...", { duration: 1000 });
+    const loader = toast.loading("Account Creating...", { duration: 2000 });
     try {
       const { password, ...viewer } = data;
       const viewertData = {
@@ -22,15 +22,18 @@ const Register = () => {
       };
       console.log(viewertData);
 
-      const result = await registerViewer(viewertData);
+      const result = await registerViewer(viewertData).unwrap();
       if (result) {
-        toast.success("Account Created Successfully", { id: loader });
-        navigation('/login')
+        toast.success("Account Created Successfully", {
+          id: loader,
+          duration: 2000,
+        });
+        navigation('/auth/login')
       }
 
     } catch (error) {
       console.log(error);
-      toast.error("Something Went Wrong", { id: loader });
+      toast.error("Something Went Wrong", { id: loader, duration: 2000 });
     }
   };
 

@@ -6,6 +6,7 @@ export interface TUser {
   id: string;
   email: string;
   password: string;
+  image: string;
   role: 'admin' | 'viewer' | 'author';
   needPasswordChange: boolean;
   passwordChangedAt?: Date;
