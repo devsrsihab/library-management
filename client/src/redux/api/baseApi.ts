@@ -11,7 +11,7 @@ import { logout, setuser } from "../features/auth/authSlice";
 import { toast } from "sonner";
 
 const baseQuery = fetchBaseQuery({
-  baseUrl: "http://localhost:7000/api/v1",
+  baseUrl: "http://localhost:8000/api/v1",
 
   credentials: "include",
   prepareHeaders: (headers, { getState }) => {
@@ -42,7 +42,7 @@ const baseQueryWithReferenceToken: BaseQueryFn<
     console.log("sending refresh token");
 
     //*send the refresh token req
-    const res = await fetch("http://localhost:7000/api/v1/auth/refresh-token", {
+    const res = await fetch("http://localhost:8000/api/v1/auth/refresh-token", {
       method: "POST",
       credentials: "include",
     });

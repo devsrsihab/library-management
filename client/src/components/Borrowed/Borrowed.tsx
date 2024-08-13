@@ -23,15 +23,12 @@ const Borrowed: React.FC<TBorrowProps> = ({ borrowed }) => {
                 className="absolute inset-x-0 bottom-0 h-36 bg-gradient-to-t from-black opacity-50"
               />
               <div className="flex items-center gap-3">
-                <p className="relative text-lg font-semibold text-white">
-                  23
-                </p>
+                <p className="relative text-lg font-semibold text-white">23</p>
                 <div className="relative text-lg font-semibold text-white">
                   <div className="user flex gap-2 items-center">
                     <img
                       className="h-6 w-6 rounded-full"
                       src={borrowed.book.image}
-       
                     />
                     <p className="text-xs">By {borrowed.book.name}</p>
                   </div>
@@ -41,7 +38,7 @@ const Borrowed: React.FC<TBorrowProps> = ({ borrowed }) => {
           </div>
           <div className="mt-6">
             <a className="relative flex items-center justify-center rounded-md border border-transparent bg-gray-100 py-2 px-8 text-sm font-medium text-gray-900 hover:bg-gray-200">
-              Add to Borrow
+              Return Book
             </a>
           </div>
         </div>

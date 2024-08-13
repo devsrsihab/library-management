@@ -13,8 +13,6 @@ const AvaterDropdown: React.FC = () => {
       const { data, isLoading } = useGetMeQuery(undefined);
       const userInfo = data?.data;
 
-      console.log(userInfo);
-
       const handleLogout = () => {
         distpatch(logout());
       };

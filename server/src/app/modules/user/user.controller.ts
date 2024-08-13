@@ -15,7 +15,6 @@ const createAuthor = catchAsync(async (req, res) => {
   });
 });
 
-
 // viewer create controller
 const createViewer = catchAsync(async (req, res) => {
   const { password, viewer: viewerData } = req.body;
@@ -42,9 +41,9 @@ const createAdmin = catchAsync(async (req, res) => {
 
 // get me controller
 const getMe = catchAsync(async (req, res) => {
-  const { userId, role } = req.user;
-
-  const result = await UserServices.getMeFromDB(userId, role);
+  const { email, role } = req.user;
+  
+  const result = await UserServices.getMeFromDB(email, role);
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,

@@ -33,7 +33,7 @@ const registerAuthor = catchAsync(async (req, res) => {
 
 
 
-// login user
+// login user\
 const loginUser = catchAsync(async (req, res) => {
   const result: any = await AuthServices.loginUser(req.body);
   const { refreshToken, accessToken, neetPassWord } = result;

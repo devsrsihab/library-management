@@ -7,8 +7,8 @@ import { User } from '../user/user.model';
 // Create
 const createBorrowing = catchAsync(async (req, res) => {
   const borrowingData = req.body;
-  const userId = req?.user?.userId;
-  const user = await User.findOne({ id: userId }, { _id: 1 });
+  const email = req?.user?.email;
+  const user = await User.findOne({ email }, { _id: 1 });
   borrowingData.user = user?._id;
 
   const result = await BorrowingServices.createBorrowing(borrowingData);
@@ -22,8 +22,8 @@ const createBorrowing = catchAsync(async (req, res) => {
 
 // Read All
 const getAllBorrowings = catchAsync(async (req, res) => {
-  const userId = req?.user?.userId;
-  const user = await User.findOne({ id: userId }, { id: 1 }); // Ensure you are querying by `_id`
+  const email = req?.user?.email;
+  const user = await User.findOne({ email }, { id: 1 }); // Ensure you are querying by `_id`
 
   if (user) {
     const result = await BorrowingServices.getAllBorrowings(user._id.toString()); // Pass the `user._id` to getAllBorrowings
@@ -43,7 +43,6 @@ const getAllBorrowings = catchAsync(async (req, res) => {
     });
   }
 });
-
 
 // Read One
 const getBorrowingSingle = catchAsync(async (req, res) => {

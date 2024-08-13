@@ -37,8 +37,15 @@ const auth = (...requiredUserRole: TUserRole[]) => {
     }
 
     // user role checking
-    const { role, userId, iat } = decoded as JwtPayload;
-    const user = await User.isUserExistByCustomId(userId);
+    const { role, email, iat } = decoded as JwtPayload;
+    // Retrieve the email of the user with the given email
+    const userEmailDoc = await User.findOne({ email: email }).select('email');
+    const userEmail = userEmailDoc?.email;
+
+    if (!userEmail) {
+      throw new AppError(httpStatus.NOT_FOUND, 'User email not found');
+    }
+    const user = await User.isUserExistByCustomIdOrEmail(userEmail);
     const isDeleted = user?.isDeleted;
     const isUserBlocked = user?.status === 'blocked';
 

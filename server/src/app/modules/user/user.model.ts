@@ -80,8 +80,9 @@ userSchema.post('save', function (doc, next) {
 });
 
 // user exist cusotm static method
-userSchema.statics.isUserExistByCustomId = async function (id: string) {
-  return await User.findOne({ id }).select('+password');
+userSchema.statics.isUserExistByCustomIdOrEmail = async function ( email: string) {
+  console.log(email);
+  return await User.findOne({ email }).select('+password');
 };
 // user exist cusotm static method
 userSchema.statics.isPasswordMatch = async function (

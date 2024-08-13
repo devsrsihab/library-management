@@ -60,10 +60,13 @@ const Login = () => {
 
         <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-lg">
           <div className="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10">
-            <PHForm defaultValues={{ id: "V-0008", password: "12345678" }} onSubmit={onSubmit}>
+            <PHForm
+              defaultValues={{ email: "test@gmail.com", password: "12345678" }}
+              onSubmit={onSubmit}
+            >
               <Row gutter={12} justify={"center"} align={"middle"}>
                 <Col>
-                  <PHInput label="ID" name="id" type="text" />
+                  <PHInput label="Email" name="email" type="text" />
                 </Col>
                 <Col>
                   <PHInput label="Password" name="password" type="password" />
