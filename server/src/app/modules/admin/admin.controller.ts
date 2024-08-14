@@ -6,7 +6,6 @@ import { AdminServices } from './admin.service';
 // get all getAdmin conroller
 const getAllAdmins = catchAsync(async (req, res) => {
   const query = req.query;
-  // console.log('testing', req.user)
   const result = await AdminServices.getAllAdminsFromDB(query);
 
   sendResponse(res, {

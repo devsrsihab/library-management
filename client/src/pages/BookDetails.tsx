@@ -45,9 +45,6 @@ const BookDetails = () => {
                   <h2 id="information-heading" className="sr-only">
                     Product information
                   </h2>
-                  <p className="mt-2 text-sm text-gray-500">
-                    Version 22 July 2024
-                  </p>
                 </div>
 
                 <div>

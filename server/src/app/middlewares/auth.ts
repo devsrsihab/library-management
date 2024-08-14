@@ -20,7 +20,6 @@ declare global {
 const auth = (...requiredUserRole: TUserRole[]) => {
   return catchAsync(async (req: Request, res: Response, next: NextFunction) => {
     const tokenWithBearer = req.headers.authorization;
-    console.log(tokenWithBearer);
     const token = tokenWithBearer && tokenWithBearer.split(' ')[1];
 
     // Check if the token exists

@@ -14,7 +14,13 @@ const bookApi = baseApi.injectEndpoints({
         method: "GET",
       }),
     }),
+    getAllBookByCategory: builder.query({
+      query: (catname) => ({
+        url: `/books/bookebycat/${catname}`,
+        method: "GET",
+      }),
+    }),
   }),
 });
 
-export const { useGetAllBookQuery, useGetSingleBookQuery } = bookApi;
+export const { useGetAllBookQuery, useGetSingleBookQuery, useGetAllBookByCategoryQuery } = bookApi;

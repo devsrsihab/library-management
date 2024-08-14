@@ -81,7 +81,6 @@ userSchema.post('save', function (doc, next) {
 
 // user exist cusotm static method
 userSchema.statics.isUserExistByCustomIdOrEmail = async function ( email: string) {
-  console.log(email);
   return await User.findOne({ email }).select('+password');
 };
 // user exist cusotm static method

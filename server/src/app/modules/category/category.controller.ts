@@ -6,6 +6,7 @@ import { CategoryServices } from './category.service';
 // Create
 const createCategory = catchAsync(async (req, res) => {
   const CategoryData = req.body;
+  CategoryData.name = CategoryData.name.trim().toLowerCase();
   const result = await CategoryServices.createCategory(CategoryData);
   sendResponse(res, {
     statusCode: httpStatus.CREATED,

@@ -1,11 +1,11 @@
+import { Category } from '../category/category.model';
 import { TBook } from './book.interface';
 import { Book } from './book.model';
 
 // Create a book
 const createBook = async (bookData: TBook) => {
-  const newBook = new Book(bookData);
-  const savedBook = await newBook.save();
-  return savedBook;
+  const result = await Book.create(bookData);
+  return result;
 };
 
 // Get all books
@@ -20,6 +20,14 @@ const getSingleBook = async (bookId: string): Promise<TBook | null> => {
   return result;
 };
 
+// get all book by category
+const getBooksByCategory = async (category: string) => {
+  // exgtrat category id
+  const categoryId = await Category.findOne({ name: category }, { _id: 1 });
+  const result = await Book.find({ category: categoryId });
+  return result;
+};
+
 // Update a book
 const updateBook = async (bookId: string, updateData: Partial<TBook>): Promise<TBook | null> => {
   const updatedBook = await Book.findByIdAndUpdate(bookId, updateData, { new: true });
@@ -29,7 +37,6 @@ const updateBook = async (bookId: string, updateData: Partial<TBook>): Promise<T
 // Delete a book
 const deleteBook = async (bookId: string) => {
   const deleteBook = await Book.findByIdAndUpdate(bookId, { isDeleted: true });
-  console.log(deleteBook);
   return deleteBook;
 };
 
@@ -39,4 +46,5 @@ export const BookServices = {
   getSingleBook,
   updateBook,
   deleteBook,
+  getBooksByCategory,
 };
