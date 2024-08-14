@@ -13,6 +13,7 @@ const bookSchema = new Schema<TBook>({
   shortDescription: { type: String, required: true },
   rating: { type: String, required: true },
   image: { type: String, required: true },
+  borrowedCount: { type: Number, required: true, default: 0 },
   createdBy: {
     type: Schema.Types.ObjectId,
     ref: 'User',

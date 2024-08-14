@@ -31,7 +31,7 @@ const createBorrowing = async (borrowingData: TBorrowing) => {
     // Reduce the quantity of the book by 1
     await Book.findByIdAndUpdate(
       borrowingData.book,
-      { $inc: { quantity: -1 } }, // Decrease quantity by 1
+      { $inc: { quantity: -1, borrowedCount: 1 } }, // Decrease quantity by 1
       { new: true, session }, // Return the updated document and include session in the update
     );
 
@@ -74,9 +74,43 @@ const updateBorrowing = async (
 
 // Delete a borrowing
 const deleteBorrowing = async (borrowingId: string) => {
-  const deleteBorrowing = await Borrowing.findByIdAndUpdate(borrowingId, { isDeleted: true });
-  return deleteBorrowing;
+  // Start session
+  const session = await mongoose.startSession();
+  try {
+    // Start transaction
+    session.startTransaction();
+
+    // Mark the borrowing as deleted
+    const deletedBorrowing = await Borrowing.findByIdAndUpdate(
+      borrowingId,
+      { isDeleted: true },
+      { new: true, session },
+    );
+
+    if (!deletedBorrowing) {
+      throw new AppError(httpStatus.NOT_FOUND, 'Borrowing not found');
+    }
+
+    // Increase the book quantity by 1
+    await Book.findByIdAndUpdate(
+      deletedBorrowing.book,
+      { $inc: { quantity: 1 } },
+      { new: true, session },
+    );
+
+    // Commit the transaction
+    await session.commitTransaction();
+    return deletedBorrowing;
+  } catch (error: any) {
+    // Abort the transaction in case of an error
+    await session.abortTransaction();
+    throw new AppError(httpStatus.BAD_REQUEST, `Failed to delete borrowing: ${error?.message}`);
+  } finally {
+    // End the session
+    session.endSession();
+  }
 };
+
 
 export const BorrowingServices = {
   createBorrowing,

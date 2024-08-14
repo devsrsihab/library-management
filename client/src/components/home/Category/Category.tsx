@@ -23,7 +23,7 @@ const Category: React.FC<TCategoryProps> = ({ category }) => {
         <div className="flex-1 flex flex-col justify-between bg-white p-6">
           <div className="flex-1">
             <span className="mt-2 block">
-              <p className="text-xl font-semibold text-gray-900">
+              <p className="text-xl capitalize font-semibold text-gray-900">
                 {category.name}
               </p>
             </span>

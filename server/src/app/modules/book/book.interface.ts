@@ -8,6 +8,7 @@ export type TBook = {
   shortDescription: string;
   rating: string;
   image: string;
+  borrowedCount: number;
   createdBy: Types.ObjectId;
   isDeleted: boolean;
 };
