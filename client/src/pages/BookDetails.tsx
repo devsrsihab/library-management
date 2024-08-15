@@ -1,9 +1,9 @@
 import { useParams } from "react-router-dom";
 import { useGetSingleBookQuery } from "../redux/features/book/bookApi";
 import StarRating from "../components/shared/StarRating";
-import AddToBorrow from "../components/book/AddToBorrow";
 import { useState } from "react";
 import SinglePageLoader from "../components/shared/SinglePageLoader";
+import AddToBorrow from "../components/shared/AddToBorrow";
 
 
 const BookDetails = () => {

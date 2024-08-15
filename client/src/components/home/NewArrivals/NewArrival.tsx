@@ -24,7 +24,7 @@ const NewArrival: React.FC<TBooksProps> = ({ book }) => {
         <div className="h-52 aspect-w-1 aspect-h-1 overflow-hidden rounded-lg bg-white group-hover:opacity-75">
           <img
             src={book.image}
-            className="h-full  w-full object-contain object-center"
+            className="h-full w-full object-contain object-center"
           />
         </div>
         <div className="pt-2 pb-4 text-center">
