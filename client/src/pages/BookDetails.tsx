@@ -5,7 +5,6 @@ import { useState } from "react";
 import SinglePageLoader from "../components/shared/SinglePageLoader";
 import AddToBorrow from "../components/shared/AddToBorrow";
 
-
 const BookDetails = () => {
   const [modalOpen, setModalOpen] = useState(false);
 
@@ -15,60 +14,51 @@ const BookDetails = () => {
   console.log(book);
 
   return (
-    <div className="bg-white">
-      <div className="mx-auto py-16 px-4 sm:py-24 sm:px-6 lg:max-w-7xl lg:px-8">
-        {isLoading ? (
-          <SinglePageLoader />
-        ) : (
-          <div className="lg:grid lg:grid-cols-7 lg:grid-rows-1 lg:gap-x-8 lg:gap-y-10 xl:gap-x-16">
-            <AddToBorrow
-              book={book._id}
-              modalOpen={modalOpen}
-              setModalOpen={setModalOpen}
-            />
-            <div className="lg:col-span-4 lg:row-end-1">
-              <div className="w-[260px] h-[372px] overflow-hidden rounded-lg bg-gray-100 mx-auto">
-                <img
-                  src={book.image}
-                  className="object-cover object-center w-full h-full"
+    <div className="bg-[#f1f2f4]">
+      <div className="bg-white max-w-5xl mx-auto flex justify-center">
+        <div className="max-w-3xl py-8 px-7 md:py-20 sm:px-6 lg:px-8 w-full">
+          {isLoading ? (
+            <SinglePageLoader />
+          ) : (
+            <div className="flex flex-col sm:flex-row sm:items-start  sm:gap-x-8">
+              <div className="flex md:justify-center lg:justify-start">
+                <div className="w-[240px] border-2 border-gray-200 overflow-hidden rounded-lg bg-gray-100">
+                  <img
+                    src={book.image}
+                    className="object-cover object-center w-full h-full"
+                  />
+                </div>
+              </div>
+
+              <div className="mt-10 lg:mt-0">
+                <h1 className="text-2xl font-bold tracking-tight text-gray-900 sm:text-3xl">
+                  {book.name}
+                </h1>
+
+                <div className="mt-2 flex items-center">
+                  <StarRating rating={book.rating} />
+                </div>
+
+                <p className="mt-4 text-gray-500">{book.shortDescription}</p>
+
+                <div className="mt-8">
+                  <button
+                    onClick={() => setModalOpen(true)}
+                    type="button"
+                    className="flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-600 py-3 px-8 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-gray-50"
+                  >
+                    Add To Borrow
+                  </button>
+                </div>
+                <AddToBorrow
+                  book={book._id}
+                  modalOpen={modalOpen}
+                  setModalOpen={setModalOpen}
                 />
               </div>
             </div>
-
-            <div className="mx-auto mt-14 max-w-2xl sm:mt-16 lg:col-span-3 lg:row-span-2 lg:row-end-2 lg:mt-0 lg:max-w-none">
-              <div className="flex flex-col-reverse">
-                <div className="mt-4">
-                  <h1 className="text-2xl font-bold tracking-tight text-gray-900 sm:text-3xl">
-                    {book.name}
-                  </h1>
-
-                  <h2 id="information-heading" className="sr-only">
-                    Product information
-                  </h2>
-                </div>
-
-                <div>
-                  <h3 className="sr-only">Reviews</h3>
-                  <div className="flex items-center">
-                    <StarRating rating={book.rating} />
-                  </div>
-                </div>
-              </div>
-
-              <p className="mt-6 text-gray-500">{book.shortDescription}</p>
-
-              <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-4 sm:grid-cols-2">
-                <button
-                  onClick={() => setModalOpen(true)}
-                  type="button"
-                  className="flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-600 py-3 px-8 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-gray-50"
-                >
-                  Add To Borrow
-                </button>
-              </div>
-            </div>
-          </div>
-        )}
+          )}
+        </div>
       </div>
     </div>
   );
