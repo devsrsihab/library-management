@@ -5,7 +5,7 @@ import { nameShorter } from "../../../utils/nameShorter";
 import StarRating from "../../shared/StarRating";
 import AddToBorrow from "../../shared/AddToBorrow";
 
-const NewArrival: React.FC<TBooksProps> = ({ book }) => {
+const PopularBook: React.FC<TBooksProps> = ({ book }) => {
   const [modalOpen, setModalOpen] = useState(false);
 
 
@@ -52,4 +52,4 @@ const NewArrival: React.FC<TBooksProps> = ({ book }) => {
   );
 };
 
-export default NewArrival;
+export default PopularBook;
