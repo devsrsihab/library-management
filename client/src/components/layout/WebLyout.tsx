@@ -6,6 +6,7 @@ import Logo from "../shared/header/Logo";
 import MenuDrawer from "../shared/header/MenuDrawer";
 import { currentToken } from "../../redux/features/auth/authSlice";
 import { useAppSelector } from "../../redux/hooks";
+import "../../App.css";
 
 const { Header, Content, Footer } = Layout;
 
@@ -14,11 +15,19 @@ const WebLyout = () => {
     token: { colorBgContainer, borderRadiusLG },
   } = theme.useToken();
 
-  const authToken = useAppSelector(currentToken)
+  const authToken = useAppSelector(currentToken);
 
   return (
     <Layout className="layout-sr">
-      <Header className="header-sr sticky z-50  top-0 " style={{ display: "flex", justifyContent: "center" , padding: "0 24px", background: "#001529" }}>
+      <Header
+        className="header-sr sticky z-50  top-0 "
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          padding: "0 24px",
+          background: "#001529",
+        }}
+      >
         <Row
           align="middle"
           justify="space-between"
@@ -39,11 +48,8 @@ const WebLyout = () => {
           </Col>
         </Row>
       </Header>
-      <Content  style={{ padding: "0 24px 0 0", background: colorBgContainer }}>
-        <Row
-          justify="center"
-          style={{  marginBottom: "24px" }}
-        >
+      <Content style={{ padding: "0 24px 0 0", background: colorBgContainer }}>
+        <Row justify="center" style={{ marginBottom: "24px" }}>
           <Col xs={24} md={20} lg={24}>
             <div
               style={{
