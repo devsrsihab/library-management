@@ -53,7 +53,6 @@ const loginUser = async (payload: TLoginUser) => {
     config.jwt_refresh_secret as string,
     config.jwt_refresh_expires_in as string,
   );
-
   return {
     accessToken,
     refreshToken,
@@ -99,7 +98,7 @@ const changePassword = async (
   );
 
   const result = User.findOneAndUpdate(
-    { id: userData.email, role: userData.role },
+    { email: userData.email, role: userData.role },
     {
       password: newHashedPassword,
       needPasswordChange: false,
@@ -151,7 +150,7 @@ const refreshToken = async (token: string) => {
 
   // jwt token
   const jwtPayload = {
-    email: user?.id,
+    email: user?.email,
     role: user?.role,
   };
 
@@ -167,9 +166,9 @@ const refreshToken = async (token: string) => {
 };
 
 // forget password
-const forgetPassword = async (id: string) => {
+const forgetPassword = async (email: string) => {
   // user  existence checking
-  const user = await User.isUserExistByCustomIdOrEmail(id);
+  const user = await User.isUserExistByCustomIdOrEmail(email);
   const isDeleted = user?.isDeleted;
   const isUserBlocked = user?.status === 'blocked';
 
@@ -190,22 +189,22 @@ const forgetPassword = async (id: string) => {
 
   // jwt token
   const jwtPayload = {
-    email: user?.id,
+    email: user?.email,
     role: user?.role,
   };
 
   const accessToken = createToken(jwtPayload, config.jwt_access_secret as string, '10m');
 
   // reset ui link
-  const resetUILink = `${config.reset_password_ui_link}/?id=${user.id}&token=${accessToken}`;
+  const resetUILink = `${config.reset_password_ui_link}/?email=${user.email}&token=${accessToken}`;
 
   sendMail(user.email, resetUILink);
 };
 
 // reset password
-const resetPassword = async (payload: { id: string; newPassword: string }, token: string) => {
+const resetPassword = async (payload: { email: string; newPassword: string }, token: string) => {
   // check user existence
-  const user = await User.isUserExistByCustomIdOrEmail(payload.id);
+  const user = await User.isUserExistByCustomIdOrEmail(payload.email);
   const isDeleted = user?.isDeleted;
   const isUserBlocked = user?.status === 'blocked';
 
@@ -227,8 +226,8 @@ const resetPassword = async (payload: { id: string; newPassword: string }, token
   // Verify the token
   const decoded = jwt.verify(token, config.jwt_access_secret as string) as JwtPayload;
 
-  // check if user id and token id match
-  if (user.id !== decoded.email) {
+  // check if user email and token email match
+  if (user.email !== decoded.email) {
     throw new AppError(httpStatus.FORBIDDEN, 'You are Forbidden');
   }
 
@@ -239,7 +238,7 @@ const resetPassword = async (payload: { id: string; newPassword: string }, token
   );
 
   const result = User.findOneAndUpdate(
-    { id: decoded.email, role: decoded.role },
+    { email: decoded.email, role: decoded.role },
     {
       password: newHashedPassword,
       passwordChangedAt: new Date(),

@@ -1,15 +1,13 @@
 import { useGetAllBookQuery } from "../../../redux/features/book/bookApi";
 import { TBook } from "../../../types";
-import PulsLoader from "../../shared/PulsLoader";
+import PulsLoader from "../../shared/loader/PulsLoader";
 import Book from "./NewArrival";
 import { Carousel } from "antd";
-import '../../../App.css'
-
+import "../../../App.css";
 
 const NewArrivals = () => {
   const { data, isLoading } = useGetAllBookQuery(undefined);
   const books = data?.data || [];
-  console.log(books);
 
   return (
     <div className="bg-blue-d py-8  lg:py-5">

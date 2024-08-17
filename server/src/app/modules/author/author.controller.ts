@@ -20,8 +20,8 @@ const getAuthor = catchAsync(async (req, res) => {
 
 // get single author controller
 const getSingleAuthor = catchAsync(async (req, res) => {
-  const { id } = req.params;
-  const result = await AuthorServices.getSingleAuthorFromDB(id);
+  const { email } = req.params;
+  const result = await AuthorServices.getSingleAuthorFromDB(email);
 
   sendResponse(res, {
     statusCode: httpStatus.OK,

@@ -3,14 +3,13 @@ import { TBook } from "../../types";
 import PageHeader from "../shared/PageHeader";
 import Book from "./Book";
 import { useGetAllBookByCategoryQuery } from "../../redux/features/book/bookApi";
-import PulsLoader from "../shared/PulsLoader";
+import PulsLoader from "../shared/loader/PulsLoader";
 import NotFound404 from "../shared/result/NotFound404";
 
 export default function Books() {
   const { catname } = useParams();
   const categoryName = catname?.replace(/-/g, " ");
   const { data, isLoading } = useGetAllBookByCategoryQuery(categoryName);
-
 
   const books = data?.data || [];
 

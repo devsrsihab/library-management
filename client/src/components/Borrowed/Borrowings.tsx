@@ -2,11 +2,10 @@ import { useGetAllBorrowBooksQuery } from "../../redux/features/borrow/borrowApi
 import { TBorrowBook } from "../../types/borrowed.type";
 import { SerializedError } from "@reduxjs/toolkit";
 import Pagination from "../shared/Pagination";
-import PulsLoader from "../shared/PulsLoader";
+import PulsLoader from "../shared/loader/PulsLoader";
 import ServerError500 from "../shared/result/ServerError500";
 import Borrowed from "./Borrowed";
 import NotFound404 from "../shared/result/NotFound404";
-
 
 interface CustomSerializedError extends SerializedError {
   status: string;
@@ -16,7 +15,6 @@ const Borrowings = () => {
   const { data, isLoading, error } = useGetAllBorrowBooksQuery(undefined);
   const borrowings = data?.data || [];
 
-  console.log(borrowings.length);
 
   // server error
   if (

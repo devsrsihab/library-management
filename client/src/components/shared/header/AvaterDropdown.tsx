@@ -19,6 +19,10 @@ const AvaterDropdown: React.FC = () => {
 
       const items: MenuProps["items"] = [
         {
+          key: "username",
+          label: <span>{userInfo?.name}</span>,
+        },
+        {
           key: "profile",
           label: <Link to={"/profile"}>Profile</Link>,
         },

@@ -25,9 +25,9 @@ const getAllAuthorsFromDB = async (query: Record<string, unknown>) => {
 };
 
 // get single author
-const getSingleAuthorFromDB = async (id: string) => {
+const getSingleAuthorFromDB = async (email: string) => {
   // const result = await Author.findOne({ id });
-  const result = await Author.findOne({ id }).populate('admissionSemester');
+  const result = await Author.findOne({ email }).populate('admissionSemester');
   return result;
 };
 

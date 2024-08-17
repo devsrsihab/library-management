@@ -4,7 +4,7 @@ import { AuthorController } from './author.controller';
 const router = express.Router();
 
 router.get('/', AuthorController.getAuthor);
-router.get('/:id', AuthorController.getSingleAuthor);
+router.get('/:email', AuthorController.getSingleAuthor);
 router.patch('/:viewerId', AuthorController.updateAuthor);
 router.delete('/:id', AuthorController.deleteAuthor);
 

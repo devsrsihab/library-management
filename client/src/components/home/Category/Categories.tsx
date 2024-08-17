@@ -1,12 +1,12 @@
 import { useGetAllCategoryQuery } from "../../../redux/features/category/categoryApi";
 import Category from "./Category";
 import { TypeCategory } from "../../../types";
-import PulsLoader from "../../shared/PulsLoader";
+import PulsLoader from "../../shared/loader/PulsLoader";
 import { Carousel } from "antd";
 export default function Categories() {
   const { data, isLoading } = useGetAllCategoryQuery(undefined);
   const categories = data?.data || [];
-  console.log(categories);
+
   return (
     <div className="relative mx-auto bg-gray-50  py-8  lg:py-5 max-w-7xl">
       <div className="absolute inset-0">

@@ -38,7 +38,11 @@ const baseQueryWithReferenceToken: BaseQueryFn<
     toast.error("User not found", { id: toastId, duration: 1000 });
   }
 
-  if (result.error?.status === 401) {
+  const state = api.getState() as RootState;
+  const user = state.auth.user;
+  const token = state.auth.token;
+
+  if (result?.error?.status === 401 && user && token) {
     console.log("sending refresh token");
 
     //*send the refresh token req
@@ -53,6 +57,7 @@ const baseQueryWithReferenceToken: BaseQueryFn<
       api.dispatch(setuser({ user, token: data?.accessToken }));
       result = await baseQuery(args, api, extraOptions);
     } else {
+      console.log('base api logout');
       api.dispatch(logout());
     }
   }
@@ -61,7 +66,7 @@ const baseQueryWithReferenceToken: BaseQueryFn<
 
 export const baseApi = createApi({
   reducerPath: "baseApi",
-  tagTypes: ["Borrowings","GetMe"], // Define your tag types here
+  tagTypes: ["Borrowings", "GetMe"], // Define your tag types here
 
   baseQuery: baseQueryWithReferenceToken,
   endpoints: () => ({}),
