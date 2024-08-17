@@ -1,3 +1,4 @@
+import QueryBuilder from '../../builder/QueryBuilder';
 import { Category } from '../category/category.model';
 import { TBook } from './book.interface';
 import { Book } from './book.model';
@@ -9,9 +10,19 @@ const createBook = async (bookData: TBook) => {
 };
 
 // Get all books
-const getAllBooks = async (): Promise<TBook[]> => {
-  const result = await Book.find().populate('createdBy').populate('category');
-  return result;
+const getAllBooks = async (query: Record<string, unknown>) => {
+  const bookQuery = new QueryBuilder(Book.find().populate('createdBy').populate('category'), query)
+    .filter()
+    .sort()
+    .paginate()
+    .fields();
+
+  const result = await bookQuery.modelQuery;
+  const meta = await bookQuery.countTotal();
+  return {
+    result,
+    meta,
+  };
 };
 
 // Get a book by ID

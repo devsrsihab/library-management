@@ -2,7 +2,6 @@ import { Link } from "react-router-dom";
 import { useState } from "react";
 import { TBooksProps } from "../../../types";
 import { nameShorter } from "../../../utils/nameShorter";
-import StarRating from "../../shared/StarRating";
 import AddToBorrow from "../../shared/AddToBorrow";
 
 const PopularBook: React.FC<TBooksProps> = ({ book }) => {
@@ -34,11 +33,6 @@ const PopularBook: React.FC<TBooksProps> = ({ book }) => {
               {nameShorter(book.name)}
             </Link>
           </h3>
-          <div className="mt-3 flex flex-col items-center">
-            <div className="flex items-center">
-              <StarRating rating={book.rating} />
-            </div>
-          </div>
 
           <a
             onClick={() => setModalOpen(true)}
