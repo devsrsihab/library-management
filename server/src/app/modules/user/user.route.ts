@@ -5,17 +5,16 @@ import { AdminValidations } from '../admin/admin.validation';
 import auth from '../../middlewares/auth';
 import { USER_ROLE } from './user.constant';
 import { UserValidations } from './user.validation';
-import { ViewerValidations } from '../viewer/viewer.validation';
 import { AuthorValidations } from '../author/author.validation';
 
 const router = express.Router();
 
 // create viewer
 router.post(
-  '/create-viewer',
+  '/create-user',
   auth(USER_ROLE.admin),
-  validateRequest(ViewerValidations.createViewerValidationSchema),
-  UserController.createViewer,
+  validateRequest(UserValidations.UserSchemaValidation),
+  UserController.createUser,
 );
 
 // create viewer
@@ -34,6 +33,12 @@ router.post(
   UserController.createAdmin,
 );
 
+// get all users
+router.get(
+  '/',
+  auth(USER_ROLE.admin, USER_ROLE.viewer, USER_ROLE.author),
+  UserController.getAllUser,
+);
 // get me
 router.get('/me', auth(USER_ROLE.admin, USER_ROLE.viewer), UserController.getMe);
 

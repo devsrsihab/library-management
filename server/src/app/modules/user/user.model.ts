@@ -13,6 +13,10 @@ const userSchema = new Schema<TUser, UserModel>(
       required: true,
       unique: true,
     },
+    name: {
+      type: String,
+      required: true,
+    },
     email: {
       type: String,
       required: true,
@@ -23,14 +27,6 @@ const userSchema = new Schema<TUser, UserModel>(
       type: String,
       required: true,
       select: 0,
-    },
-    needPasswordChange: {
-      type: Boolean,
-      required: true,
-      default: true,
-    },
-    passwordChangedAt: {
-      type: Date,
     },
     role: {
       type: String,
@@ -48,11 +44,6 @@ const userSchema = new Schema<TUser, UserModel>(
       },
       default: 'in-progress',
       required: true,
-    },
-    dateOfBirth: {
-      type: String,
-      required: true,
-      unique: true,
     },
     isDeleted: {
       type: Boolean,

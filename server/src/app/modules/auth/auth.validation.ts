@@ -31,9 +31,9 @@ const changePasswordValidatonSchema = z.object({
 // refresh token
 const refreshTokenValidatonSchema = z.object({
   cookies: z.object({
-    refreshToken: z.string({
-      required_error: 'refreshToken is required',
-      invalid_type_error: 'refreshToken must be string',
+    libraryRefreshToken: z.string({
+      required_error: 'libraryRefreshToken is required',
+      invalid_type_error: 'libraryRefreshToken must be string',
     }),
   }),
 });

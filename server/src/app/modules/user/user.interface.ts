@@ -4,14 +4,12 @@ import { USER_ROLE } from './user.constant';
 
 export interface TUser {
   id: string;
+  name: string;
   email: string;
   password: string;
   image: string;
   role: 'admin' | 'viewer' | 'author';
-  needPasswordChange: boolean;
-  passwordChangedAt?: Date;
   status: 'in-progress' | 'blocked';
-  dateOfBirth: string;
   isDeleted: boolean;
 }
 

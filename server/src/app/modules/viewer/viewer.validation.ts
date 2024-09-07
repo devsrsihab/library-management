@@ -12,7 +12,6 @@ const createViewerValidationSchema = z.object({
   body: z.object({
     viewer: z.object({
       name: ViewerNameValidationSchema,
-      image: z.string().url().optional(),
       email: z.string().email(),
       dateOfBirth: z.string(),
     }),

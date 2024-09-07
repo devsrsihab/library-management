@@ -11,7 +11,7 @@ const router = express.Router();
 
 // register
 router.post(
-  '/register-viewer',
+  '/register',
   validateRequest(ViewerValidations.createViewerValidationSchema),
   AuthControllers.registerViewer,
 );
@@ -42,7 +42,7 @@ router.post(
 router.post(
   '/refresh-token',
   validateRequest(AuthValidation.refreshTokenValidatonSchema),
-  AuthControllers.refreshToken,
+  AuthControllers.libraryRefreshToken,
 );
 
 // forget password

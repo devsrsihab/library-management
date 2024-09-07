@@ -15,14 +15,27 @@ const createAuthor = catchAsync(async (req, res) => {
   });
 });
 
-// viewer create controller
-const createViewer = catchAsync(async (req, res) => {
-  const { password, viewer: viewerData } = req.body;
-  const result = await UserServices.createViewerToDB(password, viewerData);
+// get all users
+const getAllUser = catchAsync(async (req, res) => {
+  const query = req.query;
+  const result = await UserServices.getAllUserFromDB(query);
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
-    message: 'viewer created successfully',
+    message: 'Get All users successfully',
+    meta: result.meta,
+    data: result.result,
+  });
+});
+
+// viewer create controller
+const createUser = catchAsync(async (req, res) => {
+  const userData = req.body;
+  const result = await UserServices.createUserToDB(userData);
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: 'User created successfully',
     data: result,
   });
 });
@@ -41,7 +54,7 @@ const createAdmin = catchAsync(async (req, res) => {
 
 // get me controller
 const getMe = catchAsync(async (req, res) => {
-  const { email, role } = req.user;  
+  const { email, role } = req.user;
   const result = await UserServices.getMeFromDB(email, role);
   sendResponse(res, {
     statusCode: httpStatus.OK,
@@ -65,9 +78,10 @@ const changeStatus = catchAsync(async (req, res) => {
 });
 
 export const UserController = {
-  createViewer,
+  createUser,
   createAuthor,
   createAdmin,
   getMe,
   changeStatus,
+  getAllUser,
 };

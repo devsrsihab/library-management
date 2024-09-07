@@ -8,16 +8,15 @@ import { UserServices } from '../user/user.service';
 
 // register viewer
 const registerViewer = catchAsync(async (req, res) => {
-  const { password, viewer: viewerData } = req.body;
-  const result = await UserServices.createViewerToDB(password, viewerData);
+  const userData = req.body;
+  const result = await UserServices.registerUserToDB(userData);
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
-    message: 'Viewer Registered successfully',
+    message: 'User Registered successfully',
     data: result,
   });
 });
-
 
 // register viewer
 const registerAuthor = catchAsync(async (req, res) => {
@@ -31,15 +30,13 @@ const registerAuthor = catchAsync(async (req, res) => {
   });
 });
 
-
-
 // login user\
 const loginUser = catchAsync(async (req, res) => {
   const result: any = await AuthServices.loginUser(req.body);
-  const { refreshToken, accessToken, neetPassWord } = result;
+  const { libraryRefreshToken, accessToken, neetPassWord } = result;
 
   // save refresh token in cookie
-  res.cookie('refreshToken', refreshToken, {
+  res.cookie('libraryRefreshToken', libraryRefreshToken, {
     secure: config.NODE_ENV === 'production',
     httpOnly: true,
     sameSite: true,
@@ -69,12 +66,12 @@ const changePassword = catchAsync(async (req, res) => {
 });
 
 // refresh token
-const refreshToken = catchAsync(async (req, res) => {
-  const { refreshToken } = req.cookies;
+const libraryRefreshToken = catchAsync(async (req, res) => {
+  const { libraryRefreshToken } = req.cookies;
 
-  console.log('refreshToken ==>', refreshToken);
+  console.log('libraryRefreshToken ==>', libraryRefreshToken);
 
-  const result = await AuthServices.refreshToken(refreshToken);
+  const result = await AuthServices.libraryRefreshToken(libraryRefreshToken);
 
   sendResponse(res, {
     statusCode: httpStatus.OK,
@@ -113,7 +110,7 @@ export const AuthControllers = {
   registerAuthor,
   loginUser,
   changePassword,
-  refreshToken,
+  libraryRefreshToken,
   forgetPassword,
   resetPassword,
 };
