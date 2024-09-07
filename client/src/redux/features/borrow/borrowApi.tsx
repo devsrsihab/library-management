@@ -1,7 +1,27 @@
+import { TQueryParams } from "../../../types";
 import { baseApi } from "../../api/baseApi";
 
 const borrowApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
+    // all get routes
+    getAllBorrowBooks: builder.query({
+      query: (args) => {
+        const params = new URLSearchParams();
+        if (args) {
+          args.forEach((item: TQueryParams) =>
+            params.append(item.name, item.value as string)
+          );
+        }
+        return {
+          url: "/borrowings",
+          method: "GET",
+          params,
+        };
+      },
+      providesTags: ["Borrowings"],
+    }),
+
+    // all post route
     addToBorrow: builder.mutation({
       query: (data) => ({
         url: "/borrowings",
@@ -10,13 +30,7 @@ const borrowApi = baseApi.injectEndpoints({
       }),
       invalidatesTags: ["Borrowings"],
     }),
-    getAllBorrowBooks: builder.query({
-      query: () => ({
-        url: "/borrowings",
-        method: "GET",
-      }),
-      providesTags: ["Borrowings"],
-    }),
+
     removeBorrowBook: builder.mutation({
       query: (id) => ({
         url: `/borrowings/${id}`,
@@ -28,7 +42,9 @@ const borrowApi = baseApi.injectEndpoints({
 });
 
 export const {
-  useAddToBorrowMutation,
+  // all get hooks
   useGetAllBorrowBooksQuery,
+  //  all post hooks
+  useAddToBorrowMutation,
   useRemoveBorrowBookMutation,
 } = borrowApi;

@@ -1,6 +1,5 @@
 import { useParams } from "react-router-dom";
 import { useGetSingleBookQuery } from "../redux/features/book/bookApi";
-import StarRating from "../components/shared/StarRating";
 import { useState } from "react";
 import SinglePageLoader from "../components/shared/loader/SinglePageLoader";
 import AddToBorrow from "../components/shared/AddToBorrow";
@@ -11,7 +10,6 @@ const BookDetails = () => {
   const { id } = useParams();
   const { data, isLoading } = useGetSingleBookQuery(id);
   const book = data?.data;
-  console.log(book);
 
   return (
     <div className="bg-[#f1f2f4]">
@@ -34,11 +32,6 @@ const BookDetails = () => {
                 <h1 className="text-2xl font-bold tracking-tight text-gray-900 sm:text-3xl">
                   {book.name}
                 </h1>
-
-                <div className="mt-2 flex items-center">
-                  <StarRating rating={book.rating} />
-                </div>
-
                 <p className="mt-4 text-gray-500">{book.shortDescription}</p>
 
                 <div className="mt-8">

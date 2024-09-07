@@ -1,17 +1,23 @@
 import { Layout, Menu } from "antd";
 import { sidebarRouteGenerator } from "../../utils/sidebarRouteGenerator";
 import { adminPaths } from "../../routes/admin.route";
-import { facultyPaths } from "../../routes/faculty.route";
 import { useAppSelector } from "../../redux/hooks";
 import { currentUser } from "../../redux/features/auth/authSlice";
 import { Link } from "react-router-dom";
+import { viewerPaths } from "../../routes/viewer.route";
+import { authorPaths } from "../../routes/author.route";
 
 const { Sider } = Layout;
+type SidebarItem = {
+  key: string;
+  label: React.ReactNode;
+  path: string;
+};
 
 const userRole = {
   ADMIN: "admin",
-  FACULTY: "faculty",
-  STUDENT: "student",
+  AUTHOR: "author",
+  VIEWER: "viewer",
 };
 
 const Sidebar = () => {
@@ -20,10 +26,22 @@ const Sidebar = () => {
 
   switch (role?.role) {
     case userRole.ADMIN:
-      sidebaritems = sidebarRouteGenerator(adminPaths, userRole.ADMIN);
+      sidebaritems = sidebarRouteGenerator(
+        adminPaths,
+        userRole.ADMIN
+      ) as SidebarItem[];
       break;
-    case userRole.FACULTY:
-      sidebaritems = sidebarRouteGenerator(facultyPaths, userRole.FACULTY);
+    case userRole.AUTHOR:
+      sidebaritems = sidebarRouteGenerator(
+        authorPaths,
+        userRole.AUTHOR
+      ) as SidebarItem[];
+      break;
+    case userRole.VIEWER:
+      sidebaritems = sidebarRouteGenerator(
+        viewerPaths,
+        userRole.VIEWER
+      ) as SidebarItem[];
       break;
 
     default:
@@ -47,7 +65,7 @@ const Sidebar = () => {
         className="demo-logo-vertical"
       >
         <Link to="/">
-          <h2>PH University</h2>
+          <h2>SRS Library</h2>
         </Link>
       </div>
       <Menu

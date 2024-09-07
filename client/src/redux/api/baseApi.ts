@@ -66,7 +66,7 @@ const baseQueryWithReferenceToken: BaseQueryFn<
 
 export const baseApi = createApi({
   reducerPath: "baseApi",
-  tagTypes: ["Borrowings", "GetMe"], // Define your tag types here
+  tagTypes: ["Borrowings", "GetMe", "Users"], // Define your tag types here
 
   baseQuery: baseQueryWithReferenceToken,
   endpoints: () => ({}),

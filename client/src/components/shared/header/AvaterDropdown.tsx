@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import type { MenuProps } from "antd";
 import { Dropdown, Space } from "antd";
 import { Link } from "react-router-dom";
@@ -9,9 +9,12 @@ import { useGetMeQuery } from "../../../redux/features/user/userApi";
 
 
 const AvaterDropdown: React.FC = () => {
+      const [open, setOpen] = useState(false);
       const distpatch = useAppDispatch();
       const { data, isLoading } = useGetMeQuery(undefined);
       const userInfo = data?.data;
+
+      console.log(userInfo);
 
       const handleLogout = () => {
         distpatch(logout());
@@ -20,11 +23,11 @@ const AvaterDropdown: React.FC = () => {
       const items: MenuProps["items"] = [
         {
           key: "username",
-          label: <span>{userInfo?.name}</span>,
+          label: <span>{userInfo?.id}</span>,
         },
         {
           key: "profile",
-          label: <Link to={"/profile"}>Profile</Link>,
+          label: <Link to={`/${userInfo?.role}/dashboard`}>Dashboard</Link>,
         },
         {
           key: "logout",
@@ -35,8 +38,15 @@ const AvaterDropdown: React.FC = () => {
     <>
       <div style={{ display: "flex", justifyContent: "end" }}>
         <Space direction="vertical" align="center">
-          <Dropdown menu={{ items }} placement="bottomRight">
+          <Dropdown
+            arrow
+            open={open}
+            overlayClassName="w-40"
+            menu={{ items }}
+            placement="bottomRight"
+          >
             <img
+              onClick={() => setOpen(!open)}
               className="w-10 h-10 cursor-pointer  p-1 rounded-full ring-2 ring-gray-300 "
               // show  a loader demo image path
               src={

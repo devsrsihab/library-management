@@ -15,6 +15,7 @@
     "@hookform/resolvers": "^3.9.0",
     "@reduxjs/toolkit": "https://pkg.csb.dev/reduxjs/redux-toolkit/commit/06a30ee4/@reduxjs/toolkit",
     "antd": "^5.18.3",
+    "cloudinary": "^2.4.0",
     "dayjs": "^1.11.12",
     "jwt-decode": "^4.0.0",
     "moment": "^2.30.1",

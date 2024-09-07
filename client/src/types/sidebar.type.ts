@@ -14,8 +14,16 @@ export type TSidebarItem = {
   label: ReactNode;
   children?: TSidebarItem[];
 } | undefined;
+
 //* type for Route
 export type TRoute = {
   path: string;
   element: ReactNode;
+};
+
+export type TSidebar = {
+  name?: string; // Optional name for the route
+  path: string; // The path in the URL
+  element: ReactNode; // The component to render at this path
+  children?: TRoute[]; // Optional children, allowing for nested routes
 };

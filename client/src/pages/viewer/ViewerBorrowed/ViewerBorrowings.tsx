@@ -1,16 +1,16 @@
-import { useGetAllBorrowBooksQuery } from "../../redux/features/borrow/borrowApi";
-import { TBorrowBook } from "../../types/borrowed.type";
 import { SerializedError } from "@reduxjs/toolkit";
-import PulsLoader from "../shared/loader/PulsLoader";
-import ServerError500 from "../shared/result/ServerError500";
-import Borrowed from "./Borrowed";
-import NotFound404 from "../shared/result/NotFound404";
+import Borrowed from "./ViewerBorrowed";
+import ServerError500 from "../../../components/shared/result/ServerError500";
+import { useGetAllBorrowBooksQuery } from "../../../redux/features/borrow/borrowApi";
+import PulsLoader from "../../../components/shared/loader/PulsLoader";
+import NotFound404 from "../../../components/shared/result/NotFound404";
+import { TBorrowBook } from "../../../types/borrowed.type";
 
 interface CustomSerializedError extends SerializedError {
   status: string;
 }
 
-const Borrowings = () => {
+const ViewerBorrowings = () => {
   const { data, isLoading, error } = useGetAllBorrowBooksQuery(undefined);
   const borrowings = data?.data || [];
 
@@ -44,4 +44,4 @@ const Borrowings = () => {
   );
 };
 
-export default Borrowings;
+export default ViewerBorrowings;
