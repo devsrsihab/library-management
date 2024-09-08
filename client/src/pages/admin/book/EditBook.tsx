@@ -6,7 +6,6 @@ import { TResponseRedux } from "../../../types/global.type";
 import PHInput from "../../../components/form/PHInput";
 import cloudinaryUpload from "../../../utils/cloudinaryUpload";
 import { useNavigate, useParams } from "react-router-dom";
-import PulsLoader from "../../../components/shared/loader/PulsLoader";
 import {
   useGetSingleBookQuery,
   useUpdateBookMutation,
@@ -17,6 +16,7 @@ import PHTextArea from "../../../components/form/PHTextArea";
 import { useGetAllUsersQuery } from "../../../redux/features/admin/userManagement.Api";
 import { useGetAllCategoryQuery } from "../../../redux/features/category/categoryApi";
 import PHSelect from "../../../components/form/PHSelect";
+import FormSkeletonLoader from "../../../components/shared/loader/FormSkeletonLoader";
 
 const EditBook = () => {
   const { id } = useParams();
@@ -93,7 +93,7 @@ const EditBook = () => {
   return (
     <>
       {isLoading ? (
-        <PulsLoader />
+        <FormSkeletonLoader />
       ) : (
         <Flex justify="center" align="center">
           <Col span={8}>
@@ -115,7 +115,7 @@ const EditBook = () => {
                 label="Description"
                 name="shortDescription"
               />
-              
+
               {books && books.author && authorDataOptions.length > 0 && (
                 <PHSelect
                   label="Author"
