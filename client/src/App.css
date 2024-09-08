@@ -27,3 +27,6 @@ img{
 :where(.css-dev-only-do-not-override-m4timi).ant-carousel .slick-next::after {
   position: static;
 }
+.ant-select-item-option-content {
+    text-transform: capitalize;
+}

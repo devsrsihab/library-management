@@ -25,14 +25,14 @@ const CreateBook = () => {
   // author optons
   const authorDataOptions = authorData?.data?.map((author: TUser) => ({
     value: author?._id,
-    label: author?.name.charAt(0).toUpperCase() + author?.name.slice(1),
+    label: author?.name,
   }));
   console.log(authorDataOptions);
 
   // category optons
   const categoryOptions = categoryData?.data?.map((category: TCategory) => ({
     value: category?._id,
-    label: category?.name.charAt(0).toUpperCase() + category?.name.slice(1),
+    label: category?.name,
   }));
 
   // form submit
@@ -46,7 +46,7 @@ const CreateBook = () => {
 
     const formData = {
       name: data.name,
-      authorName: data.authorName,
+      author: data.author,
       category: data.category,
       quantity: Number(data.quantity),
       shortDescription: data.shortDescription,
@@ -77,7 +77,7 @@ const CreateBook = () => {
 
           <PHSelect
             label="Author"
-            name="authorName"
+            name="author"
             disabled={authorLoading}
             options={authorDataOptions}
           />

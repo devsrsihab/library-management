@@ -1,64 +1,69 @@
 import { Button, Pagination, Table } from "antd";
 import type { TableColumnsType } from "antd";
 import { useState } from "react";
-import { useGetAllFacilitieQuery } from "../../../redux/features/facilitie/facilitieApi";
-import { TFacilitie } from "../../../types/facilitie.type";
-import FacilitieConfirmationModal from "../../../components/Facilities/FacilitieConfirmationModal";
 import { Link } from "react-router-dom";
+import { useGetAllBookQuery } from "../../../redux/features/book/bookApi";
+import {  TBookingTableData } from "../../../types";
+import BookConfirmationModal from "../../../components/book/BookConfirmationModal";
 
 const Books = () => {
   const [openReturn, setOpenReturn] = useState(false);
   const [selectedId, setSelectedId] = useState<string | null>(null);
   const [page, setPage] = useState(1);
 
-  const { data: facilitieData, isFetching } = useGetAllFacilitieQuery([
+  const { data: facilitieData, isFetching } = useGetAllBookQuery([
     { name: "limit", value: 5 },
     { name: "page", value: page },
   ]);
 
-  type TTableData = Pick<
-    TFacilitie,
-    "name" | "_id" | "location" | "pricePerHour" | "availableSlots"
-  >;
 
   const tableData = facilitieData?.data?.map(
-    ({ _id, name, location, pricePerHour, availableSlots }) => ({
+    ({ _id, name, category, author, quantity, image }) => ({
       _id,
       name,
-      location,
-      pricePerHour,
-      availableSlots,
+      category: category?.name,
+      author: author?.name ? author?.name : "N/A",
+      quantity,
+      image,
     })
   );
   const metaData = facilitieData?.meta;
 
-  const columns: TableColumnsType<TTableData> = [
+  const columns: TableColumnsType<TBookingTableData> = [
     {
       title: "Name",
       key: "name",
       dataIndex: "name",
     },
     {
-      title: "Location",
-      key: "location",
-      dataIndex: "location",
+      title: "Category",
+      key: "category",
+      dataIndex: "category",
     },
     {
-      title: "Price Per Hour",
-      key: "pricePerHour",
-      dataIndex: "pricePerHour",
+      title: "Author Name",
+      key: "author",
+      dataIndex: "author",
     },
     {
-      title: "Available Slots",
-      key: "availableSlots",
-      dataIndex: "availableSlots",
+      title: "Quantity",
+      key: "quantity",
+      dataIndex: "quantity",
+    },
+    {
+      title: "Image",
+      key: "image",
+      dataIndex: "image",
+      render: (image) => (
+        <img src={image} alt="image" className="w-20 h-20 object-cover" />
+      ),
     },
     {
       title: "Action",
       key: "x",
       render: (item) => (
         <div className="flex gap-2">
-          <Link to={`/admin/facilities/${item._id}`}>
+          <Link to={`/admin/books-edit/${item._id}`}>
             <Button className="bg-blue-500 text-white">Edit</Button>
           </Link>
           <Button
@@ -71,7 +76,7 @@ const Books = () => {
             Delete
           </Button>
           {selectedId === item._id && (
-            <FacilitieConfirmationModal
+            <BookConfirmationModal
               id={item._id}
               openReturn={openReturn}
               setOpenReturn={setOpenReturn}
@@ -90,6 +95,7 @@ const Books = () => {
         dataSource={tableData}
         rowKey="_id"
         showSorterTooltip={{ target: "sorter-icon" }}
+        pagination={false}
       />
 
       <div className="mt-8 flex justify-center">

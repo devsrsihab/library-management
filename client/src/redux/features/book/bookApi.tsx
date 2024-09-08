@@ -9,6 +9,13 @@ const bookApi = baseApi.injectEndpoints({
         url: `/books/${id}`,
         method: "GET",
       }),
+      transformResponse: (response: TResponseRedux<TBook>) => {
+        return {
+          data: response.data,
+          meta: response.meta,
+        };
+      },
+      providesTags: ["Books"],
     }),
     getAllBook: builder.query({
       query: (args) => {
@@ -43,9 +50,25 @@ const bookApi = baseApi.injectEndpoints({
     // all post route
     createBook: builder.mutation({
       query: (data) => ({
-        url: '/books',
+        url: "/books",
         method: "POST",
-        body: data
+        body: data,
+      }),
+      invalidatesTags: ["Books"],
+    }),
+    updateBook: builder.mutation({
+      query: (args) => ({
+        url: `/books/${args.id}`,
+        method: "PUT",
+        body: args.data,
+      }),
+      invalidatesTags: ["Books"],
+    }),
+
+    deleteBook: builder.mutation({
+      query: (id) => ({
+        url: `/books/${id}`,
+        method: "DELETE",
       }),
       invalidatesTags: ["Books"],
     }),
@@ -58,5 +81,7 @@ export const {
   useGetSingleBookQuery,
   useGetAllBookByCategoryQuery,
   // all post hook
-  useCreateBookMutation
+  useCreateBookMutation,
+  useDeleteBookMutation,
+  useUpdateBookMutation,
 } = bookApi;

@@ -1,3 +1,5 @@
+import { TCategory } from "./category.type";
+
 // Define the interface for the product prop
 export type Product =  {
   id: number;
@@ -28,11 +30,10 @@ export type TUser = {
 export type TBook = {
   _id: string;
   name: string;
-  authorName: string;
-  category: string;
+  author: TUser;
+  category: TCategory;
   quantity: number;
   shortDescription: string;
-  rating: number;
   image: string;
   createdBy: TUser;
 };

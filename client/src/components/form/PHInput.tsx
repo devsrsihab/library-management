@@ -5,14 +5,15 @@ type TInputProps = {
   type: string;
   name: string;
   label: string;
+  value?: string | number | undefined;
 };
-const PHInput = ({ type, name, label }: TInputProps) => {
+const PHInput = ({ type, name, label, value }: TInputProps) => {
   return (
     <Controller
       name={name}
       render={({ field }) => (
         <Form.Item label={label}>
-          <Input placeholder={label} {...field} id={name} type={type} />
+          <Input defaultValue={value} placeholder={label} {...field} id={name} type={type} />
         </Form.Item>
       )}
     />
