@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import { useAppDispatch } from "../../../redux/hooks";
 import { logout } from "../../../redux/features/auth/authSlice";
 import { useGetMeQuery } from "../../../redux/features/user/userApi";
+import { dropdownNameShorter } from '../../../utils/nameShorter';
 
 
 
@@ -14,7 +15,7 @@ const AvaterDropdown: React.FC = () => {
       const { data, isLoading } = useGetMeQuery(undefined);
       const userInfo = data?.data;
 
-      console.log(userInfo);
+      console.log('user info from avater ==>',userInfo);
 
       const handleLogout = () => {
         distpatch(logout());
@@ -22,12 +23,12 @@ const AvaterDropdown: React.FC = () => {
 
       const items: MenuProps["items"] = [
         {
-          key: "username",
-          label: <span>{userInfo?.id}</span>,
-        },
-        {
           key: "profile",
           label: <Link to={`/${userInfo?.role}/dashboard`}>Dashboard</Link>,
+        },
+        {
+          key: "name",
+          label: <span>{dropdownNameShorter(userInfo?.name ?? "") ?? ""}</span>,
         },
         {
           key: "logout",
