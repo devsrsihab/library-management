@@ -64,7 +64,7 @@ const WebLyout = () => {
         </Row>
       </Content>
       <Footer style={{ textAlign: "center", padding: "12px 24px" }}>
-        Ant Design ©{new Date().getFullYear()} Created by Ant UED
+        SRS Library ©{new Date().getFullYear()} Created by SRS
       </Footer>
     </Layout>
   );

@@ -22,7 +22,7 @@ const menus = [
   {
     key: "register",
     label: `Register`,
-    path: "/register",
+    path: "/auth/register",
   },
   {
     key: "login",

@@ -38,7 +38,7 @@ export const webPaths = [
     element: <ArchiveCategory />,
   },
   {
-    path: "/register",
+    path: "/auth/register",
     element: <Register />,
   },
   {
