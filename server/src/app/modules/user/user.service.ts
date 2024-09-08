@@ -167,24 +167,8 @@ const createAdminToDB = async (password: string, payload: TAdmin) => {
 };
 
 // get me servcies
-const getMeFromDB = async (email: string, role: string) => {
-  let result = null;
-
-  // if viewer
-  if (role === 'viewer') {
-    result = await User.findOne({ email });
-  }
-
-  // if author
-  if (role === 'author') {
-    result = await User.findOne({ email });
-  }
-
-  // if admin
-  if (role === 'admin') {
-    result = await User.findOne({ email });
-  }
-
+const getMeFromDB = async (email: string) => {
+  const result = await User.findOne({ email });
   return result;
 };
 

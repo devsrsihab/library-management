@@ -33,7 +33,7 @@ const registerAuthor = catchAsync(async (req, res) => {
 // login user\
 const loginUser = catchAsync(async (req, res) => {
   const result: any = await AuthServices.loginUser(req.body);
-  const { libraryRefreshToken, accessToken, neetPassWord } = result;
+  const { libraryRefreshToken, accessToken } = result;
 
   // save refresh token in cookie
   res.cookie('libraryRefreshToken', libraryRefreshToken, {
@@ -47,7 +47,7 @@ const loginUser = catchAsync(async (req, res) => {
     statusCode: httpStatus.OK,
     success: true,
     message: 'login successfully',
-    data: { accessToken, neetPassWord },
+    data: { accessToken },
   });
 });
 

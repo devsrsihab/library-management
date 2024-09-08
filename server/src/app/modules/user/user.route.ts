@@ -40,7 +40,7 @@ router.get(
   UserController.getAllUser,
 );
 // get me
-router.get('/me', auth(USER_ROLE.admin, USER_ROLE.viewer), UserController.getMe);
+router.get('/me', auth(USER_ROLE.admin, USER_ROLE.viewer, USER_ROLE.author), UserController.getMe);
 
 // change status
 router.patch(
