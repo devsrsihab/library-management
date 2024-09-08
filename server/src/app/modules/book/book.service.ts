@@ -11,7 +11,10 @@ const createBook = async (bookData: TBook) => {
 
 // Get all books
 const getAllBooks = async (query: Record<string, unknown>) => {
-  const bookQuery = new QueryBuilder(Book.find().populate('createdBy').populate('category'), query)
+  const bookQuery = new QueryBuilder(
+    Book.find().populate('createdBy').populate('category').populate('author'),
+    query,
+  )
     .filter()
     .sort()
     .paginate()
@@ -27,7 +30,10 @@ const getAllBooks = async (query: Record<string, unknown>) => {
 
 // Get a book by ID
 const getSingleBook = async (bookId: string): Promise<TBook | null> => {
-  const result = await Book.findById(bookId).populate('createdBy').populate('category');
+  const result = await Book.findById(bookId)
+    .populate('createdBy')
+    .populate('category')
+    .populate('author');
   return result;
 };
 

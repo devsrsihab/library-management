@@ -2,11 +2,10 @@ import { Types } from 'mongoose';
 
 export type TBook = {
   name: string;
-  authorName: string;
+  author: Types.ObjectId;
   category: Types.ObjectId;
   quantity: number;
   shortDescription: string;
-  rating: string;
   image: string;
   borrowedCount: number;
   createdBy: Types.ObjectId;
