@@ -4,17 +4,40 @@ import { Button, Col, Flex, Form, Input } from "antd";
 import { toast } from "sonner";
 import { TResponseRedux } from "../../../types/global.type";
 import PHInput from "../../../components/form/PHInput";
-import {  useCreateFacilityMutation } from "../../../redux/features/facilitie/facilitieApi";
-import { TFacilitie } from "../../../types/facilitie.type";
 import cloudinaryUpload from "../../../utils/cloudinaryUpload";
 import { useNavigate } from "react-router-dom";
+import { useCreateBookMutation } from "../../../redux/features/book/bookApi";
+import { TBook, TCategory, TUser } from "../../../types";
+import { useGetAllCategoryQuery } from "../../../redux/features/category/categoryApi";
+import { useGetAllUsersQuery } from "../../../redux/features/admin/userManagement.Api";
+import PHSelect from "../../../components/form/PHSelect";
 
-const CreateFacility = () => {
-  const [createFacility, { isLoading:isFacilitieCreating }] = useCreateFacilityMutation();
-  const navigation = useNavigate()
+const CreateBook = () => {
+  const navigation = useNavigate();
+  const [createBook, { isLoading: isFacilitieCreating }] =
+    useCreateBookMutation();
+  const { data: categoryData, isLoading: categoryLoading } =
+    useGetAllCategoryQuery(undefined);
+  const { data: authorData, isLoading: authorLoading } = useGetAllUsersQuery([
+    { name: "role", value: "author" },
+  ]);
 
+  // author optons
+  const authorDataOptions = authorData?.data?.map((author: TUser) => ({
+    value: author?._id,
+    label: author?.name.charAt(0).toUpperCase() + author?.name.slice(1),
+  }));
+  console.log(authorDataOptions);
+
+  // category optons
+  const categoryOptions = categoryData?.data?.map((category: TCategory) => ({
+    value: category?._id,
+    label: category?.name.charAt(0).toUpperCase() + category?.name.slice(1),
+  }));
+
+  // form submit
   const onSubmi: SubmitHandler<FieldValues> = async (data) => {
-    const loader = toast.loading("Creating facility...");
+    const loader = toast.loading("Creating Book...");
 
     let imageUpCloud;
     if (data.image) {
@@ -23,23 +46,21 @@ const CreateFacility = () => {
 
     const formData = {
       name: data.name,
-      description: data.description,
-      location: data.location,
-      pricePerHour: Number(data.pricePerHour),
-      availableSlots: Number(data.availableSlots),
+      authorName: data.authorName,
+      category: data.category,
+      quantity: Number(data.quantity),
+      shortDescription: data.shortDescription,
       image: imageUpCloud,
     };
 
     try {
-      const res = (await createFacility(
-        formData
-      )) as TResponseRedux<TFacilitie>;
+      const res = (await createBook(formData)) as TResponseRedux<TBook>;
 
       if (res.error) {
         toast.error(res.error.data.message, { id: loader });
       } else {
-        toast.success("Semester updated successfully", { id: loader });
-        navigation('/admin/facilities')
+        toast.success("Book Created successfully", { id: loader });
+        navigation("/admin");
       }
     } catch (error: any) {
       toast.error(error?.data?.message, { id: loader });
@@ -51,10 +72,21 @@ const CreateFacility = () => {
       <Col span={8}>
         <PHForm onSubmit={onSubmi}>
           <PHInput label="Name" name="name" type="text" />
-          <PHInput label="Description" name="description" type="text" />
-          <PHInput label="Location" name="location" type="text" />
-          <PHInput label="Price Per Hour" name="pricePerHour" type="text" />
-          <PHInput label="Available Slots" name="availableSlots" type="text" />
+          <PHInput label="Quantity" name="quantity" type="number" />
+          <PHInput label="Description" name="shortDescription" type="text" />
+
+          <PHSelect
+            label="Author"
+            name="authorName"
+            disabled={authorLoading}
+            options={authorDataOptions}
+          />
+          <PHSelect
+            label="Category"
+            name="category"
+            disabled={categoryLoading}
+            options={categoryOptions}
+          />
           <Controller
             name="image"
             render={({ field: { onChange, value, ...field } }) => (
@@ -69,11 +101,13 @@ const CreateFacility = () => {
             )}
           />
 
-          <Button disabled={isFacilitieCreating} htmlType="submit">Submit</Button>
+          <Button disabled={isFacilitieCreating} htmlType="submit">
+            Submit
+          </Button>
         </PHForm>
       </Col>
     </Flex>
   );
 };
 
-export default CreateFacility;
+export default CreateBook;

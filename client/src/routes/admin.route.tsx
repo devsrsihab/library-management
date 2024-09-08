@@ -1,6 +1,7 @@
 import AdminDashboard from "../pages/admin/AdminDashboard";
 import Users from "../pages/admin/userManagement/Users";
 import CreateUsers from "../pages/admin/userManagement/CreateUsers";
+import CreateBook from "../pages/admin/book/CreateBook";
 
 export const adminPaths = [
   {
@@ -21,15 +22,20 @@ export const adminPaths = [
         path: "user-list",
         element: <Users />,
       },
+    ],
+  },
+  {
+    name: "Books",
+    children: [
+      {
+        name: "Create Book",
+        path: "create-book",
+        element: <CreateBook />,
+      },
       // {
-      //   name: "Authors",
-      //   path: "author-list",
-      //   element: <Authors />,
-      // },
-      // {
-      //   name: "Users",
-      //   path: "user-list",
-      //   element: <Users />,
+      //   name: "Books",
+      //   path: "book-list",
+      //   element: <Books />,
       // },
     ],
   },

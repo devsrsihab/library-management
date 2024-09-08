@@ -3,12 +3,7 @@ import { baseApi } from "../../api/baseApi";
 
 const bookApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
-    // getAllBook: builder.query({
-    //   query: () => ({
-    //     url: "/books",
-    //     method: "GET",
-    //   }),
-    // }),
+    // all get route
     getSingleBook: builder.query({
       query: (id) => ({
         url: `/books/${id}`,
@@ -35,6 +30,8 @@ const bookApi = baseApi.injectEndpoints({
           meta: response.meta,
         };
       },
+
+      providesTags: ["Books"],
     }),
     getAllBookByCategory: builder.query({
       query: (catname) => ({
@@ -42,7 +39,24 @@ const bookApi = baseApi.injectEndpoints({
         method: "GET",
       }),
     }),
+
+    // all post route
+    createBook: builder.mutation({
+      query: (data) => ({
+        url: '/books',
+        method: "POST",
+        body: data
+      }),
+      invalidatesTags: ["Books"],
+    }),
   }),
 });
 
-export const { useGetAllBookQuery, useGetSingleBookQuery, useGetAllBookByCategoryQuery } = bookApi;
+export const {
+  // all get hook
+  useGetAllBookQuery,
+  useGetSingleBookQuery,
+  useGetAllBookByCategoryQuery,
+  // all post hook
+  useCreateBookMutation
+} = bookApi;

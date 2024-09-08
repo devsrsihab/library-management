@@ -18,7 +18,7 @@ export type TUser = {
   _id: string;
   id: string;
   email: string;
-  needPasswordChange: boolean;
+  name: string;
   role: string;
   status: string;
   createdAt: string;

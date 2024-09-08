@@ -6,7 +6,7 @@ import { TFacilitie } from "../../../types/facilitie.type";
 import FacilitieConfirmationModal from "../../../components/Facilities/FacilitieConfirmationModal";
 import { Link } from "react-router-dom";
 
-const Books = () => {
+const Categories = () => {
   const [openReturn, setOpenReturn] = useState(false);
   const [selectedId, setSelectedId] = useState<string | null>(null);
   const [page, setPage] = useState(1);
@@ -104,4 +104,4 @@ const Books = () => {
   );
 };
 
-export default Books;
+export default Categories;
