@@ -18,7 +18,7 @@ import PHSelect from "../../../components/form/PHSelect";
 import { useAppSelector } from "../../../redux/hooks";
 import { currentUser } from "../../../redux/features/auth/authSlice";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { bookValidationSchema } from "../../../schemas/book.schema";
+import {  getBookValidationSchema } from "../../../schemas/book.schema";
 import { useState } from "react";
 import PHImage from "../../../components/form/PHImage";
 
@@ -84,7 +84,7 @@ const CreateBook = () => {
       <Col span={8}>
         <PHForm
           onSubmit={onSubmit}
-          resolver={zodResolver(bookValidationSchema)}
+          resolver={zodResolver(getBookValidationSchema(user?.role as string))}
         >
           <PHInput label="Name" name="name" type="text" />
           <PHInput label="Quantity" name="quantity" type="number" />
