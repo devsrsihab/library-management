@@ -1,9 +1,10 @@
 import AdminDashboard from "../pages/admin/AdminDashboard";
-import Users from "../pages/admin/userManagement/Users";
-import CreateUsers from "../pages/admin/userManagement/CreateUsers";
 import CreateBook from "../pages/admin/book/CreateBook";
 import Books from "../pages/admin/book/Books";
 import EditBook from "../pages/admin/book/EditBook";
+import Categories from "../pages/admin/category/Categories";
+import EditCategory from "../pages/admin/category/EditCategory";
+import CreateCategory from "../pages/admin/category/CreateCategory";
 
 export const adminPaths = [
   {
@@ -11,21 +12,7 @@ export const adminPaths = [
     path: "dashboard",
     element: <AdminDashboard />,
   },
-  {
-    name: "User Management",
-    children: [
-      {
-        name: "Create Users",
-        path: "create-users",
-        element: <CreateUsers />,
-      },
-      {
-        name: "Users",
-        path: "user-list",
-        element: <Users />,
-      },
-    ],
-  },
+
   {
     name: "Books",
     children: [
@@ -42,6 +29,26 @@ export const adminPaths = [
       {
         path: "books-edit/:id",
         element: <EditBook />,
+      },
+    ],
+  },
+
+  {
+    name: "Categories",
+    children: [
+      {
+        name: "Create Category",
+        path: "create-category",
+        element: <CreateCategory />,
+      },
+      {
+        name: "Categories",
+        path: "categories-list",
+        element: <Categories />,
+      },
+      {
+        path: "categories-edit/:id",
+        element: <EditCategory />,
       },
     ],
   },

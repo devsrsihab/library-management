@@ -4,24 +4,29 @@ import { Button, Col, Flex, Form, Input } from "antd";
 import { toast } from "sonner";
 import { TResponseRedux } from "../../../types/global.type";
 import PHInput from "../../../components/form/PHInput";
-import {
-  useGetSingleFacilitieQuery,
-  useUpdateFacilitieMutation,
-} from "../../../redux/features/facilitie/facilitieApi";
-import { TFacilitie } from "../../../types/facilitie.type";
 import cloudinaryUpload from "../../../utils/cloudinaryUpload";
 import { useNavigate, useParams } from "react-router-dom";
-import PulsLoader from "../../../components/shared/loader/PulsLoader";
+import {  TCategory } from "../../../types";
+import { useState } from "react";
+import {  useGetSingleCategoryQuery, useUpdateCategoryMutation } from "../../../redux/features/category/categoryApi";
+import FormSkeletonLoader from "../../../components/shared/loader/FormSkeletonLoader";
 
 const EditCategory = () => {
   const { id } = useParams();
-   const navigation = useNavigate();
-  const { data, isLoading } = useGetSingleFacilitieQuery(id, { skip: !id });
-  const facilitie = data?.data;
-  const [updateFacilitie, { isLoading: isFacilitieUpdating }] = useUpdateFacilitieMutation();
+  const navigate = useNavigate();
+  const { data, isLoading } = useGetSingleCategoryQuery(id, { skip: !id });
+  const books = data?.data;
 
-  const onSubmi: SubmitHandler<FieldValues> = async (data) => {
-    const loader = toast.loading("Creating facility...");
+  // cateogry mutatoin 
+  const [updateCategory, { isLoading: updateBookLoading }] =
+    useUpdateCategoryMutation();
+
+  // photo preview
+  const [preview, setPreview] = useState(books?.image);
+
+  // form submit
+  const onSubmit: SubmitHandler<FieldValues> = async (data) => {
+    const loader = toast.loading("Updating Category...");
 
     let imageUpCloud;
     if (data.image) {
@@ -29,25 +34,21 @@ const EditCategory = () => {
     }
 
     const formData = {
-      name: data.name ? data.name : facilitie?.name,
-      description: data.description ? data.description : facilitie?.description,
-      location: data.location ? data.location : facilitie?.location,
-      pricePerHour: Number(data.pricePerHour) ? Number(data.pricePerHour) : facilitie?.pricePerHour,
-      availableSlots: Number(data.availableSlots) ? Number(data.availableSlots) : facilitie?.availableSlots,
-      image: imageUpCloud ? imageUpCloud : facilitie?.image,
+      name: data.name || books?.name,
+      image: imageUpCloud || books?.image,
     };
-    console.log(formData);
 
     try {
-      const res = (await updateFacilitie({id, 
-        formData}
-      )) as TResponseRedux<TFacilitie>;
+      const res = (await updateCategory({
+        id,
+        data: formData,
+      })) as TResponseRedux<TCategory>;
 
       if (res.error) {
         toast.error(res.error.data.message, { id: loader });
       } else {
-        toast.success("Semester created successfully", { id: loader });
-         navigation("/admin/facilities");
+        toast.success("Category updated successfully", { id: loader });
+        navigate("/admin/categories-list");
       }
     } catch (error: any) {
       toast.error(error?.data?.message, { id: loader });
@@ -57,66 +58,59 @@ const EditCategory = () => {
   return (
     <>
       {isLoading ? (
-        <PulsLoader />
+        <FormSkeletonLoader />
       ) : (
         <Flex justify="center" align="center">
           <Col span={8}>
-            <PHForm onSubmit={onSubmi}>
+            <PHForm onSubmit={onSubmit}>
               <PHInput
-                value={facilitie?.name}
+                value={books?.name}
                 label="Name"
                 name="name"
                 type="text"
               />
-              <PHInput
-                value={facilitie?.description}
-                label="Description"
-                name="description"
-                type="text"
-              />
-              <PHInput
-                value={facilitie?.location}
-                label="Location"
-                name="location"
-                type="text"
-              />
-              <PHInput
-                value={facilitie?.pricePerHour}
-                label="Price Per Hour"
-                name="pricePerHour"
-                type="text"
-              />
-              <PHInput
-                value={facilitie?.availableSlots}
-                label="Available Slots"
-                name="availableSlots"
-                type="text"
-              />
 
-              <div className="w-full py-8">
-                <img src={facilitie?.image} />
+              <div className="max-w-40 py-8">
+                {/* Display the current or preview image */}
+                <img src={preview || books?.image} alt="Book Preview" />
               </div>
 
               <Controller
                 name="image"
+                // eslint-disable-next-line @typescript-eslint/no-unused-vars
                 render={({ field: { onChange, value, ...field } }) => (
                   <Form.Item label="Image">
                     <Input
                       type="file"
-                      value={value?.fileName}
+                      accept="image/*"
                       {...field}
-                      onChange={(e) => onChange(e.target.files?.[0])}
+                      onChange={(e) => {
+                        const file = e.target.files?.[0];
+                        onChange(file);
+
+                        // If a new file is selected, update the preview
+                        if (file) {
+                          const reader = new FileReader();
+                          reader.onloadend = () => {
+                            setPreview(reader.result as string);
+                          };
+                          reader.readAsDataURL(file);
+                        } else {
+                          setPreview(books?.image); // Reset to original image if no file is selected
+                        }
+                      }}
                     />
                   </Form.Item>
                 )}
               />
 
-              <Button disabled={isFacilitieUpdating} htmlType="submit">Submit</Button>
+              <Button disabled={updateBookLoading} htmlType="submit">
+                Submit
+              </Button>
             </PHForm>
           </Col>
         </Flex>
       )}
-      ;
     </>
   );
 };

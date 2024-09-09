@@ -45,12 +45,11 @@ const EditBook = () => {
     })) ?? [];
 
   // category optons
-  const categoryOptions: TSelectOptions[] = categoryData?.data?.map(
-    (category: TCategory) => ({
+  const categoryOptions: TSelectOptions[] =
+    categoryData?.data?.map((category: TCategory) => ({
       value: category?._id,
       label: category?.name,
-    })
-  );
+    })) ?? [];
 
   // photo preview
   const [preview, setPreview] = useState(books?.image); // State for image preview

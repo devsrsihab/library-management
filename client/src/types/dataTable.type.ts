@@ -17,3 +17,9 @@ export type TBookingTableData = {
   quantity: number;
   image: string;
 };
+
+export type TCategoryTableData = {
+  _id: string;
+  name: string;
+  image: string;
+};

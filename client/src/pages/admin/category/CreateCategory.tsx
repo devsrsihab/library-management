@@ -4,18 +4,22 @@ import { Button, Col, Flex, Form, Input } from "antd";
 import { toast } from "sonner";
 import { TResponseRedux } from "../../../types/global.type";
 import PHInput from "../../../components/form/PHInput";
-
 import cloudinaryUpload from "../../../utils/cloudinaryUpload";
 import { useNavigate } from "react-router-dom";
-import { useCreateBookMutation } from "../../../redux/features/book/bookApi";
-import { TBook } from "../../../types";
+import {  TCategory } from "../../../types";
+import { useState } from "react";
+import { useCreateCategoryMutation } from "../../../redux/features/category/categoryApi";
 
 const CreateCategory = () => {
-  const [createBook, { isLoading: isFacilitieCreating }] = useCreateBookMutation();
-  const navigation = useNavigate()
+  const navigation = useNavigate();
+  // photo preview
+  const [preview, setPreview] = useState('');
+  const [createCategory, { isLoading: isCategoryCreating }] =
+    useCreateCategoryMutation();
 
+  // form submit
   const onSubmi: SubmitHandler<FieldValues> = async (data) => {
-    const loader = toast.loading("Creating facility...");
+    const loader = toast.loading("Creating Category...");
 
     let imageUpCloud;
     if (data.image) {
@@ -24,21 +28,17 @@ const CreateCategory = () => {
 
     const formData = {
       name: data.name,
-      description: data.description,
-      location: data.location,
-      pricePerHour: Number(data.pricePerHour),
-      availableSlots: Number(data.availableSlots),
       image: imageUpCloud,
     };
 
     try {
-      const res = (await createBook(formData)) as TResponseRedux<TBook>;
+      const res = (await createCategory(formData)) as TResponseRedux<TCategory>;
 
       if (res.error) {
         toast.error(res.error.data.message, { id: loader });
       } else {
-        toast.success("Semester updated successfully", { id: loader });
-        navigation('/admin/facilities')
+        toast.success("Category Created successfully", { id: loader });
+        navigation("/admin/category-list");
       }
     } catch (error: any) {
       toast.error(error?.data?.message, { id: loader });
@@ -50,25 +50,44 @@ const CreateCategory = () => {
       <Col span={8}>
         <PHForm onSubmit={onSubmi}>
           <PHInput label="Name" name="name" type="text" />
-          <PHInput label="Description" name="description" type="text" />
-          <PHInput label="Location" name="location" type="text" />
-          <PHInput label="Price Per Hour" name="pricePerHour" type="text" />
-          <PHInput label="Available Slots" name="availableSlots" type="text" />
+
+          <div className="max-w-40 py-8">
+            {/* Display the current or preview image */}
+            {preview && <img src={preview || ""} alt="Book Preview" />}
+          </div>
+
           <Controller
             name="image"
+            // eslint-disable-next-line @typescript-eslint/no-unused-vars
             render={({ field: { onChange, value, ...field } }) => (
               <Form.Item label="Image">
                 <Input
                   type="file"
-                  value={value?.fileName}
+                  accept="image/*"
                   {...field}
-                  onChange={(e) => onChange(e.target.files?.[0])}
+                  onChange={(e) => {
+                    const file = e.target.files?.[0];
+                    onChange(file);
+
+                    // If a new file is selected, update the preview
+                    if (file) {
+                      const reader = new FileReader();
+                      reader.onloadend = () => {
+                        setPreview(reader.result as string);
+                      };
+                      reader.readAsDataURL(file);
+                    } else {
+                      setPreview("");
+                    }
+                  }}
                 />
               </Form.Item>
             )}
           />
 
-          <Button disabled={isFacilitieCreating} htmlType="submit">Submit</Button>
+          <Button disabled={isCategoryCreating} htmlType="submit">
+            Submit
+          </Button>
         </PHForm>
       </Col>
     </Flex>
