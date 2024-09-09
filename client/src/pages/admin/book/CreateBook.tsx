@@ -1,6 +1,10 @@
-import { Controller, FieldValues, SubmitHandler } from "react-hook-form";
+import {
+  FieldValues,
+  SubmitHandler,
+
+} from "react-hook-form";
 import PHForm from "../../../components/form/PHForm";
-import { Button, Col, Flex, Form, Input } from "antd";
+import { Button, Col, Flex } from "antd";
 import { toast } from "sonner";
 import { TResponseRedux } from "../../../types/global.type";
 import PHInput from "../../../components/form/PHInput";
@@ -11,9 +15,18 @@ import { TBook, TCategory, TUser } from "../../../types";
 import { useGetAllCategoryQuery } from "../../../redux/features/category/categoryApi";
 import { useGetAllUsersQuery } from "../../../redux/features/admin/userManagement.Api";
 import PHSelect from "../../../components/form/PHSelect";
+import { useAppSelector } from "../../../redux/hooks";
+import { currentUser } from "../../../redux/features/auth/authSlice";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { bookValidationSchema } from "../../../schemas/book.schema";
+import { useState } from "react";
+import PHImage from "../../../components/form/PHImage";
 
 const CreateBook = () => {
   const navigation = useNavigate();
+  const [preview, setPreview] = useState("");
+
+  const user = useAppSelector(currentUser);
   const [createBook, { isLoading: isFacilitieCreating }] =
     useCreateBookMutation();
   const { data: categoryData, isLoading: categoryLoading } =
@@ -27,7 +40,6 @@ const CreateBook = () => {
     value: author?._id,
     label: author?.name,
   }));
-  console.log(authorDataOptions);
 
   // category optons
   const categoryOptions = categoryData?.data?.map((category: TCategory) => ({
@@ -36,7 +48,7 @@ const CreateBook = () => {
   }));
 
   // form submit
-  const onSubmi: SubmitHandler<FieldValues> = async (data) => {
+  const onSubmit: SubmitHandler<FieldValues> = async (data) => {
     const loader = toast.loading("Creating Book...");
 
     let imageUpCloud;
@@ -60,7 +72,7 @@ const CreateBook = () => {
         toast.error(res.error.data.message, { id: loader });
       } else {
         toast.success("Book Created successfully", { id: loader });
-        navigation("/admin");
+        navigation("/admin/book-list");
       }
     } catch (error: any) {
       toast.error(error?.data?.message, { id: loader });
@@ -70,36 +82,37 @@ const CreateBook = () => {
   return (
     <Flex justify="center" align="center">
       <Col span={8}>
-        <PHForm onSubmit={onSubmi}>
+        <PHForm
+          onSubmit={onSubmit}
+          resolver={zodResolver(bookValidationSchema)}
+        >
           <PHInput label="Name" name="name" type="text" />
           <PHInput label="Quantity" name="quantity" type="number" />
           <PHInput label="Description" name="shortDescription" type="text" />
 
-          <PHSelect
-            label="Author"
-            name="author"
-            disabled={authorLoading}
-            options={authorDataOptions}
-          />
+          {user?.role === "admin" ? (
+            <PHSelect
+              label="Author"
+              name="author"
+              disabled={authorLoading}
+              options={authorDataOptions}
+            />
+          ) : null}
+
           <PHSelect
             label="Category"
             name="category"
             disabled={categoryLoading}
             options={categoryOptions}
           />
-          <Controller
-            name="image"
-            render={({ field: { onChange, value, ...field } }) => (
-              <Form.Item label="Image">
-                <Input
-                  type="file"
-                  value={value?.fileName}
-                  {...field}
-                  onChange={(e) => onChange(e.target.files?.[0])}
-                />
-              </Form.Item>
-            )}
-          />
+
+          {preview && (
+            <div className="max-w-40 pb-3">
+              {<img src={preview || ""} alt="Book Preview" />}
+            </div>
+          )}
+
+          <PHImage label="Image" name="image" setPreview={setPreview} />
 
           <Button disabled={isFacilitieCreating} htmlType="submit">
             Submit

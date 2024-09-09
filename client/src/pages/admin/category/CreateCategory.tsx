@@ -1,6 +1,6 @@
-import { Controller, FieldValues, SubmitHandler } from "react-hook-form";
+import {  FieldValues, SubmitHandler } from "react-hook-form";
 import PHForm from "../../../components/form/PHForm";
-import { Button, Col, Flex, Form, Input } from "antd";
+import { Button, Col, Flex} from "antd";
 import { toast } from "sonner";
 import { TResponseRedux } from "../../../types/global.type";
 import PHInput from "../../../components/form/PHInput";
@@ -9,6 +9,9 @@ import { useNavigate } from "react-router-dom";
 import {  TCategory } from "../../../types";
 import { useState } from "react";
 import { useCreateCategoryMutation } from "../../../redux/features/category/categoryApi";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { categoryValidationSchema } from "../../../schemas/category.schema";
+import PHImage from "../../../components/form/PHImage";
 
 const CreateCategory = () => {
   const navigation = useNavigate();
@@ -38,7 +41,7 @@ const CreateCategory = () => {
         toast.error(res.error.data.message, { id: loader });
       } else {
         toast.success("Category Created successfully", { id: loader });
-        navigation("/admin/category-list");
+        navigation("/admin/categories-list");
       }
     } catch (error: any) {
       toast.error(error?.data?.message, { id: loader });
@@ -48,42 +51,19 @@ const CreateCategory = () => {
   return (
     <Flex justify="center" align="center">
       <Col span={8}>
-        <PHForm onSubmit={onSubmi}>
+        <PHForm
+          onSubmit={onSubmi}
+          resolver={zodResolver(categoryValidationSchema)}
+        >
           <PHInput label="Name" name="name" type="text" />
 
-          <div className="max-w-40 py-8">
-            {/* Display the current or preview image */}
-            {preview && <img src={preview || ""} alt="Book Preview" />}
-          </div>
+          {preview && (
+            <div className="max-w-40 pb-3">
+              {<img src={preview || ""} alt="Book Preview" />}
+            </div>
+          )}
 
-          <Controller
-            name="image"
-            // eslint-disable-next-line @typescript-eslint/no-unused-vars
-            render={({ field: { onChange, value, ...field } }) => (
-              <Form.Item label="Image">
-                <Input
-                  type="file"
-                  accept="image/*"
-                  {...field}
-                  onChange={(e) => {
-                    const file = e.target.files?.[0];
-                    onChange(file);
-
-                    // If a new file is selected, update the preview
-                    if (file) {
-                      const reader = new FileReader();
-                      reader.onloadend = () => {
-                        setPreview(reader.result as string);
-                      };
-                      reader.readAsDataURL(file);
-                    } else {
-                      setPreview("");
-                    }
-                  }}
-                />
-              </Form.Item>
-            )}
-          />
+          <PHImage label="Image" name="image" setPreview={setPreview} />
 
           <Button disabled={isCategoryCreating} htmlType="submit">
             Submit

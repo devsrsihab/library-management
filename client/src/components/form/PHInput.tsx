@@ -11,9 +11,16 @@ const PHInput = ({ type, name, label, value }: TInputProps) => {
   return (
     <Controller
       name={name}
-      render={({ field }) => (
+      render={({ field, fieldState: { error } }) => (
         <Form.Item label={label}>
-          <Input defaultValue={value} placeholder={label} {...field} id={name} type={type} />
+          <Input
+            defaultValue={value}
+            placeholder={label}
+            {...field}
+            id={name}
+            type={type}
+          />
+          {error && <small style={{ color: "red" }}>{error.message}</small>}
         </Form.Item>
       )}
     />

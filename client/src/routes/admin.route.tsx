@@ -5,6 +5,8 @@ import EditBook from "../pages/admin/book/EditBook";
 import Categories from "../pages/admin/category/Categories";
 import EditCategory from "../pages/admin/category/EditCategory";
 import CreateCategory from "../pages/admin/category/CreateCategory";
+import CreateUsers from "../pages/admin/userManagement/CreateUsers";
+import Users from "../pages/admin/userManagement/Users";
 
 export const adminPaths = [
   {
@@ -49,6 +51,21 @@ export const adminPaths = [
       {
         path: "categories-edit/:id",
         element: <EditCategory />,
+      },
+    ],
+  },
+  {
+    name: "User Managment",
+    children: [
+      {
+        name: "Create User",
+        path: "create-user",
+        element: <CreateUsers />,
+      },
+      {
+        name: "Users",
+        path: "user-list",
+        element: <Users />,
       },
     ],
   },

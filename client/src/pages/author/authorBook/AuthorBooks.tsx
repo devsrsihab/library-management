@@ -2,20 +2,19 @@ import { Button, Pagination, Table } from "antd";
 import type { TableColumnsType } from "antd";
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { useGetAllBookQuery } from "../../../redux/features/book/bookApi";
-import {  TBookingTableData } from "../../../types";
+import { useGetAllBookByAuthorQuery } from "../../../redux/features/book/bookApi";
+import { TBookingTableData } from "../../../types";
 import BookConfirmationModal from "../../../components/book/BookConfirmationModal";
 
-const Books = () => {
+const AuthorBooks = () => {
   const [openReturn, setOpenReturn] = useState(false);
   const [selectedId, setSelectedId] = useState<string | null>(null);
   const [page, setPage] = useState(1);
 
-  const { data: bookData, isFetching } = useGetAllBookQuery([
+  const { data: bookData, isFetching } = useGetAllBookByAuthorQuery([
     { name: "limit", value: 5 },
     { name: "page", value: page },
   ]);
-
 
   const tableData = bookData?.data?.map(
     ({ _id, name, category, author, quantity, image }) => ({
@@ -110,4 +109,4 @@ const Books = () => {
   );
 };
 
-export default Books;
+export default AuthorBooks;

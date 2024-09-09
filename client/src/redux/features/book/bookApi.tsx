@@ -16,8 +16,32 @@ const bookApi = baseApi.injectEndpoints({
         };
       },
       providesTags: ["Books"],
-    }),
+    }),   
     
+    getAllBookByAuthor: builder.query({
+      query: (args) => {
+        const params = new URLSearchParams();
+        if (args) {
+          args.forEach((item: TQueryParams) =>
+            params.append(item.name, item.value as string)
+          );
+        }
+        return {
+          url: "/books/byauthor",
+          method: "GET",
+          params,
+        };
+      },
+      transformResponse: (response: TResponseRedux<TBook[]>) => {
+        return {
+          data: response.data,
+          meta: response.meta,
+        };
+      },
+
+      providesTags: ["Books"],
+    }),
+
     getAllBook: builder.query({
       query: (args) => {
         const params = new URLSearchParams();
@@ -81,6 +105,7 @@ export const {
   useGetAllBookQuery,
   useGetSingleBookQuery,
   useGetAllBookByCategoryQuery,
+  useGetAllBookByAuthorQuery,
   // all post hook
   useCreateBookMutation,
   useDeleteBookMutation,
