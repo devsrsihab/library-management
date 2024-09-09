@@ -7,9 +7,16 @@ import { User } from '../user/user.model';
 // Create
 const createBook = catchAsync(async (req, res) => {
   const bookData = req.body;
+  const role = req?.user?.role;
   const email = req?.user?.email;
   const user = await User.findOne({ email }, { _id: 1 });
   bookData.createdBy = user?._id;
+
+  // if role author 
+  if (role === 'author') {
+      bookData.author = user?._id;
+  }
+
   const result = await BookServices.createBook(bookData);
   // const result = 'none';
   sendResponse(res, {
@@ -28,6 +35,20 @@ const getAllBooks = catchAsync(async (req, res) => {
     statusCode: httpStatus.OK,
     success: true,
     message: 'Books retrieved successfully',
+    meta: result.meta,
+    data: result.result,
+  });
+});
+
+// Read All book by author
+const getAllBooksByAuthor = catchAsync(async (req, res) => {
+  const query = req.query;
+  const email = req?.user?.email;
+  const result = await BookServices.getAllBooksByAuthor(email, query);
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: 'Books by author retrieved successfully',
     meta: result.meta,
     data: result.result,
   });
@@ -90,4 +111,5 @@ export const BookControllers = {
   updateBook,
   deleteBook,
   getBooksByCategory,
+  getAllBooksByAuthor,
 };

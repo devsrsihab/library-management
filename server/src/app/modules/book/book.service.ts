@@ -2,6 +2,7 @@ import QueryBuilder from '../../builder/QueryBuilder';
 import { Category } from '../category/category.model';
 import { TBook } from './book.interface';
 import { Book } from './book.model';
+import { User } from '../user/user.model';
 
 // Create a book
 const createBook = async (bookData: TBook) => {
@@ -13,6 +14,27 @@ const createBook = async (bookData: TBook) => {
 const getAllBooks = async (query: Record<string, unknown>) => {
   const bookQuery = new QueryBuilder(
     Book.find().populate('createdBy').populate('category').populate('author'),
+    query,
+  )
+    .filter()
+    .sort()
+    .paginate()
+    .fields();
+
+  const result = await bookQuery.modelQuery;
+  const meta = await bookQuery.countTotal();
+  return {
+    result,
+    meta,
+  };
+};
+
+// Get all books
+const getAllBooksByAuthor = async (email: string, query: Record<string, unknown>) => {
+  // find user from email
+  const user = await User.findOne({ email }).select('_id');
+  const bookQuery = new QueryBuilder(
+    Book.find({ createdBy: user?._id }).populate('createdBy').populate('category').populate('author'),
     query,
   )
     .filter()
@@ -64,4 +86,5 @@ export const BookServices = {
   updateBook,
   deleteBook,
   getBooksByCategory,
+  getAllBooksByAuthor,
 };
