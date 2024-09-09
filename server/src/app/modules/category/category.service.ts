@@ -1,3 +1,4 @@
+import QueryBuilder from '../../builder/QueryBuilder';
 import { TCategory } from './category.interface';
 import { Category } from './category.model';
 
@@ -9,9 +10,15 @@ const createCategory = async (CategoryData: TCategory) => {
 };
 
 // Get all Categorys
-const getAllCategorys = async (): Promise<TCategory[]> => {
-  const result = await Category.find();
-  return result;
+const getAllCategorys = async (query: Record<string, unknown>) => {
+  const bookQuery = new QueryBuilder(Category.find(), query).filter().sort().paginate().fields();
+
+  const result = await bookQuery.modelQuery;
+  const meta = await bookQuery.countTotal();
+  return {
+    result,
+    meta,
+  };
 };
 
 // Get a Category by ID
