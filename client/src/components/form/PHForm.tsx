@@ -1,5 +1,5 @@
 import { Form } from "antd";
-import { ReactNode } from "react";
+import { ReactNode, useEffect } from "react";
 import {
   FieldValues,
   FormProvider,
@@ -18,6 +18,7 @@ type TFormProps = {
   children: ReactNode;
   defaultValues?: Record<string, any>;
   resolver?: any;
+  resetData?: any;
 };
 
 const PHForm = ({
@@ -25,6 +26,7 @@ const PHForm = ({
   children,
   defaultValues,
   resolver,
+  resetData,
 }: TFormProps) => {
   const formConfig: TFormConfig = {};
 
@@ -36,12 +38,17 @@ const PHForm = ({
   }
 
   const methods = useForm(formConfig);
+  useEffect(() => {
+    if (resetData) {
+      methods.reset(resetData); // Reset the form with the new data
+    }
+  }, [resetData, methods]);
 
   const submit: SubmitHandler<FieldValues> = async (data) => {
     try {
       await onSubmit(data);
       methods.reset();
-    } catch (error:any) {
+    } catch (error: any) {
       toast.error("Server error:", error);
     }
   };

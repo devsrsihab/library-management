@@ -11,10 +11,11 @@ import { TUser } from "../../types";
 import { verifyToken } from "../../utils/verifyToken";
 import { setuser } from "../../redux/features/auth/authSlice";
 import { IoEyeOutline, IoEyeOffOutline } from "react-icons/io5";
-import { useState } from "react";
+import {  useState } from "react";
 
 const Login = () => {
   const [login] = useLoginMutation();
+  const [resetData, setResetData] = useState({});
   const [isShowPass, setIsShowPass] = useState(false);
   const navigation = useNavigate();
   const distpatch = useAppDispatch();
@@ -32,12 +33,18 @@ const Login = () => {
         toast.success("Account Login Successfully", { id: loader });
         navigation("/");
       }
-    } catch (error) {
+    } catch (error:any) {
       console.log(error);
-      toast.error("Something Went Wrong", { id: loader });
+      toast.error(error.data.message, { id: loader });
     }
   };
 
+  const handleCredentialChange = (email: string, password: string) => {
+    setResetData({
+      email,
+      password,
+    });
+  };
   return (
     <>
       <div className="flex min-h-full flex-col justify-center py-12 sm:px-6 lg:px-8">
@@ -58,10 +65,7 @@ const Login = () => {
 
         <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-lg">
           <div className="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10">
-            <PHForm
-              defaultValues={{ email: "admin@gmail.com", password: "admin" }}
-              onSubmit={onSubmit}
-            >
+            <PHForm resetData={resetData} onSubmit={onSubmit}>
               <Row gutter={12} justify={"center"} align={"middle"}>
                 <Col>
                   <PHInput label="Email" name="email" type="text" />
@@ -99,6 +103,46 @@ const Login = () => {
                   Submit
                 </Button>
               </div>
+
+              <Row>
+                <Col span={24} className="text-center mt-10">
+                  <span className="text-xl text-purple-700 font-semibold">
+                    Login as:
+                  </span>
+                  <div className="flex gap-5 justify-center mt-5">
+                    <Button
+                      style={{ backgroundColor: "#52c41a", color: "white" }}
+                      onClick={() =>
+                        handleCredentialChange("admin@gmail.com", "admin")
+                      }
+                    >
+                      Admin
+                    </Button>
+                    <Button
+                      style={{ backgroundColor: "#722ed1", color: "white" }}
+                      onClick={() =>
+                        handleCredentialChange(
+                          "testauthor@gmail.com",
+                          "testauthor@gmail.com"
+                        )
+                      }
+                    >
+                      Author
+                    </Button>
+                    <Button
+                      style={{ backgroundColor: "#1890ff", color: "white" }}
+                      onClick={() =>
+                        handleCredentialChange(
+                          "testguest@gmail.com",
+                          "testguest@gmail.com"
+                        )
+                      }
+                    >
+                      Viewer
+                    </Button>
+                  </div>
+                </Col>
+              </Row>
             </PHForm>
           </div>
         </div>
