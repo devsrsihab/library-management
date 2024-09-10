@@ -15,12 +15,6 @@ export default function Books() {
   const books = booksData?.data || [];
   const metaData = booksData?.meta;
 
-  console.log(
-    "total data==>",
-    metaData?.total,
-    "total data==>",
-    metaData?.limit
-  );
 
   return (
     <div className="bg-white">

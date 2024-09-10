@@ -30,3 +30,12 @@ img{
 .ant-select-item-option-content {
     text-transform: capitalize;
 }
+
+
+
+/* For tablet screens and above (min-width: 768px) */
+@media (min-width: 472px) {
+  .loginForm {
+    margin: auto !important;
+  }
+}

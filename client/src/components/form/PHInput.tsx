@@ -6,9 +6,8 @@ type TInputProps = {
   name: string;
   label: string;
   value?: string | number | undefined;
-  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
 };
-const PHInput = ({ type, name, label, value, onChange }: TInputProps) => {
+const PHInput = ({ type, name, label, value }: TInputProps) => {
   return (
     <Controller
       name={name}
@@ -20,7 +19,6 @@ const PHInput = ({ type, name, label, value, onChange }: TInputProps) => {
             {...field}
             id={name}
             type={type}
-            onChange={onChange}
           />
           {error && <small style={{ color: "red" }}>{error.message}</small>}
         </Form.Item>

@@ -2,12 +2,12 @@ import { createBrowserRouter } from "react-router-dom";
 import App from "../App";
 import { routeGenerator } from "../utils/routeGenerator";
 import { adminPaths } from "./admin.route";
-import { facultyPaths } from "./faculty.route";
 import Login from "../pages/auth/LoginDraft";
 import { webPaths } from "./web.route";
 import AdminApp from "../AdminApp";
 import { viewerPaths } from "./viewer.route";
 import { authorPaths } from "./author.route";
+import ProtectedRoute from "../components/layout/ProtectedRoute";
 
 const router = createBrowserRouter([
   {
@@ -17,22 +17,17 @@ const router = createBrowserRouter([
   },
   {
     path: "/admin",
-    element: <AdminApp />,
+    element: <ProtectedRoute role={["admin"]}><AdminApp /></ProtectedRoute>,
     children: routeGenerator(adminPaths),
   },
   {
     path: "/viewer",
-    element: <AdminApp />,
+    element: <ProtectedRoute role={["viewer"]}><AdminApp /></ProtectedRoute>,
     children: routeGenerator(viewerPaths),
   },
   {
-    path: "/faculty",
-    element: <AdminApp />,
-    children: routeGenerator(facultyPaths),
-  },
-  {
     path: "/author",
-    element: <AdminApp />,
+    element: <ProtectedRoute role={["author"]}><AdminApp /></ProtectedRoute>,
     children: routeGenerator(authorPaths),
   },
   {

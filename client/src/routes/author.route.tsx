@@ -1,13 +1,13 @@
+import Dashboard from "../pages/admin/AdminDashboard";
 import CreateBook from "../pages/admin/book/CreateBook";
 import EditBook from "../pages/admin/book/EditBook";
 import AuthorBooks from "../pages/author/authorBook/AuthorBooks";
-import AuthorDashboard from "../pages/author/AuthorDashboard";
 
 export const authorPaths = [
   {
-    name: "Faculty",
+    name: "Dashboard",
     path: "dashboard",
-    element: <AuthorDashboard />,
+    element: <Dashboard />,
   },
   {
     name: "Books",

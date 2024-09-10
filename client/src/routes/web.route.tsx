@@ -16,7 +16,7 @@ export const webPaths = [
   {
     path: "/borrowed",
     element: (
-      <ProtectedRoute>
+      <ProtectedRoute role={["admin", "author", "viewer"]}>
         <Borrowed />
       </ProtectedRoute>
     ),
