@@ -1,5 +1,4 @@
 import About from "../pages/About";
-import ArchiveCategory from "../pages/ArchiveCategory";
 import Login from "../pages/auth/Login";
 import Register from "../pages/auth/Register";
 import BookDetails from "../pages/BookDetails";
@@ -32,10 +31,6 @@ export const webPaths = [
   {
     path: "/books/:id",
     element: <BookDetails />,
-  },
-  {
-    path: "/category/:catname",
-    element: <ArchiveCategory />,
   },
   {
     path: "/auth/register",
