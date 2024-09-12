@@ -6,7 +6,9 @@ import { Carousel } from "antd";
 import "../../../App.css";
 
 const NewArrivals = () => {
-  const { data, isLoading } = useGetAllBookQuery(undefined);
+  const { data, isLoading } = useGetAllBookQuery([
+    { name: "sort", value: "-createdAt" },
+  ]);
   const books = data?.data || [];
 
   return (

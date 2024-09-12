@@ -16,8 +16,8 @@ const bookApi = baseApi.injectEndpoints({
         };
       },
       providesTags: ["Books"],
-    }),   
-    
+    }),
+
     getAllBookByAuthor: builder.query({
       query: (args) => {
         const params = new URLSearchParams();
@@ -65,11 +65,36 @@ const bookApi = baseApi.injectEndpoints({
 
       providesTags: ["Books"],
     }),
+
     getAllBookByCategory: builder.query({
       query: (catname) => ({
         url: `/books/bookebycat/${catname}`,
         method: "GET",
       }),
+    }),
+
+    getAllRecentViewBook: builder.query({
+      query: (args) => {
+        const params = new URLSearchParams();
+        if (args) {
+          args.forEach((item: TQueryParams) =>
+            params.append(item.name, item.value as string)
+          );
+        }
+        return {
+          url: "/recentviews",
+          method: "GET",
+          params,
+        };
+      },
+      transformResponse: (response: TResponseRedux<TBook[]>) => {
+        return {
+          data: response.data,
+          meta: response.meta,
+        };
+      },
+
+      providesTags: ["Books"],
     }),
 
     // all post route
@@ -97,6 +122,15 @@ const bookApi = baseApi.injectEndpoints({
       }),
       invalidatesTags: ["Books"],
     }),
+
+    createRecentViewBook: builder.mutation({
+      query: (data) => ({
+        url: "/recentviews",
+        method: "POST",
+        body: data,
+      }),
+      invalidatesTags: ["Books"],
+    }),
   }),
 });
 
@@ -106,8 +140,10 @@ export const {
   useGetSingleBookQuery,
   useGetAllBookByCategoryQuery,
   useGetAllBookByAuthorQuery,
+  useGetAllRecentViewBookQuery,
   // all post hook
   useCreateBookMutation,
   useDeleteBookMutation,
   useUpdateBookMutation,
+  useCreateRecentViewBookMutation,
 } = bookApi;

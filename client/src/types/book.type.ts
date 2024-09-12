@@ -45,7 +45,7 @@ export type TBooksProps = {
 
 
 export type AddToBorrowProps = {
-  book: string;
+  book: string | undefined;
   modalOpen: boolean;
   setModalOpen: (open: boolean) => void;
 };

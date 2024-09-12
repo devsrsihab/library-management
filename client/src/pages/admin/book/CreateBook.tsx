@@ -72,7 +72,7 @@ const CreateBook = () => {
         toast.error(res.error.data.message, { id: loader });
       } else {
         toast.success("Book Created successfully", { id: loader });
-        navigation("/admin/book-list");
+        navigation(`/${user?.role}/book-list`);
       }
     } catch (error: any) {
       toast.error(error?.data?.message, { id: loader });

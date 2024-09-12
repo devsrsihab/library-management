@@ -32,10 +32,39 @@ img{
 }
 
 
+/* antdesign  */
+/* Change border color on hover */
+.ant-select:hover .ant-select-selector {
+  border-color: #15616d !important; /* Use the desired hover color */
+}
 
-/* For tablet screens and above (min-width: 768px) */
-@media (min-width: 472px) {
-  .loginForm {
-    margin: auto !important;
-  }
+/* Change border color when focused */
+.ant-select-focused .ant-select-selector {
+  border-color: #15616d !important; /* Use the desired focus color */
+}
+
+/* Ensure the transition is smooth */
+.ant-select .ant-select-selector {
+  transition: border-color 0.3s ease;
+}
+/* Change border color on hover */
+.ant-input[type="file"]:hover {
+  border-color: #15616d !important; /* Desired hover color */
+}
+
+/* Change border color when focused */
+.ant-input[type="file"]:focus {
+  border-color: #15616d !important; /* Desired focus color */
+  box-shadow: 0 0 0 2px rgba(217, 7, 217, 0.2); /* Optional: adds a focus outline */
+}
+
+/* Ensure the transition is smooth */
+.ant-input[type="file"] {
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+
+.ant-menu-item-selected {
+  background-color: #15616d !important;
+  color: #fff !important;
 }

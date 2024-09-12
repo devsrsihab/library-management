@@ -21,7 +21,7 @@ const HeroSection = () => {
                   Discover a world of knowledge at your fingertips.{" "}
                   <a
                     href="#"
-                    className="whitespace-nowrap font-semibold text-indigo-600"
+                    className="whitespace-nowrap font-semibold text-primary"
                   >
                     <span className="absolute inset-0" aria-hidden="true" />
                     Explore Now <span aria-hidden="true">&rarr;</span>
@@ -39,13 +39,13 @@ const HeroSection = () => {
               <div className="mt-10 flex items-center gap-x-6">
                 <Link
                   to="/books"
-                  className="rounded-md bg-indigo-600 px-3.5 py-1.5 text-base font-semibold leading-7 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                  className="rounded-md bg-primary px-3.5 py-1.5 text-base font-semibold leading-7 text-white shadow-sm hover:bg-primary-dark focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
                 >
                   Start Exploring
                 </Link>
                 <Link
                   to="/register"
-                  className="text-base font-semibold leading-7 text-gray-900"
+                  className="text-base font-semibold leading-7 text-primary hover:text-secondary"
                 >
                   Learn More <span aria-hidden="true">→</span>
                 </Link>

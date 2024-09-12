@@ -37,7 +37,8 @@ const AdminLayout = () => {
           </div>
         </Content>
         <Footer style={{ textAlign: "center" }}>
-         <Link to="/"> PH Univercity</Link> ©{new Date().getFullYear()} Created by SR Sihab
+          <Link to="/"> SRS Library</Link> ©{new Date().getFullYear()} Created
+          by SR Sihab
         </Footer>
       </Layout>
     </Layout>

@@ -6,7 +6,9 @@ import { Carousel } from "antd";
 import "../../../App.css";
 
 const PopularBooks = () => {
-  const { data, isLoading } = useGetAllBookQuery(undefined);
+  const { data, isLoading } = useGetAllBookQuery([
+    { name: "sort", value: "createdAt" },
+  ]);
   const books = data?.data || [];
 
   return (
@@ -26,7 +28,7 @@ const PopularBooks = () => {
             {isLoading ? (
               <PulsLoader />
             ) : (
-              books.map((book: TBook) => <Book key={book._id} book={book} />)
+              books?.slice(0, 8).map((book: TBook) => <Book key={book._id} book={book} />)
             )}
           </Carousel>
         </div>

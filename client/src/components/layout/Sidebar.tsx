@@ -6,6 +6,7 @@ import { currentUser } from "../../redux/features/auth/authSlice";
 import { Link } from "react-router-dom";
 import { viewerPaths } from "../../routes/viewer.route";
 import { authorPaths } from "../../routes/author.route";
+import whiteLogo from "../../../public/logo-white.png";
 
 const { Sider } = Layout;
 type SidebarItem = {
@@ -65,7 +66,13 @@ const Sidebar = () => {
         className="demo-logo-vertical"
       >
         <Link to="/">
-          <h2>SRS Library</h2>
+          <div className="h-10">
+            <img
+              src={whiteLogo}
+              className="max-h-full max-w-full object-contain"
+              alt="Flowbite Logo"
+            />
+          </div>{" "}
         </Link>
       </div>
       <Menu

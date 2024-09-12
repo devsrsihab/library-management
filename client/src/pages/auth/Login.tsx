@@ -1,6 +1,6 @@
 import { Link, useNavigate } from "react-router-dom";
 import PHForm from "../../components/form/PHForm";
-import { Button, Col, Row } from "antd"; // Removed Flex, using Ant's grid system
+import { Button, Col, Row } from "antd";
 import PHInput from "../../components/form/PHInput";
 import { useLoginMutation } from "../../redux/features/auth/authApi";
 import { SubmitHandler } from "react-hook-form";
@@ -20,7 +20,6 @@ const Login = () => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const currentuser = useAppSelector(currentUser);
-  console.log(currentuser);
 
   const onSubmit: SubmitHandler<TLoginPayload> = async (
     payload: TLoginPayload
@@ -45,7 +44,6 @@ const Login = () => {
     }
   }, [currentuser, navigate]);
 
-
   const handleCredentialChange = (email: string, password: string) => {
     setResetData({ email, password });
   };
@@ -60,7 +58,7 @@ const Login = () => {
           Or{" "}
           <Link
             to="/auth/register"
-            className="font-medium text-indigo-600 hover:text-indigo-500"
+            className="font-medium text-primary hover:text-secondary"
           >
             Sign Up for free
           </Link>
@@ -75,6 +73,7 @@ const Login = () => {
               <Col xs={24} sm={24} md={12}>
                 <PHInput label="Email" name="email" type="text" />
               </Col>
+
               {/* Password input */}
               <Col xs={24} sm={24} md={12}>
                 <div className="flex gap-3 items-center">
@@ -84,7 +83,7 @@ const Login = () => {
                     type={isShowPass ? "text" : "password"}
                   />
                   <span
-                    className="cursor-pointer text-xl"
+                    className="cursor-pointer text-xl text-primary"
                     onClick={() => setIsShowPass(!isShowPass)}
                   >
                     {isShowPass ? <IoEyeOutline /> : <IoEyeOffOutline />}
@@ -94,7 +93,10 @@ const Login = () => {
 
               {/* Submit button */}
               <Col xs={24}>
-                <Button type="primary" className="w-full" htmlType="submit">
+                <Button
+                  className="w-full text-white bg-primary hover:bg-secondary hover:text-black"
+                  htmlType="submit"
+                >
                   Submit
                 </Button>
               </Col>
@@ -108,7 +110,7 @@ const Login = () => {
                 </span>
                 <div className="flex gap-5 justify-center mt-5">
                   <Button
-                    style={{ backgroundColor: "#52c41a", color: "white" }}
+                    className="bg-green-500 text-white hover:bg-green-600"
                     onClick={() =>
                       handleCredentialChange("admin@gmail.com", "admin")
                     }
@@ -116,7 +118,7 @@ const Login = () => {
                     Admin
                   </Button>
                   <Button
-                    style={{ backgroundColor: "#722ed1", color: "white" }}
+                    className="bg-purple-600 text-white hover:bg-purple-700"
                     onClick={() =>
                       handleCredentialChange(
                         "testauthor@gmail.com",
@@ -127,7 +129,7 @@ const Login = () => {
                     Author
                   </Button>
                   <Button
-                    style={{ backgroundColor: "#1890ff", color: "white" }}
+                    className="bg-blue-500 text-white hover:bg-blue-600"
                     onClick={() =>
                       handleCredentialChange(
                         "testguest@gmail.com",

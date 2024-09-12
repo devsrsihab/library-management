@@ -2,7 +2,6 @@ import { createBrowserRouter } from "react-router-dom";
 import App from "../App";
 import { routeGenerator } from "../utils/routeGenerator";
 import { adminPaths } from "./admin.route";
-import Login from "../pages/auth/LoginDraft";
 import { webPaths } from "./web.route";
 import AdminApp from "../AdminApp";
 import { viewerPaths } from "./viewer.route";
@@ -29,11 +28,7 @@ const router = createBrowserRouter([
     path: "/author",
     element: <ProtectedRoute role={["author"]}><AdminApp /></ProtectedRoute>,
     children: routeGenerator(authorPaths),
-  },
-  {
-    path: "/admin/auth/login",
-    element: <Login />,
-  },
+  }
 ]);
 
 export default router;

@@ -39,15 +39,7 @@ const Dashboard = () => {
                 </p>
               </div>
             </div>
-            {/* Actions */}
-            <div className="flex space-x-4">
-              <button className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600">
-                View Profile
-              </button>
-              <button className="bg-gray-200 text-gray-700 px-4 py-2 rounded-md hover:bg-gray-300">
-                Settings
-              </button>
-            </div>
+
           </div>
           {/* Stats or Quick Links */}
           <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">

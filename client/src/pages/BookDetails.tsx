@@ -18,33 +18,33 @@ const BookDetails = () => {
           {isLoading ? (
             <SinglePageLoader />
           ) : (
-            <div className="flex flex-col sm:flex-row sm:items-start  sm:gap-x-8">
+            <div className="flex flex-col sm:flex-row sm:items-start sm:gap-x-8">
               <div className="flex md:justify-center lg:justify-start">
                 <div className="w-[240px] border-2 border-gray-200 overflow-hidden rounded-lg bg-gray-100">
                   <img
-                    src={book.image}
+                    src={book?.image}
                     className="object-cover object-center w-full h-full"
                   />
                 </div>
               </div>
 
               <div className="mt-10 lg:mt-0">
-                <h1 className="text-2xl font-bold tracking-tight text-gray-900 sm:text-3xl">
-                  {book.name}
+                <h1 className="text-2xl font-bold tracking-tight text-primary sm:text-3xl">
+                  {book?.name}
                 </h1>
-                <p className="mt-4 text-gray-500">{book.shortDescription}</p>
+                <p className="mt-4 text-gray-500">{book?.shortDescription}</p>
 
                 <div className="mt-8">
                   <button
                     onClick={() => setModalOpen(true)}
                     type="button"
-                    className="flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-600 py-3 px-8 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-gray-50"
+                    className="flex w-full items-center justify-center rounded-md border border-transparent bg-primary py-3 px-8 text-base font-medium text-white hover:bg-secondary hover:text-black focus:outline-none focus:ring-2 focus:ring-secondary focus:ring-offset-2 focus:ring-offset-gray-50"
                   >
                     Add To Borrow
                   </button>
                 </div>
                 <AddToBorrow
-                  book={book._id}
+                  book={book?._id}
                   modalOpen={modalOpen}
                   setModalOpen={setModalOpen}
                 />

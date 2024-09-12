@@ -21,6 +21,24 @@ const borrowApi = baseApi.injectEndpoints({
       providesTags: ["Borrowings"],
     }),
 
+    // all get routes
+    getAllBorrowBooksForAdmin: builder.query({
+      query: (args) => {
+        const params = new URLSearchParams();
+        if (args) {
+          args.forEach((item: TQueryParams) =>
+            params.append(item.name, item.value as string)
+          );
+        }
+        return {
+          url: "/borrowings/admin",
+          method: "GET",
+          params,
+        };
+      },
+      providesTags: ["Borrowings"],
+    }),
+
     // all post route
     addToBorrow: builder.mutation({
       query: (data) => ({
@@ -44,6 +62,7 @@ const borrowApi = baseApi.injectEndpoints({
 export const {
   // all get hooks
   useGetAllBorrowBooksQuery,
+  useGetAllBorrowBooksForAdminQuery,
   //  all post hooks
   useAddToBorrowMutation,
   useRemoveBorrowBookMutation,

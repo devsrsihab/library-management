@@ -14,6 +14,7 @@ const PHInput = ({ type, name, label, value }: TInputProps) => {
       render={({ field, fieldState: { error } }) => (
         <Form.Item label={label}>
           <Input
+            className="hover:border-primary focus:border-primary"
             defaultValue={value}
             placeholder={label}
             {...field}

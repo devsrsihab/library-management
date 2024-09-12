@@ -14,11 +14,14 @@ const PHSelect = ({ label, name,defaultValue, options, disabled = false }: TSele
     <Controller
       name={name}
       render={({ field, fieldState: { error } }) => (
-        <Form.Item label={label} >
+        <Form.Item label={label}>
           <Select
             {...field}
             placeholder={label}
-            style={{ width: "100%" }}
+            style={{
+              width: "100%",
+              borderColor: "#d9d9d9", // Default border color
+            }}
             defaultValue={defaultValue}
             options={options}
             disabled={disabled}

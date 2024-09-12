@@ -20,7 +20,7 @@ const WebLyout = () => {
   return (
     <Layout className="layout-sr">
       <Header
-        className="header-sr sticky z-50  top-0 "
+        className="header-sr  sticky z-50  top-0 "
         style={{
           display: "flex",
           justifyContent: "center",

@@ -17,7 +17,7 @@ import PHImage from "../../components/form/PHImage";
 const Register = () => {
   const [registerViewer] = useRegisterViewerMutation();
   const [isShowPass, setIsShowPass] = useState(false);
-    const [preview, setPreview] = useState("");
+  const [preview, setPreview] = useState("");
 
   const navigation = useNavigate();
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {
@@ -45,7 +45,7 @@ const Register = () => {
         });
         navigation("/auth/login");
       }
-    } catch (error:any) {
+    } catch (error: any) {
       console.log(error);
       toast.error(error.data.message, { id: loader, duration: 2000 });
     }
@@ -64,7 +64,7 @@ const Register = () => {
                 Or{" "}
                 <Link
                   to="/auth/login"
-                  className="font-medium text-indigo-600 hover:text-indigo-500"
+                  className="font-medium text-primary hover:text-secondary"
                 >
                   Sign In
                 </Link>
@@ -130,7 +130,7 @@ const Register = () => {
               </Row>
               <div className="mt-4">
                 <Button
-                  className="w-full bg-purple-500 text-white"
+                  className="w-full bg-primary hover:bg-secondary hover:text-black text-white"
                   htmlType="submit"
                 >
                   Submit

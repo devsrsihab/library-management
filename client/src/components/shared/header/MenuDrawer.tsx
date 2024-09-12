@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { IoReorderFourOutline } from "react-icons/io5";
 import { useGetMeQuery } from "../../../redux/features/user/userApi";
 import { useAppDispatch, useAppSelector } from "../../../redux/hooks";
-import { currentToken, logout } from "../../../redux/features/auth/authSlice";
+import { currentToken, currentUser, logout } from "../../../redux/features/auth/authSlice";
 import MenuLoader from "../loader/MenuLoader";
 
 const MenuDrawer: React.FC = () => {
@@ -13,6 +13,7 @@ const MenuDrawer: React.FC = () => {
   const { data, isLoading } = useGetMeQuery(undefined);
   const userInfo = data?.data;
   const authToken = useAppSelector(currentToken);
+  const user = useAppSelector(currentUser);
 
   const handleLogout = () => {
     distpatch(logout());
@@ -37,7 +38,7 @@ const MenuDrawer: React.FC = () => {
             <Link to="/">Home</Link>
           </p>
           <p>
-            <Link to="/borrowed">Borrowed</Link>
+            {user?.role !== "admin" && <Link to="/borrowed">Borrowings</Link>}
           </p>
           <p>
             <Link to="/books">Books</Link>
