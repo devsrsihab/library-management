@@ -6,7 +6,6 @@ import {
   SubmitHandler,
   useForm,
 } from "react-hook-form";
-import { toast } from "sonner";
 
 type TFormConfig = {
   defaultValues?: Record<string, any>;
@@ -45,12 +44,7 @@ const PHForm = ({
   }, [resetData, methods]);
 
   const submit: SubmitHandler<FieldValues> = async (data) => {
-    try {
-      await onSubmit(data);
-      methods.reset();
-    } catch (error: any) {
-      toast.error("Server error:", error);
-    }
+    await onSubmit(data);
   };
 
   return (

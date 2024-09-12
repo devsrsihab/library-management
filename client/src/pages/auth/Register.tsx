@@ -4,28 +4,40 @@ import { Button, Col, Row } from "antd";
 import PHInput from "../../components/form/PHInput";
 import PHSelect from "../../components/form/PHSelect";
 import { genderOptions } from "../../constant/global";
-import PHDatePicker from "../../components/form/PHDatePicker";
 import { FieldValues, SubmitHandler } from "react-hook-form";
 import { toast } from "sonner";
 import { useRegisterViewerMutation } from "../../redux/features/auth/authApi";
 import { IoEyeOutline, IoEyeOffOutline } from "react-icons/io5";
 import { useState } from "react";
+import cloudinaryUpload from "../../utils/cloudinaryUpload";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { registerValidationSchema } from "../../schemas/user.schema";
+import PHImage from "../../components/form/PHImage";
 
 const Register = () => {
   const [registerViewer] = useRegisterViewerMutation();
   const [isShowPass, setIsShowPass] = useState(false);
+    const [preview, setPreview] = useState("");
 
   const navigation = useNavigate();
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {
     const loader = toast.loading("Account Creating...", { duration: 2000 });
-    try {
-      const { password, ...viewer } = data;
-      const viewertData = {
-        password,
-        viewer,
-      };
 
-      const result = await registerViewer(viewertData).unwrap();
+    let imageUpCloud;
+    if (data.image) {
+      imageUpCloud = await cloudinaryUpload(data.image);
+    }
+    const formData = {
+      name: data.name,
+      email: data.email,
+      password: data.password,
+      gender: data.gender,
+      role: data.role,
+      image: imageUpCloud,
+    };
+
+    try {
+      const result = await registerViewer(formData).unwrap();
       if (result) {
         toast.success("Account Created Successfully", {
           id: loader,
@@ -33,9 +45,9 @@ const Register = () => {
         });
         navigation("/auth/login");
       }
-    } catch (error) {
+    } catch (error:any) {
       console.log(error);
-      toast.error("Something Went Wrong", { id: loader, duration: 2000 });
+      toast.error(error.data.message, { id: loader, duration: 2000 });
     }
   };
 
@@ -59,43 +71,20 @@ const Register = () => {
               </p>
             </div>
 
-            <PHForm onSubmit={onSubmit}>
+            <PHForm
+              onSubmit={onSubmit}
+              resolver={zodResolver(registerValidationSchema)}
+            >
               <Row gutter={[16, 16]}>
                 <Col xs={24} sm={12} lg={8}>
-                  <PHInput
-                    label="First Name"
-                    name="name.firstName"
-                    type="text"
-                  />
-                </Col>
-                <Col xs={24} sm={12} lg={8}>
-                  <PHInput
-                    label="Middle Name"
-                    name="name.middleName"
-                    type="text"
-                  />
-                </Col>
-                <Col xs={24} sm={12} lg={8}>
-                  <PHInput label="Last Name" name="name.lastName" type="text" />
+                  <PHInput type="text" name="name" label="Name" />
                 </Col>
 
-                <Col xs={24} sm={12}>
-                  <PHSelect
-                    label="Gender"
-                    name="gender"
-                    options={genderOptions}
-                  />
+                <Col xs={24} sm={12} lg={8}>
+                  <PHInput type="email" name="email" label="Email" />
                 </Col>
-                <Col xs={24} sm={12}>
-                  <PHDatePicker label="Date Of Birth" name="dateOfBirth" />
-                </Col>
-                <Col xs={24}>
-                  <PHInput label="Image Link" name="image" type="text" />
-                </Col>
-                <Col xs={24}>
-                  <PHInput label="Email" name="email" type="text" />
-                </Col>
-                <Col xs={24}>
+
+                <Col xs={24} sm={12} lg={8}>
                   <div className="flex gap-3 items-center">
                     <div className="flex-1">
                       <PHInput
@@ -123,9 +112,27 @@ const Register = () => {
                     </div>
                   </div>
                 </Col>
+                <Col xs={24} sm={12}>
+                  <PHSelect
+                    name="gender"
+                    label="Gender"
+                    options={genderOptions}
+                  />
+                </Col>
+                <Col xs={24} sm={12} lg={8}>
+                  {preview && (
+                    <div className="max-w-40 pb-3 hidden">
+                      {<img src={preview || ""} alt="Book Preview" />}
+                    </div>
+                  )}
+                  <PHImage label="Image" name="image" setPreview={setPreview} />
+                </Col>
               </Row>
               <div className="mt-4">
-                <Button className="w-full" htmlType="submit">
+                <Button
+                  className="w-full bg-purple-500 text-white"
+                  htmlType="submit"
+                >
                   Submit
                 </Button>
               </div>

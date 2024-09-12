@@ -13,7 +13,8 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { userValidationSchema } from "../../../schemas/user.schema";
 
 const CreateUsers = () => {
-    const [preview, setPreview] = useState("");
+  const [preview, setPreview] = useState("");
+  const [formResetData, setFormResetData] = useState({});
 
   const [createUser] = useCreateUserMutation();
   const navigate = useNavigate();
@@ -43,10 +44,13 @@ const CreateUsers = () => {
           id: loader,
           duration: 2000,
         });
+        setFormResetData({});
         navigate("/admin/user-list");
       }
     } catch (error: any) {
       console.log(error);
+      setFormResetData(data);
+
       toast.error(error.data.message, { id: loader, duration: 2000 });
     }
   };
@@ -56,6 +60,7 @@ const CreateUsers = () => {
       <Col span={8}>
         <PHForm
           onSubmit={onSubmit}
+          resetData={formResetData}
           resolver={zodResolver(userValidationSchema)}
         >
           <PHInput type="text" name="name" label="Name" />
