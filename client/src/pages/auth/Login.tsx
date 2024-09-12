@@ -5,13 +5,13 @@ import PHInput from "../../components/form/PHInput";
 import { useLoginMutation } from "../../redux/features/auth/authApi";
 import { SubmitHandler } from "react-hook-form";
 import { toast } from "sonner";
-import { useAppDispatch } from "../../redux/hooks";
+import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import { TLoginPayload } from "../../types/auth.type";
 import { TUser } from "../../types";
 import { verifyToken } from "../../utils/verifyToken";
-import { setuser } from "../../redux/features/auth/authSlice";
+import { currentUser, setuser } from "../../redux/features/auth/authSlice";
 import { IoEyeOutline, IoEyeOffOutline } from "react-icons/io5";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const Login = () => {
   const [login] = useLoginMutation();
@@ -19,6 +19,8 @@ const Login = () => {
   const [isShowPass, setIsShowPass] = useState(false);
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
+  const currentuser = useAppSelector(currentUser);
+  console.log(currentuser);
 
   const onSubmit: SubmitHandler<TLoginPayload> = async (
     payload: TLoginPayload
@@ -31,12 +33,18 @@ const Login = () => {
 
       if (res) {
         toast.success("Account Login Successfully", { id: loader });
-        navigate("/");
       }
     } catch (error: any) {
       toast.error(error.data.message, { id: loader });
     }
   };
+
+  useEffect(() => {
+    if (currentuser) {
+      navigate(`/${currentuser.role}/dashboard`);
+    }
+  }, [currentuser, navigate]);
+
 
   const handleCredentialChange = (email: string, password: string) => {
     setResetData({ email, password });
