@@ -50,8 +50,13 @@ const createBorrowing = async (borrowingData: TBorrowing) => {
 };
 
 // Get all borrowings
-const getAllBorrowings = async (email: string): Promise<TBorrowing[]> => {
-  const result = await Borrowing.find({ user: email }).populate('book').populate('user');
+const getAllBorrowings = async (user: string, role: string): Promise<TBorrowing[]> => {
+  // if role admin show all 
+  if (role === 'admin') {
+    const result = await Borrowing.find().populate('book').populate('user');
+    return result;
+  }
+  const result = await Borrowing.find({ user }).populate('book').populate('user');
   return result;
 };
 

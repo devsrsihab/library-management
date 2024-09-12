@@ -11,7 +11,7 @@ const router = express.Router();
 
 // register
 router.post(
-  '/register',
+  '/register-viewer',
   validateRequest(ViewerValidations.createViewerValidationSchema),
   AuthControllers.registerViewer,
 );

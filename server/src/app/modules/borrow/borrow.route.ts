@@ -16,7 +16,11 @@ router.post(
 );
 
 // Read All borrowed (GET)
-router.get('/', auth(USER_ROLE.viewer), BorrowingControllers.getAllBorrowings);
+router.get(
+  '/',
+  auth(USER_ROLE.viewer, USER_ROLE.admin, USER_ROLE.author),
+  BorrowingControllers.getAllBorrowings,
+);
 
 // Read Single Borrowing (GET)
 router.get('/:borrowId', auth(USER_ROLE.viewer), BorrowingControllers.getBorrowingSingle);
