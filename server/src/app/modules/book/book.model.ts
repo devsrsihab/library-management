@@ -23,7 +23,13 @@ const bookSchema = new Schema<TBook>({
     required: true,
   },
   isDeleted: { type: Boolean, default: false },
-});
+},
+{
+  timestamps: true
+}
+
+
+);
 
 // query middleware show only where isDelete false
 bookSchema.pre('find', function (next) {

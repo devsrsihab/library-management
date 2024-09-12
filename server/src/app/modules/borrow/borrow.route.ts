@@ -22,6 +22,10 @@ router.get(
   BorrowingControllers.getAllBorrowings,
 );
 
+
+// Read All borrowed for admin (GET)
+router.get('/admin', auth(USER_ROLE.author), BorrowingControllers.getAllBorrowingForAdmin);
+
 // Read Single Borrowing (GET)
 router.get('/:borrowId', auth(USER_ROLE.viewer), BorrowingControllers.getBorrowingSingle);
 

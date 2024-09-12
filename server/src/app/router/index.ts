@@ -32,7 +32,7 @@ const moduleRoutes = [
   },
   {
     path: '/borrowings',
-    route: BorrowRoute
+    route: BorrowRoute,
   },
 ];
 

@@ -23,10 +23,10 @@ const createBorrowing = catchAsync(async (req, res) => {
 // Read All
 const getAllBorrowings = catchAsync(async (req, res) => {
   const email = req?.user?.email;
-  const user = await User.findOne({ email }, { id: 1 , role: 1}); // Ensure you are querying by `_id`
+  const user = await User.findOne({ email }, { id: 1, role: 1 });
 
   if (user) {
-    const result = await BorrowingServices.getAllBorrowings(user._id.toString(), user.role); // Pass the `user._id` to getAllBorrowings
+    const result = await BorrowingServices.getAllBorrowings(user._id.toString());
     sendResponse(res, {
       statusCode: httpStatus.OK,
       success: true,
@@ -42,6 +42,17 @@ const getAllBorrowings = catchAsync(async (req, res) => {
       data: null,
     });
   }
+});
+
+// read all for admin
+const getAllBorrowingForAdmin = catchAsync(async (req, res) => {
+  const result = await BorrowingServices.getAllBorrowingsForAdmin();
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: 'Borrowings retrieved successfully',
+    data: result,
+  });
 });
 
 // Read One
@@ -87,4 +98,5 @@ export const BorrowingControllers = {
   getBorrowingSingle,
   updateBorrowing,
   deleteBorrowing,
+  getAllBorrowingForAdmin,
 };
