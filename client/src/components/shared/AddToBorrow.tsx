@@ -109,7 +109,7 @@ const AddToBorrow: React.FC<AddToBorrowProps> = ({
                 type="primary"
                 disabled={isLoading}
                 htmlType="submit"
-                style={{ marginTop: "20px" }}
+                style={{ marginTop: "20px", backgroundColor: "#15616d" }}
               >
                 {isLoading ? <Spin size="small" /> : "Add Borrow"}
               </Button>

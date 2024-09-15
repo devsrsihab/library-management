@@ -1,10 +1,10 @@
 import { useGetAllBorrowBooksQuery } from "../../redux/features/borrow/borrowApi";
 import { TBorrowBook } from "../../types/borrowed.type";
 import { SerializedError } from "@reduxjs/toolkit";
-import PulsLoader from "../shared/loader/PulsLoader";
 import ServerError500 from "../shared/result/ServerError500";
 import Borrowed from "./Borrowed";
 import NotFound404 from "../shared/result/NotFound404";
+import BorrowdCardLoader from "../shared/loader/BorrowdCardLoader";
 
 interface CustomSerializedError extends SerializedError {
   status: string;
@@ -24,10 +24,10 @@ const Borrowings = () => {
   }
 
   return (
-    <div className="bg-white">
+    <div className="bg-white min-h-screen">
       <div className="mx-auto max-w-2xl pb-16 px-4 sm:pb-24 sm:px-6 lg:max-w-7xl lg:px-8">
         {isLoading ? (
-          <PulsLoader />
+          <BorrowdCardLoader />
         ) : borrowings.length === 0 ? (
           <NotFound404 /> // Render NotFound component when no borrowings are found
         ) : (

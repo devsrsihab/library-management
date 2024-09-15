@@ -36,7 +36,7 @@ const PopularBook: React.FC<TBooksProps> = ({ book }) => {
 
           <a
             onClick={() => setModalOpen(true)}
-            className="mx-auto relative my-3 flex items-center justify-center rounded-md border border-transparent bg-primary py-2 px-8 text-sm font-medium text-white hover:bg-primary-dark"
+            className="mx-auto relative my-3 flex items-center justify-center rounded-md border border-transparent bg-primary py-2 px-8 text-sm font-medium text-white hover:text-white hover:bg-primary"
           >
             Add to Borrow
           </a>

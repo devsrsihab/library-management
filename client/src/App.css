@@ -37,7 +37,9 @@ img{
 .ant-select:hover .ant-select-selector {
   border-color: #15616d !important; /* Use the desired hover color */
 }
-
+:where(.css-m4timi).ant-carousel .slick-prev::after {
+	position: static !important;
+}
 /* Change border color when focused */
 .ant-select-focused .ant-select-selector {
   border-color: #15616d !important; /* Use the desired focus color */

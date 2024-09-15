@@ -6,7 +6,7 @@ export type TTableData = {
   name: string;
   email: string;
   image: string;
-  role: "admin" | "viewer" | "author";
+  role: string;
 };
 
 export type TBookingTableData = {

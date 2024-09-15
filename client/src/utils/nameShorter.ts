@@ -12,3 +12,10 @@ export const dropdownNameShorter = (name: string):string => {
   }
   return name;
 };
+
+export const bookTitleShorter = (name: string): string => {
+  if (name.length > 30) {
+    return name.slice(0, 30) + "...";
+  }
+  return name;
+};

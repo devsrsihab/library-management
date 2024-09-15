@@ -27,15 +27,15 @@ const Book: React.FC<TBooksProps> = ({ book }) => {
           </div>
         </Link>
         <div className="pt-2 pb-4 text-center">
-          <h3 className="text-sm font-medium text-gray-900">
+          <h3 className="text-sm font-medium text-gray-900 hover:text-gray-900">
             <Link to={`/books/${book._id}`}>
-              <span aria-hidden="true" className="absolute inset-0" />
+              <span aria-hidden="true" className="absolute  inset-0" />
               {nameShorter(book.name)}
             </Link>
           </h3>
           <button
             onClick={() => setModalOpen(true)}
-            className="mx-auto relative my-3 flex items-center justify-center hover:text-black rounded-md border border-transparent bg-primary py-2 px-8 text-sm font-medium text-white hover:bg-secondary"
+            className="mx-auto relative my-3 flex items-center justify-center hover:text-white rounded-md border border-transparent bg-primary py-2 px-8 text-sm font-medium text-white hover:bg-primary"
           >
             Add to Borrow
           </button>

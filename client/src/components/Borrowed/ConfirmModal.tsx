@@ -12,7 +12,6 @@ const ConfirmModal: React.FC<{
   const [removeBorrowBook] = useRemoveBorrowBookMutation();
 
   const handleOk = async () => {
-    console.log("Book returned");
     removeBorrowBook(id)
       .unwrap()
       .then(() => {
@@ -44,6 +43,20 @@ const ConfirmModal: React.FC<{
         onCancel={handleCancel}
         okText="Return"
         cancelText="Cancel"
+        cancelButtonProps={{
+          style: {
+            backgroundColor: "#ff4d4f", // Background color for cancel button
+            color: "#fff", // Text color for cancel button
+            border: "none", // Remove border for cancel button
+          },
+        }}
+        okButtonProps={{
+          style: {
+            backgroundColor: "#15616d", // Background color for OK button
+            color: "#fff", // Text color for OK button
+            border: "none", // Remove border for OK button
+          },
+        }}
       >
         <p>
           Are you sure you want to return this book? This action cannot be

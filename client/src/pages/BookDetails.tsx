@@ -12,7 +12,7 @@ const BookDetails = () => {
   const book = data?.data;
 
   return (
-    <div className="bg-[#f1f2f4]">
+    <div className="min-h-screen ">
       <div className="bg-white max-w-5xl mx-auto flex justify-center">
         <div className="max-w-3xl py-8 px-7 md:py-20 sm:px-6 lg:px-8 w-full">
           {isLoading ? (
@@ -20,7 +20,7 @@ const BookDetails = () => {
           ) : (
             <div className="flex flex-col sm:flex-row sm:items-start sm:gap-x-8">
               <div className="flex md:justify-center lg:justify-start">
-                <div className="w-[240px] border-2 border-gray-200 overflow-hidden rounded-lg bg-gray-100">
+                <div className="w-[165px] border-2 border-gray-200 overflow-hidden rounded-lg bg-gray-100">
                   <img
                     src={book?.image}
                     className="object-cover object-center w-full h-full"
@@ -38,7 +38,7 @@ const BookDetails = () => {
                   <button
                     onClick={() => setModalOpen(true)}
                     type="button"
-                    className="flex w-full items-center justify-center rounded-md border border-transparent bg-primary py-3 px-8 text-base font-medium text-white hover:bg-secondary hover:text-black focus:outline-none focus:ring-2 focus:ring-secondary focus:ring-offset-2 focus:ring-offset-gray-50"
+                    className="flex w-full items-center justify-center rounded-md border border-transparent bg-primary py-3 px-8 text-base font-medium text-white  focus:outline-none focus:ring-2 focus:ring-secondary focus:ring-offset-2 focus:ring-offset-gray-50"
                   >
                     Add To Borrow
                   </button>

@@ -53,7 +53,7 @@ const Register = () => {
 
   return (
     <>
-      <Row justify="center" className="px-4 py-12 min-h-full">
+      <Row justify="center" className="px-4 py-12 min-h-full min-h-screen">
         <Col xs={24} sm={20} md={16} lg={12}>
           <div className="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10">
             <div className="sm:mx-auto sm:w-full sm:max-w-md text-center mb-10">

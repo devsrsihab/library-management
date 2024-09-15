@@ -39,7 +39,7 @@ const HeroSection = () => {
               <div className="mt-10 flex items-center gap-x-6">
                 <Link
                   to="/books"
-                  className="rounded-md bg-primary px-3.5 py-1.5 text-base font-semibold leading-7 text-white shadow-sm hover:bg-primary-dark focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
+                  className="rounded-md bg-primary hover:text-white hover:bg-primary px-3.5 py-1.5 text-base font-semibold leading-7 text-white shadow-sm  "
                 >
                   Start Exploring
                 </Link>
