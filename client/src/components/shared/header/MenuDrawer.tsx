@@ -30,17 +30,20 @@ const MenuDrawer: React.FC = () => {
   return (
     <>
       <div style={{ display: "flex", justifyContent: "end" }}>
-        <Button type="primary" onClick={showDrawer}>
+        <Button
+          className="bg-primary text-white border-none"
+          onClick={showDrawer}
+        >
           <IoReorderFourOutline />
         </Button>
         <Drawer title="Menus" onClose={onClose} open={open}>
-          <p>
+          <p className="cursor-pointer" onClick={() => setOpen(false)}>
             <Link to="/">Home</Link>
           </p>
-          <p>
+          <p className="cursor-pointer" onClick={() => setOpen(false)}>
             {user?.role !== "admin" && <Link to="/borrowed">Borrowings</Link>}
           </p>
-          <p>
+          <p className="cursor-pointer" onClick={() => setOpen(false)}>
             <Link to="/books">Books</Link>
           </p>
           {isLoading ? (
@@ -57,13 +60,13 @@ const MenuDrawer: React.FC = () => {
                   <p>
                     <span>{userInfo?.name}</span>
                   </p>
-                  <p>
-                    <Link to="/books">Dashboard</Link>
+                  <p className="cursor-pointer" onClick={() => setOpen(false)}>
+                    <Link to={`/${user?.role}/dashboard`}>Dashboard</Link>
                   </p>
-                  <p>
+                  <p className="cursor-pointer" onClick={() => setOpen(false)}>
                     <Link to="/books">Profile</Link>
                   </p>
-                  <p>
+                  <p className="cursor-pointer" onClick={() => setOpen(false)}>
                     <Link onClick={handleLogout} to="/books">
                       Logout
                     </Link>
@@ -71,10 +74,10 @@ const MenuDrawer: React.FC = () => {
                 </div>
               ) : (
                 <div>
-                  <p>
+                  <p className="cursor-pointer" onClick={() => setOpen(false)}>
                     <Link to="/register">Register</Link>
                   </p>
-                  <p>
+                  <p className="cursor-pointer" onClick={() => setOpen(false)}>
                     <Link to="/auth/login">Login</Link>
                   </p>
                 </div>

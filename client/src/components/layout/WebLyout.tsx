@@ -32,9 +32,9 @@ const WebLyout = () => {
           align="middle"
           justify="space-between"
           gutter={[16, 16]} // Add spacing between columns
-          style={{ width: "100%" }}
+          style={{ width: "100%", padding: "4px 0" }}
         >
-          <Col xs={0} md={4} lg={5} xl={5}>
+          <Col xs={8} md={4} lg={5} xl={5}>
             <Logo />
           </Col>
           <Col xs={0} md={16} lg={14} xl={14}>
@@ -43,7 +43,7 @@ const WebLyout = () => {
           <Col xs={0} md={4} lg={5} xl={5}>
             {authToken && <AvaterDropdown />}
           </Col>
-          <Col xs={24} md={0} lg={0} xl={0}>
+          <Col xs={16} md={0} lg={0} xl={0}>
             <MenuDrawer />
           </Col>
         </Row>

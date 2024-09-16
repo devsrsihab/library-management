@@ -27,7 +27,7 @@ export default function Books() {
             <NotFound404 />
           ) : (
             <>
-              <div className="-mx-px grid gap-4 grid-cols-2 sm:mx-0 md:grid-cols-3 lg:grid-cols-5">
+              <div className="-mx-px grid gap-4 grid-cols-1 xs:grid-cols-2 sm:grid-cols-3 sm:mx-0 lg:grid-cols-5">
                 {books?.map((book: TBook) => (
                   <Book key={book._id} book={book} />
                 ))}

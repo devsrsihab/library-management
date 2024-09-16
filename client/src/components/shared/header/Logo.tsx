@@ -6,7 +6,7 @@ const Logo = () => {
     <Link
       to="/"
     >
-<div className="h-10">
+<div className="h-auto sm:h-10">
         <img
           src={whiteLogo}
           className="max-h-full max-w-full object-contain"

@@ -7,6 +7,9 @@ export default {
         primary: "#15616d",
         secondary: "#ffd166",
       },
+      screens: {
+        xs: "435px", // Define the 'xs' breakpoint for extra small devices
+      },
     },
   },
   plugins: [],
