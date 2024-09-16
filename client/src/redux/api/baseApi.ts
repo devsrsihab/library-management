@@ -9,7 +9,7 @@ import {
 import { RootState } from "../store";
 import { logout, setuser } from "../features/auth/authSlice";
 import { toast } from "sonner";
-  
+
 const baseQuery = fetchBaseQuery({
   baseUrl: "http://localhost:8000/api/v1",
 
