@@ -1,7 +1,7 @@
 import { TCategory } from "./category.type";
 
 // Define the interface for the product prop
-export type Product =  {
+export type Product = {
   id: number;
   name: string;
   color: string;
@@ -9,12 +9,12 @@ export type Product =  {
   imageSrc: string;
   imageAlt: string;
   price: string;
-}
+};
 
 // Define the props for the Book component
-export type BookProps =  {
+export type BookProps = {
   product: Product;
-}
+};
 
 export type TUser = {
   _id: string;
@@ -37,13 +37,14 @@ export type TBook = {
   shortDescription: string;
   image: string;
   createdBy: TUser;
+  createdAt?: Date;
+  updatedAt?: Date;
+  borrowedCount?: number;
 };
 
 export type TBooksProps = {
   book: TBook;
 };
-
-
 
 export type AddToBorrowProps = {
   book: string | undefined;

@@ -46,7 +46,10 @@ const borrowApi = baseApi.injectEndpoints({
         method: "POST",
         body: data,
       }),
-      invalidatesTags: ["Borrowings"],
+      invalidatesTags: (_result, _error, arg) => [
+        "Borrowings",
+        { type: "BookDetails", id: arg.id },
+      ],
     }),
 
     removeBorrowBook: builder.mutation({
@@ -54,7 +57,10 @@ const borrowApi = baseApi.injectEndpoints({
         url: `/borrowings/${id}`,
         method: "DELETE",
       }),
-      invalidatesTags: ["Borrowings"],
+      invalidatesTags: (_result, _error, arg) => [
+        "Borrowings",
+        { type: "BookDetails", id: arg.id },
+      ],
     }),
   }),
 });

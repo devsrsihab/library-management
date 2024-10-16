@@ -41,6 +41,9 @@ const Login = () => {
   useEffect(() => {
     if (currentuser) {
       navigate(`/${currentuser.role}/dashboard`);
+      setTimeout(() => {
+        window.location.reload();
+      }, 2000);
     }
   }, [currentuser, navigate]);
 

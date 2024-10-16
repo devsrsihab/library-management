@@ -15,7 +15,7 @@ const bookApi = baseApi.injectEndpoints({
           meta: response.meta,
         };
       },
-      providesTags: ["Books"],
+      providesTags: ["BookDetails"],
     }),
 
     getAllBookByAuthor: builder.query({
@@ -112,7 +112,10 @@ const bookApi = baseApi.injectEndpoints({
         method: "PUT",
         body: args.data,
       }),
-      invalidatesTags: ["Books"],
+      invalidatesTags: (_result, _error, arg) => [
+        "Books",
+        { type: "BookDetails", id: arg.bookId },
+      ],
     }),
 
     deleteBook: builder.mutation({

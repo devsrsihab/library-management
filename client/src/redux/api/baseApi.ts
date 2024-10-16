@@ -9,10 +9,11 @@ import {
 import { RootState } from "../store";
 import { logout, setuser } from "../features/auth/authSlice";
 import { toast } from "sonner";
+import axiosInstance from "../../lib/AxiosInstance";
 
 const baseQuery = fetchBaseQuery({
+  // baseUrl: "https://srs2-library-server.vercel.app/api/v1",
   baseUrl: "http://localhost:8000/api/v1",
-
   credentials: "include",
   prepareHeaders: (headers, { getState }) => {
     const token = (getState() as RootState).auth.token;
@@ -43,21 +44,20 @@ const baseQueryWithReferenceToken: BaseQueryFn<
   const token = state.auth.token;
 
   if (result?.error?.status === 401 && user && token) {
-    console.log("sending refresh token");
-
     //*send the refresh token req
-    const res = await fetch("http://localhost:8000/api/v1/auth/refresh-token", {
-      method: "POST",
-      credentials: "include",
-    });
-
-    const { data } = await res.json();
+    // const res = await axiosInstance.post(
+    //   `https://srs2-library-server.vercel.app/api/v1/auth/refresh-token`
+    // );
+    const res = await axiosInstance.post(
+      `http://localhost:8000/api/v1/auth/refresh-token`
+    );
+    const data = await res?.data?.data;
+    console.log("after login data ==>", data);
     if (data?.accessToken) {
       const user = (api.getState() as RootState).auth.user;
       api.dispatch(setuser({ user, token: data?.accessToken }));
       result = await baseQuery(args, api, extraOptions);
     } else {
-      console.log('base api logout');
       api.dispatch(logout());
     }
   }
@@ -66,7 +66,14 @@ const baseQueryWithReferenceToken: BaseQueryFn<
 
 export const baseApi = createApi({
   reducerPath: "baseApi",
-  tagTypes: ["Borrowings", "GetMe", "Users", "Books", "Categories"], // Define your tag types here
+  tagTypes: [
+    "Borrowings",
+    "GetMe",
+    "Users",
+    "Books",
+    "BookDetails",
+    "Categories",
+  ], // Define your tag types here
 
   baseQuery: baseQueryWithReferenceToken,
   endpoints: () => ({}),
