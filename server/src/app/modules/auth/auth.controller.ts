@@ -3,8 +3,9 @@ import httpStatus from 'http-status';
 import catchAsync from '../../utils/catchAsync';
 import sendResponse from '../../utils/sendResponse';
 import { AuthServices } from './auth.service';
-import config from '../../config';
+// import config from '../../config';
 import { UserServices } from '../user/user.service';
+import config from '../../config';
 
 // register viewer
 const registerViewer = catchAsync(async (req, res) => {
@@ -34,14 +35,15 @@ const registerAuthor = catchAsync(async (req, res) => {
 const loginUser = catchAsync(async (req, res) => {
   const result: any = await AuthServices.loginUser(req.body);
   const { libraryRefreshToken, accessToken } = result;
-
+  
+  console.log('login user env status ==>', libraryRefreshToken);
   // save refresh token in cookie
-  res.cookie('libraryRefreshToken', libraryRefreshToken, {
-    secure: config.NODE_ENV === 'production',
-    httpOnly: true,
-    sameSite: true,
-    maxAge: 1000 * 60 * 60 * 24 * 365,
-  });
+ res.cookie('srlibrary', libraryRefreshToken, {
+   secure: config.NODE_ENV === 'production',
+   httpOnly: true,
+   sameSite: config.NODE_ENV === 'production' ? 'none' : 'lax',
+   maxAge: 1000 * 60 * 60 * 24 * 365,
+ });
 
   sendResponse(res, {
     statusCode: httpStatus.OK,
