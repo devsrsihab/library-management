@@ -3,12 +3,15 @@ import type { TableColumnsType, TableProps } from "antd";
 import { useState } from "react";
 import { useGetAllUsersQuery } from "../../../redux/features/admin/userManagement.Api";
 import { TQueryParams, TTableData, TUser } from "../../../types";
+import { useMediaQuery } from "react-responsive";
 
 const Users = () => {
   const [page, setPage] = useState(1);
   const [params, setParams] = useState<TQueryParams[] | undefined>([]);
 
-  // user query 
+  const isMobile = useMediaQuery({ maxWidth: 767 });
+
+  // user query
   const queryOfUsers = [
     { name: "limit", value: 5 },
     { name: "page", value: page },
@@ -17,7 +20,7 @@ const Users = () => {
 
   // user data fetch
   const { data: adminsData, isFetching } = useGetAllUsersQuery(queryOfUsers);
-  
+
   //  user data columns
   const tableData = adminsData?.data?.map(
     ({ _id, name, email, image, role }: TUser) => ({
@@ -28,10 +31,10 @@ const Users = () => {
       role,
     })
   );
-  
+
   // meta data for pagination
   const metaData = adminsData?.meta;
-  
+
   // table data render
   const columns: TableColumnsType<TTableData> = [
     {
@@ -50,6 +53,7 @@ const Users = () => {
       title: "Email",
       key: "email",
       dataIndex: "email",
+      responsive: ["md"],
     },
     {
       title: "Role",
@@ -78,13 +82,13 @@ const Users = () => {
         <img
           src={image}
           alt="image"
-          className="w-10 h-10 rounded-full object-cover"
+          className="w-8 h-8 rounded-full object-cover"
         />
       ),
     },
   ];
- 
-  // conghange event for filter sort and pagiantion
+
+  // onChange event for filter sort and pagination
   const onChange: TableProps<TTableData>["onChange"] = (
     _pagination,
     filters,
@@ -101,7 +105,7 @@ const Users = () => {
   };
 
   return (
-    <>
+    <div className="overflow-x-auto">
       <Table
         loading={isFetching}
         columns={columns}
@@ -109,6 +113,8 @@ const Users = () => {
         onChange={onChange}
         rowKey="_id"
         pagination={false}
+        scroll={{ x: "max-content" }}
+        size={isMobile ? "small" : "middle"}
       />
 
       <div className="mt-8 flex justify-center">
@@ -117,9 +123,11 @@ const Users = () => {
           current={page}
           pageSize={metaData?.limit}
           total={metaData?.total}
+          size={isMobile ? "small" : "default"}
+          responsive
         />
       </div>
-    </>
+    </div>
   );
 };
 

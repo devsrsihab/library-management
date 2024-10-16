@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import { useGetAllBookByAuthorQuery } from "../../../redux/features/book/bookApi";
 import { TBookingTableData } from "../../../types";
 import BookConfirmationModal from "../../../components/book/BookConfirmationModal";
+import { useMediaQuery } from "react-responsive";
 
 const AuthorBooks = () => {
   const [openReturn, setOpenReturn] = useState(false);
@@ -27,6 +28,8 @@ const AuthorBooks = () => {
     })
   );
   const metaData = bookData?.meta;
+
+  const isMobile = useMediaQuery({ maxWidth: 767 });
 
   const columns: TableColumnsType<TBookingTableData> = [
     {
@@ -62,7 +65,7 @@ const AuthorBooks = () => {
       key: "x",
       render: (item) => (
         <div className="flex gap-2">
-          <Link to={`/admin/books-edit/${item._id}`}>
+          <Link to={`/author/books-edit/${item._id}`}>
             <Button className="bg-blue-500 text-white">Edit</Button>
           </Link>
           <Button
@@ -86,15 +89,58 @@ const AuthorBooks = () => {
     },
   ];
 
+  const mobileColumns: TableColumnsType<TBookingTableData> = [
+    {
+      title: "Book Details",
+      key: "details",
+      render: (item) => (
+        <div className="flex flex-col gap-2">
+          <p>
+            <strong>Name:</strong> {item.name}
+          </p>
+          <p>
+            <strong>Category:</strong> {item.category}
+          </p>
+          <p>
+            <strong>Author:</strong> {item.author}
+          </p>
+          <p>
+            <strong>Quantity:</strong> {item.quantity}
+          </p>
+          <img
+            src={item.image}
+            alt="image"
+            className="w-20 h-20 object-cover"
+          />
+          <div className="flex gap-2 mt-2">
+            <Link to={`/author/books-edit/${item._id}`}>
+              <Button className="bg-blue-500 text-white">Edit</Button>
+            </Link>
+            <Button
+              onClick={() => {
+                setSelectedId(item._id);
+                setOpenReturn(true);
+              }}
+              className="bg-red-500 text-white"
+            >
+              Delete
+            </Button>
+          </div>
+        </div>
+      ),
+    },
+  ];
+
   return (
-    <>
+    <div className="overflow-x-auto">
       <Table
         loading={isFetching}
-        columns={columns}
+        columns={isMobile ? mobileColumns : columns}
         dataSource={tableData}
         rowKey="_id"
         showSorterTooltip={{ target: "sorter-icon" }}
         pagination={false}
+        scroll={{ x: isMobile ? undefined : "max-content" }}
       />
 
       <div className="mt-8 flex justify-center">
@@ -103,9 +149,18 @@ const AuthorBooks = () => {
           current={page}
           pageSize={metaData?.limit}
           total={metaData?.total}
+          size={isMobile ? "small" : "default"}
+          responsive
         />
       </div>
-    </>
+      {selectedId && (
+        <BookConfirmationModal
+          id={selectedId}
+          openReturn={openReturn}
+          setOpenReturn={setOpenReturn}
+        />
+      )}
+    </div>
   );
 };
 
