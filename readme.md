@@ -20,7 +20,7 @@ The client-side of the application is built using modern web technologies.
 
 ### Technologies Used
 
-- Next.js
+- React.js
 - TypeScript
 - Redux (for state management)
 - Tailwind CSS (for styling)
