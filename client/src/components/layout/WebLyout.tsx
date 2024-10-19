@@ -48,7 +48,7 @@ const WebLyout = () => {
           </Col>
         </Row>
       </Header>
-      <Content style={{ padding: "0 24px 0 0", background: colorBgContainer }}>
+      <Content style={{ padding: "0 0 0 0", background: colorBgContainer }}>
         <Row justify="center" style={{ marginBottom: "24px" }}>
           <Col xs={24} md={20} lg={24}>
             <div

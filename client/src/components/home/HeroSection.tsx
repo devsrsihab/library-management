@@ -1,66 +1,61 @@
+import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 
 const HeroSection = () => {
   return (
-    <div className="relative bg-white">
-      <div className="mx-auto max-w-7xl">
-        <div className="relative z-10 lg:w-full lg:max-w-2xl">
-          <svg
-            className="absolute inset-y-0 right-8 hidden h-full w-80 translate-x-1/2 transform fill-white lg:block"
-            viewBox="0 0 100 100"
-            preserveAspectRatio="none"
-            aria-hidden="true"
+    <div className="relative bg-gradient-to-br from-[#15616d] to-[#001e29] text-white overflow-hidden">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="relative z-10 py-20 md:py-28 lg:py-36 flex flex-col lg:flex-row items-center">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            className="lg:w-1/2 text-center lg:text-left"
           >
-            <polygon points="0,0 90,0 50,100 0,100" />
-          </svg>
-
-          <div className="relative py-32 px-6 sm:py-40 lg:py-56 lg:px-8 lg:pr-0">
-            <div className="mx-auto max-w-2xl lg:mx-0 lg:max-w-xl">
-              <div className="hidden sm:mb-10 sm:flex">
-                <div className="relative rounded-full py-1 px-3 text-sm leading-6 text-gray-500 ring-1 ring-gray-900/10 hover:ring-gray-900/20">
-                  Discover a world of knowledge at your fingertips.{" "}
-                  <a
-                    href="#"
-                    className="whitespace-nowrap font-semibold text-primary"
-                  >
-                    <span className="absolute inset-0" aria-hidden="true" />
-                    Explore Now <span aria-hidden="true">&rarr;</span>
-                  </a>
-                </div>
-              </div>
-              <h1 className="text-4xl font-bold tracking-tight text-gray-900 sm:text-6xl">
-                Your Gateway to Endless Learning
-              </h1>
-              <p className="mt-6 text-lg leading-8 text-gray-600">
-                Access thousands of books, journals, and digital resources.
-                Whether you're researching, reading for pleasure, or seeking
-                knowledge, our library is here to support your journey.
-              </p>
-              <div className="mt-10 flex items-center gap-x-6">
-                <Link
-                  to="/books"
-                  className="rounded-md bg-primary hover:text-white hover:bg-primary px-3.5 py-1.5 text-base font-semibold leading-7 text-white shadow-sm  "
-                >
-                  Start Exploring
-                </Link>
-                <Link
-                  to="/register"
-                  className="text-base font-semibold leading-7 text-primary hover:text-secondary"
-                >
-                  Learn More <span aria-hidden="true">→</span>
-                </Link>
-              </div>
+            <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold leading-tight">
+              Your Gateway to
+              <span className="block text-[#78cad2] mt-2">
+                Endless Learning
+              </span>
+            </h1>
+            <p className="mt-8 text-xl leading-8 text-gray-300 max-w-2xl">
+              Access thousands of books, journals, and digital resources. Embark
+              on a journey of knowledge and discovery with our comprehensive
+              library.
+            </p>
+            <div className="mt-12 flex flex-col sm:flex-row justify-center lg:justify-start space-y-4 sm:space-y-0 sm:space-x-6">
+              <Link
+                to="/books"
+                className="px-8 py-4 rounded-full bg-white text-[#15616d] font-bold text-lg hover:bg-[#78cad2] hover:text-white transition duration-300 ease-in-out transform hover:-translate-y-1 hover:shadow-lg"
+              >
+                Start Exploring
+              </Link>
+              <Link
+                to="/register"
+                className="px-8 py-4 rounded-full bg-transparent border-2 border-white text-white font-bold text-lg hover:bg-white hover:text-[#15616d] transition duration-300 ease-in-out transform hover:-translate-y-1 hover:shadow-lg"
+              >
+                Learn More
+              </Link>
             </div>
-          </div>
+          </motion.div>
+          <motion.div
+            initial={{ opacity: 0, x: 20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.8, delay: 0.2 }}
+            className="lg:w-1/2 mt-16 lg:mt-0"
+          >
+            <div className="relative">
+              <div className="absolute inset-0 bg-[#15616d] rounded-full filter blur-3xl opacity-30"></div>
+              <img
+                className="relative rounded-2xl shadow-2xl w-full max-w-lg mx-auto object-cover object-center h-[500px]"
+                src="https://images.unsplash.com/photo-1521737711867-e3b97375f902?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1587&q=80"
+                alt="Library Interior"
+              />
+            </div>
+          </motion.div>
         </div>
       </div>
-      <div className="bg-gray-50 lg:absolute lg:inset-y-0 lg:right-0 lg:w-1/2">
-        <img
-          className="aspect-[3/2] object-cover lg:aspect-auto lg:h-full lg:w-full"
-          src="https://images.unsplash.com/photo-1521737711867-e3b97375f902?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1587&q=80"
-          alt="Library Image"
-        />
-      </div>
+      <div className="absolute inset-0 bg-grid-pattern opacity-5"></div>
     </div>
   );
 };

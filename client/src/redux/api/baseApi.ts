@@ -12,8 +12,8 @@ import { toast } from "sonner";
 import axiosInstance from "../../lib/AxiosInstance";
 
 const baseQuery = fetchBaseQuery({
-  // baseUrl: "https://srs2-library-server.vercel.app/api/v1",
-  baseUrl: "http://localhost:8000/api/v1",
+  baseUrl: "https://srs2-library-server.vercel.app/api/v1",
+  // baseUrl: "http://localhost:8000/api/v1",
   credentials: "include",
   prepareHeaders: (headers, { getState }) => {
     const token = (getState() as RootState).auth.token;
@@ -45,12 +45,12 @@ const baseQueryWithReferenceToken: BaseQueryFn<
 
   if (result?.error?.status === 401 && user && token) {
     //*send the refresh token req
-    // const res = await axiosInstance.post(
-    //   `https://srs2-library-server.vercel.app/api/v1/auth/refresh-token`
-    // );
     const res = await axiosInstance.post(
-      `http://localhost:8000/api/v1/auth/refresh-token`
+      `https://srs2-library-server.vercel.app/api/v1/auth/refresh-token`
     );
+    // const res = await axiosInstance.post(
+    //   `http://localhost:8000/api/v1/auth/refresh-token`
+    // );
     const data = await res?.data?.data;
     console.log("after login data ==>", data);
     if (data?.accessToken) {
