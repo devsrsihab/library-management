@@ -1,74 +1,101 @@
-# Recipe Sharing Community - Client Side
+# Library Management System
 
-**Live Demo:** [https://client-recipe-community.vercel.app/](https://client-recipe-community.vercel.app/)
+This project is a full-stack Library Management System with separate client and server components.
 
-## Project Overview
+## Project Structure
 
-The **Recipe Sharing Community** is a full-stack web application that allows cooking enthusiasts to share, discover, and organize recipes. This project focuses on the client-side development using **Next.js**, **Redux**, and **TypeScript**.
+The project is divided into two main folders:
 
-## Table of Contents
+- [Client](https://github.com/devsrsihab/library-management/tree/master/client)
+- [Server](https://github.com/devsrsihab/library-management/tree/master/server)
 
-- [Features](#features)
-- [Technologies Used](#technologies-used)
-- [Installation](#installation)
-- [Usage](#usage)
-- [Folder Structure](#folder-structure)
-- [Contributing](#contributing)
-- [License](#license)
+## Client-side
 
-## Features
+The client-side of the application is built using modern web technologies.
 
-- User authentication and authorization using JWT
-- Recipe submission with detailed ingredient lists
-- Built-in cooking timer and interactive ingredient checklist
-- Rating and commenting system for recipes
-- Advanced search and filter options
-- Responsive UI/UX design
-- User profiles with social connectivity (follow/unfollow)
-- Premium membership subscription for exclusive content
+### Technologies Used
 
-## Technologies Used
+- Next.js
+- TypeScript
+- Redux (for state management)
+- Tailwind CSS (for styling)
 
-- **Technology:**
-  - Next.js
-  - TypeScript for type safety
-  - Tailwind CSS (optional for styling)
+### Setup and Installation
 
-## Installation
-
-To get started with the project, follow these steps:
-
-1. Clone the repository:
+1. Navigate to the client directory:
 
    ```bash
-   git clone https://github.com/your-username/recipe-sharing-community-client.git
+   cd client
    ```
 
-2. Navigate to the project directory:
-
-   ```bash
-   cd recipe-sharing-community-client
-   ```
-
-3. Install dependencies:
+2. Install dependencies:
 
    ```bash
    npm install
    ```
 
-4. Create a `.env.local` file in the root directory and add the following environment variables:
-
-   ```bash
-   NEXT_PUBLIC_BASE_API=your_base_api_url
-   NEXT_PUBLIC_GEMINI_API=your_gemini_api_key
-   CLOUDINARY_CLOUD_NAME=your_cloudinary_cloud_name
-   CLOUDINARY_UPLOAD_PRESET=your_cloudinary_upload_preset
-   ```
-
-   Replace the placeholder values with your actual API keys and configuration details.
-
-5. Start the development server:
-
+3. Start the development server:
    ```bash
    npm run dev
    ```
+
+## Server-side
+
+The server-side of the application handles the backend logic and database operations.
+
+### Technologies Used
+
+- Node.js
+- Express.js
+- TypeScript
+- MongoDB (assumed based on typical MERN stack)
+
+### Setup and Installation
+
+1. Navigate to the server directory:
+
+   ```bash
+   cd server
+   ```
+
+2. Install dependencies:
+
+   ```bash
+   npm install
+   ```
+
+3. Start the server:
+   ```bash
+   npm start
+   ```
+
+## Development Approach
+
+As outlined in the server's README:
+
+1. Create Interfaces
+2. From interfaces, create Schemas
+3. From Schemas, create Models
+4. From Models, create Queries
+
+## Additional Configuration
+
+Both client and server directories contain configuration files for:
+
+- ESLint
+- Prettier
+- TypeScript
+
+Ensure to review and adjust these configurations as needed for your development environment.
+
+## Deployment
+
+The server directory includes a `vercel.json` file, indicating that the project is set up for deployment on Vercel.
+
+## Contributing
+
+Contributions to the project are welcome. Please ensure to follow the existing code style and add unit tests for any new features.
+
+## License
+
+This project is open source. Please refer to the LICENSE file in the repository for more information.
