@@ -2,6 +2,11 @@
 
 This project is a full-stack Library Management System with separate client and server components.
 
+## Live Demo
+
+- **Client:** [https://srs-library-client.vercel.app/](https://srs-library-client.vercel.app/)
+- **Server:** [https://srs2-library-server.vercel.app/](https://srs2-library-server.vercel.app/)
+
 ## Project Structure
 
 The project is divided into two main folders:
