@@ -10,7 +10,7 @@ const Promotion = () => {
   }, []);
 
   return (
-    <div className="bg-gray-50 py-16">
+    <div className="bg-gray-50 my-12 sm:my-16 md:my-20 lg:my-24 ">
       <div>
         <div
           className={`transition-all duration-1000 ease-out ${

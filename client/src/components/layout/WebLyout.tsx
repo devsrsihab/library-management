@@ -23,7 +23,7 @@ const WebLyout = () => {
       <div className="bg-[#001529]">
         <Container>
           <Header
-            className="header-sr px-0  sticky z-50  top-0 "
+            className="px-0  sticky z-50  top-0 "
             style={{
               display: "flex",
               justifyContent: "space-between",
@@ -66,9 +66,11 @@ const WebLyout = () => {
           </Col>
         </Row>
       </Content>
-      <Footer style={{ textAlign: "center", padding: "12px 24px" }}>
-        SRS Library ©{new Date().getFullYear()} Created by SRS
-      </Footer>
+      <Container>
+        <Footer style={{ textAlign: "center", padding: "12px 24px" }}>
+          SRS Library ©{new Date().getFullYear()} Created by SRS
+        </Footer>
+      </Container>
     </Layout>
   );
 };

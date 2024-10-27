@@ -1,31 +1,27 @@
-import { TCategoryProps } from "../../../types";
+import { TypeCategory } from "../../../types";
+import { Link } from "react-router-dom";
 import { nameShorter } from "../../../utils/nameShorter";
 
-const Category: React.FC<TCategoryProps> = ({ category }) => {
-
+export default function Category({ category }: { category: TypeCategory }) {
   return (
-    <div
-      key={category.name}
-      className="flex mx-4 flex-col overflow-hidden rounded-lg shadow-lg"
-    >
-      <div className="flex-shrink-0">
-        <img
-          className="h-full w-full object-cover"
-          src={category.image}
-          alt={category.name}
-        />
-      </div>
-      <div className="flex-1  flex flex-col justify-between bg-white p-6">
-        <div className="flex-1">
-          <span className="mt-2 block">
-            <p className="text-sm capitalize font-semibold text-gray-900">
-              {nameShorter(category.name)}
-            </p>
-          </span>
+    <Link to={`/category/${category?._id}`} className="block">
+      <div className="bg-white rounded-lg shadow-md overflow-hidden transition-transform duration-300 hover:scale-105 hover:shadow-lg">
+        <div className="aspect-w-16 aspect-h-9">
+          <img
+            className="w-full h-full object-cover"
+            src={category.image}
+            alt={category.name}
+          />
+        </div>
+        <div className="p-4">
+          <h3 className="text-lg font-semibold text-[#125662] mb-2">
+            {nameShorter(category.name)}
+          </h3>
+          <p className="text-sm text-gray-600">
+            Explore books in this category
+          </p>
         </div>
       </div>
-    </div>
+    </Link>
   );
-};
-
-export default Category;
+}

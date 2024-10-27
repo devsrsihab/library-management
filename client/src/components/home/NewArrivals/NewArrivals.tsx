@@ -4,6 +4,7 @@ import Book from "./NewArrival";
 import { Carousel } from "antd";
 import "../../../App.css";
 import BookSkeltoneLoader from "../../shared/loader/BookSkeltoneLoader";
+import SectionTitleBeta from "../../ui/SectionTitleBeta";
 
 const NewArrivals = () => {
   const { data, isLoading } = useGetAllBookQuery([
@@ -12,57 +13,56 @@ const NewArrivals = () => {
   const books = data?.data || [];
 
   return (
-    <div className="bg-blue-d py-8 lg:py-5">
-      <h2 className="text-xl ml-4 font-bold text-gray-900">New Arrivals</h2>
-
-      <div className="overflow-hidden">
-        <div className="-mx-px border-l border-gray-200 mt-6 sm:mx-0">
+    <section className=" bg-gradient-to-br from-gray-50 to-gray-100">
+      <div className="">
+        <SectionTitleBeta title="New Arrivals" />
+        <div className="relative">
           {isLoading ? (
             <BookSkeltoneLoader />
           ) : (
-            <>
-              <Carousel
-                className="custom-carousel"
-                slidesToScroll={1}
-                infinite={true}
-                arrows
-                slidesToShow={5}
-                responsive={[
-                  {
-                    breakpoint: 1280, // large screens
-                    settings: {
-                      slidesToShow: 4,
-                    },
+            <Carousel
+              className="custom-carousel"
+              slidesToScroll={1}
+              infinite={true}
+              arrows
+              slidesToShow={5}
+              responsive={[
+                {
+                  breakpoint: 1280,
+                  settings: {
+                    slidesToShow: 4,
                   },
-                  {
-                    breakpoint: 992, // medium screens
-                    settings: {
-                      slidesToShow: 3,
-                    },
+                },
+                {
+                  breakpoint: 992,
+                  settings: {
+                    slidesToShow: 3,
                   },
-                  {
-                    breakpoint: 768, // small screens (tablets)
-                    settings: {
-                      slidesToShow: 2,
-                    },
+                },
+                {
+                  breakpoint: 768,
+                  settings: {
+                    slidesToShow: 2,
                   },
-                  {
-                    breakpoint: 443, // extra small screens (mobile)
-                    settings: {
-                      slidesToShow: 1,
-                    },
+                },
+                {
+                  breakpoint: 480,
+                  settings: {
+                    slidesToShow: 1,
                   },
-                ]}
-              >
-                {books.map((book: TBook) => (
-                  <Book key={book._id} book={book} />
-                ))}
-              </Carousel>
-            </>
+                },
+              ]}
+            >
+              {books.map((book: TBook) => (
+                <div key={book._id} className="px-2">
+                  <Book book={book} />
+                </div>
+              ))}
+            </Carousel>
           )}
         </div>
       </div>
-    </div>
+    </section>
   );
 };
 
