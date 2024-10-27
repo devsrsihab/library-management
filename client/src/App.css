@@ -1,20 +1,21 @@
-img{
+img {
   width: 100%;
   max-width: 100%;
 }
-.custom-carousel .slick-prev, .custom-carousel .slick-next {
-    position: absolute;
-    width: 30px;
-    height: 60px;
-    background-color: white;
-    color: #34495e;
-    box-shadow: -2px 2px 12px -2px rgba(0, 0, 0, .3);
-    text-align: center;
-    z-index: 1;
-    display: flex !important;
-    align-items: center;
-    justify-content: center;
-    opacity: 1;
+.custom-carousel .slick-prev,
+.custom-carousel .slick-next {
+  position: absolute;
+  width: 30px;
+  height: 60px;
+  background-color: white;
+  color: #34495e;
+  box-shadow: -2px 2px 12px -2px rgba(0, 0, 0, 0.3);
+  text-align: center;
+  z-index: 1;
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+  opacity: 1;
 }
 
 :where(.css-dev-only-do-not-override-m4timi).ant-carousel .slick-prev::after {
@@ -28,9 +29,8 @@ img{
   position: static;
 }
 .ant-select-item-option-content {
-    text-transform: capitalize;
+  text-transform: capitalize;
 }
-
 
 /* antdesign  */
 /* Change border color on hover */
@@ -38,7 +38,7 @@ img{
   border-color: #15616d !important; /* Use the desired hover color */
 }
 :where(.css-m4timi).ant-carousel .slick-prev::after {
-	position: static !important;
+  position: static !important;
 }
 /* Change border color when focused */
 .ant-select-focused .ant-select-selector {
@@ -65,8 +65,98 @@ img{
   transition: border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
-
 .ant-menu-item-selected {
   background-color: #15616d !important;
   color: #fff !important;
+}
+.bg-stars {
+  background-image: radial-gradient(
+      2px 2px at 20px 30px,
+      #eee,
+      rgba(0, 0, 0, 0)
+    ),
+    radial-gradient(2px 2px at 40px 70px, #fff, rgba(0, 0, 0, 0)),
+    radial-gradient(2px 2px at 50px 160px, #ddd, rgba(0, 0, 0, 0)),
+    radial-gradient(2px 2px at 90px 40px, #fff, rgba(0, 0, 0, 0)),
+    radial-gradient(2px 2px at 130px 80px, #fff, rgba(0, 0, 0, 0)),
+    radial-gradient(2px 2px at 160px 120px, #ddd, rgba(0, 0, 0, 0));
+  background-repeat: repeat;
+  background-size: 200px 200px;
+  animation: twinkle 5s infinite;
+}
+
+@keyframes twinkle {
+  0% {
+    opacity: 0.5;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0.5;
+  }
+}
+
+.book-world {
+  transition: all 0.5s ease-in-out;
+}
+
+.book-world.exploring {
+  transform: scale(1.1);
+  z-index: 10;
+}
+
+.fantasy {
+  background: linear-gradient(45deg, #ff9a9e, #fad0c4);
+}
+.mystery {
+  background: linear-gradient(45deg, #a18cd1, #fbc2eb);
+}
+.sci-fi {
+  background: linear-gradient(45deg, #84fab0, #8fd3f4);
+}
+
+.world-content {
+  transition: all 0.3s ease-in-out;
+}
+
+.exploring .world-content {
+  box-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+}
+/* =================== */
+.hexagon-container {
+  position: relative;
+  width: 300px;
+  height: 300px;
+  margin: 0 auto;
+  transform-style: preserve-3d;
+}
+
+.hexagon {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  transition: all 0.5s ease-out;
+  cursor: pointer;
+}
+
+.hexagon-content {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  backface-visibility: hidden;
+  overflow: hidden;
+}
+
+.active {
+  z-index: 1;
+}
+
+@media (max-width: 640px) {
+  .hexagon-container {
+    width: 250px;
+    height: 250px;
+  }
 }
