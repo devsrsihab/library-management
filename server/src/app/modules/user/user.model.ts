@@ -1,4 +1,4 @@
-import { Schema, model } from 'mongoose';
+import { Schema, Types, model } from 'mongoose';
 import { TUser, UserModel } from './user.interface';
 import bcrypt from 'bcrypt';
 import config from '../../config';
@@ -17,6 +17,9 @@ const userSchema = new Schema<TUser, UserModel>(
       type: String,
       required: true,
     },
+    borrowedBooks: [{ type: Types.ObjectId, ref: 'Book' }],
+    membership: { type: String, enum: ['FREE', 'PAID'], default: 'FREE' },
+    paidStatusValidDate: { type: Date, default: null },
     email: {
       type: String,
       required: true,
@@ -71,7 +74,7 @@ userSchema.post('save', function (doc, next) {
 });
 
 // user exist cusotm static method
-userSchema.statics.isUserExistByCustomIdOrEmail = async function ( email: string) {
+userSchema.statics.isUserExistByCustomIdOrEmail = async function (email: string) {
   return await User.findOne({ email }).select('+password');
 };
 // user exist cusotm static method

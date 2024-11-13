@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import { Model } from 'mongoose';
+import { Model, Types } from 'mongoose';
 import { USER_ROLE } from './user.constant';
 
 export interface TUser {
@@ -9,6 +9,9 @@ export interface TUser {
   password: string;
   image: string;
   role: 'admin' | 'viewer' | 'author';
+  borrowedBooks: Types.ObjectId[];
+  membership: 'FREE' | 'PAID';
+  paidStatusValidDate: Date;
   status: 'in-progress' | 'blocked';
   isDeleted: boolean;
 }

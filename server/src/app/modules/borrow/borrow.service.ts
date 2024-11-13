@@ -5,6 +5,7 @@ import { Borrowing } from './borrow.model';
 import AppError from '../../errors/appError';
 import { Book } from '../book/book.model';
 import mongoose from 'mongoose';
+import { User } from '../user/user.model';
 
 // Create a borrowing
 const createBorrowing = async (borrowingData: TBorrowing) => {
@@ -19,6 +20,14 @@ const createBorrowing = async (borrowingData: TBorrowing) => {
     throw new AppError(httpStatus.CONFLICT, 'This book is already borrowed');
   }
 
+  // check user is free if the then check borrowedBooks length is less than 3
+  const user = await User.findById(borrowingData.user);
+  if (user?.membership === 'FREE') {
+    if (user?.borrowedBooks.length >= 3) {
+      throw new AppError(httpStatus.BAD_REQUEST, 'You have reached the maximum borrowing limit');
+    }
+  }
+
   // Start session
   const session = await mongoose.startSession();
   try {
@@ -27,6 +36,13 @@ const createBorrowing = async (borrowingData: TBorrowing) => {
 
     // Proceed to create a new borrowing record if no duplicates
     const [savedBorrowing] = await Borrowing.create([borrowingData], { session });
+
+    // borrow book to viewer
+    await User.findByIdAndUpdate(
+      borrowingData.user,
+      { $push: { borrowedBooks: borrowingData.book } },
+      { new: true, session },
+    );
 
     // Reduce the quantity of the book by 1
     await Book.findByIdAndUpdate(
@@ -54,7 +70,6 @@ const getAllBorrowings = async (user: string): Promise<TBorrowing[]> => {
   const result = await Borrowing.find({ user }).populate('book').populate('user');
   return result;
 };
-
 
 // Get all borrowings
 const getAllBorrowingsForAdmin = async (): Promise<TBorrowing[]> => {
@@ -117,7 +132,6 @@ const deleteBorrowing = async (borrowingId: string) => {
     session.endSession();
   }
 };
-
 
 export const BorrowingServices = {
   createBorrowing,

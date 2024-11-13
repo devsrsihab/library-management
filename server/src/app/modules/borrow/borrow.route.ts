@@ -22,7 +22,6 @@ router.get(
   BorrowingControllers.getAllBorrowings,
 );
 
-
 // Read All borrowed for admin (GET)
 router.get('/admin', auth(USER_ROLE.author), BorrowingControllers.getAllBorrowingForAdmin);
 

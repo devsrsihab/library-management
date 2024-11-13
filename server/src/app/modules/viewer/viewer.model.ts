@@ -1,4 +1,4 @@
-import { model, Schema } from 'mongoose';
+import { model, Schema, Types } from 'mongoose';
 import { TViewer } from './viewer.interface';
 
 // Define name schema
@@ -14,6 +14,9 @@ const defaultImg = 'https://i.ibb.co/WGCzqdW/vecteezy-3d-icon-of-profile-privacy
 const viewerSchema = new Schema<TViewer>(
   {
     name: { type: nameSchema, required: true },
+    borrowedBooks: [{ type: Types.ObjectId, ref: 'Book' }],
+    status: { type: String, enum: ['FREE', 'PAID'], default: 'FREE' },
+    paidStatusValidDate: { type: Date, default: null },
     image: { type: String, required: true, default: defaultImg },
     email: { type: String, required: true, unique: true },
     isDeleted: { type: Boolean, required: true, default: false },
