@@ -7,7 +7,7 @@ const HeroSection = () => {
     <div className="relative bg-gradient-to-br from-[#15616d] to-[#001e29] text-white overflow-hidden">
       <Container>
         <div>
-          <div className="relative z-10 py-20 md:py-28 lg:py-36 flex flex-col md:gap-6 sm:gap-3 lg:flex-row items-center">
+          <div className="relative z-10 py-5 md:py-12 lg:py-16 flex flex-col md:gap-6 sm:gap-3 lg:flex-row items-center">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}

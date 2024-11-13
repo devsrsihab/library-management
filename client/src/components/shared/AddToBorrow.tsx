@@ -14,8 +14,6 @@ import { currentToken } from "../../redux/features/auth/authSlice";
 import { AddToBorrowProps } from "../../types";
 import PHForm from "../form/PHForm";
 
-
-
 const AddToBorrow: React.FC<AddToBorrowProps> = ({
   book,
   modalOpen,
@@ -50,8 +48,8 @@ const AddToBorrow: React.FC<AddToBorrowProps> = ({
           duration: 1000,
         });
       }
-      console.log('book borrowed', result);
-    } catch (error:any) {
+      console.log("book borrowed", result);
+    } catch (error: any) {
       console.log(error);
       toast.error(error?.data?.message, { id: loader, duration: 1000 });
     }

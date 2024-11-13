@@ -19,7 +19,7 @@ const WebLyout = () => {
   const authToken = useAppSelector(currentToken);
 
   return (
-    <Layout className="layout-sr">
+    <Layout>
       <div className="bg-[#001529]">
         <Container>
           <Header
